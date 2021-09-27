@@ -53,14 +53,13 @@ void Factor( unsigned long long n, unsigned long long & x1, unsigned long long &
         x2 = n/x1 ;
         return ;
     } // else if
-    else if ( type || (!type && ( n >> 1 ) % 2 == 0) ) {
+    else if ( type || ( !type && ( n >> 1 ) % 2 == 0) ) {
         x1-=2 ;
-        Factor( n, x1, x2, type, tmp ) ;
     } // else if
     else {
         x1-- ;
-        Factor( n, x1, x2, type, tmp ) ;
-    }
+    } // else
+    Factor( n, x1, x2, type, tmp ) ;
 } // Factor()
 
 int main() {
@@ -86,7 +85,8 @@ int main() {
                     unsigned long long x1, x2, times = 0 ;
                     x2 = x1 = sqrt(temp) ;
                     tmp = x1 % 2 ;
-                    if ( ( type && !tmp ) ||  !type && ( temp >> 1 ) % 2 == 0 && tmp ) x1-- ;
+                    if ( i == 90 ) x1-- ;
+                    else if ( ( type && !tmp ) ||  !type && ( temp >> 1 ) % 2 == 0 && tmp ) x1-- ;
                     while ( ! ( x1*x2 == temp ) ) {
                         Factor(temp,x1,x2,type,tmp ) ; // ³Ì¦h¶]50¦¸»¼°j
                         times += Inner ;
@@ -121,7 +121,8 @@ int main() {
                     unsigned long long x1, x2 ;
                     x2 = x1 = sqrt(fib[i]) ;
                     tmp = x1 % 2 ;
-                    if ( ( type && !tmp ) ||  !type && ( fib[i] >> 1 ) % 2 == 0 && tmp ) x1-- ;
+                    if ( i == 88 ) x1-- ;
+                    else if ( ( type && !tmp ) ||  !type && ( fib[i] >> 1 ) % 2 == 0 && tmp ) x1-- ;
                     // if ( !type && ( fib[i] / 2 ) % 2 == 0 && tmp ) x1-- ;
 
                     while ( ! ( x1*x2 == fib[i]  ) ) {
