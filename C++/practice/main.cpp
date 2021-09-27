@@ -48,7 +48,7 @@ void Factor( unsigned long long n, unsigned long long & x1, unsigned long long &
 
     Inner++ ;
     if ( skip ) {
-            if ( Inner == 10000000 ) return ;
+        if ( Inner == 10000000 ) return ;
     } // if
 
     if ( x1*x2 == n && n % x1 == 0 && n % x2 == 0 ) return  ;
