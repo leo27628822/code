@@ -44,25 +44,22 @@ unsigned long long Fib3(int n, unsigned long long a, unsigned long long b ) {
     return ( n == 0? a: Fib3( n-1,b,a+b) ) ;
 } // Fib3()
 
-void Factor( unsigned long long n, unsigned long long & x1, unsigned long long & x2, bool type, bool tmp, bool skip ) {
+void Factor( unsigned long long n, unsigned long long & x1, unsigned long long & x2, bool type, bool tmp ) {
 
     Inner++ ;
-    if ( skip ) {
-            if ( Inner == 10000000 ) return ;
-    } // if
-
-    if ( x1*x2 == n && n % x1 == 0 && n % x2 == 0 ) return  ;
+    if ( Inner == 50 ) return ;
+    if ( x1*x2 == n  ) return  ;
     else if( n % x1 == 0 ) {
         x2 = n/x1 ;
         return ;
     } // else if
     else if ( type || (!type && ( n >> 1 ) % 2 == 0) ) {
         x1-=2 ;
-        Factor( n, x1, x2, type, tmp, skip ) ;
+        Factor( n, x1, x2, type, tmp ) ;
     } // else if
     else {
         x1-- ;
-        Factor( n, x1, x2, type, tmp, skip ) ;
+        Factor( n, x1, x2, type, tmp ) ;
     }
 } // Factor()
 
@@ -78,18 +75,6 @@ int main() {
         if ( num == 1 ) { // Recursive
             cout << "Please enter a number between 1~92 .\n" ;
             cin >> num ;
-            bool skip = false ;
-            char ch ;
-            cout << "是否要跳過遞迴次數大於一千萬次的數(y/n)\n" ;
-            cin >> ch ;
-            if ( ch == 'y' || ch == 'Y' )
-                skip = true ;
-            else {
-                cout << "如果你記憶體為16GB以下，程式會跑不完，因為遞迴太多層導致記憶體吃太多，而我找不到更有效率的方法\n再問一次，請問是否要跳過?(y/n)\n" ;
-                cin >> ch ;
-                if ( ch == 'Y' || ch == 'y' ) skip = true ;
-                // cout << "skip = " << skip << "\n" ;
-            }
 
             if ( num <= 92 && num >= 1 ) {
                 for ( int i = 2 ; i <= num+1 ; i++ ) {
@@ -98,22 +83,22 @@ int main() {
                     // unsigned long long temp = Fib3( i,0,1 ) ; the time is too long
                     bool type = 0, tmp = 0 ; // 0: even ; 1:odd
                     type = temp % 2 ;
-                    unsigned long long x1, x2 ;
+                    unsigned long long x1, x2, times = 0 ;
                     x2 = x1 = sqrt(temp) ;
                     tmp = x1 % 2 ;
                     if ( ( type && !tmp ) ||  !type && ( temp >> 1 ) % 2 == 0 && tmp ) x1-- ;
-                    Factor(temp,x1,x2,type,tmp, skip ) ;
+                    while ( ! ( x1*x2 == temp ) ) {
+                        Factor(temp,x1,x2,type,tmp ) ; // 最多跑50次遞迴
+                        times += Inner ;
+                        times-- ;
+                        Inner = 0 ;
+                    } // while
 
-                    if ( skip ) {
-                            if (  Inner < 10000000 )  cout << "[" << i-1 << "] " << temp << " = "<< x1 << "*" << x2 << "     (Inner recursion: " << Inner << " times)\n" ;
-                            else cout << "[" << i-1 << "] " << temp << " =      (Inner recursion more than 10000000  times)\n" ;
-                    }
-                    else cout << "[" << i-1 << "] " << temp << " = "<< x1 << "*" << x2 << "     (Inner recursion: " << Inner << " times)\n" ;
+                    cout << "[" << i-1 << "] " << temp << " = "<< x1 << "*" << x2 << "     (Inner recursion: " << times << " times)\n" ;
                     // else cout << "[" << i-1 << "] " << temp << " =      (Inner recursion more than 10000000  times)\n" ;
                     Inner  = 0 ;
                 } // for
 
-                skip = false ;
                 cout << "<Outer recursion: " << Outer << " times>\n" ;
                 Outer = 0 ;
             } // if
@@ -139,7 +124,7 @@ int main() {
                     if ( ( type && !tmp ) ||  !type && ( fib[i] >> 1 ) % 2 == 0 && tmp ) x1-- ;
                     // if ( !type && ( fib[i] / 2 ) % 2 == 0 && tmp ) x1-- ;
 
-                    while ( ! ( x1*x2 == fib[i] && fib[i] % x1 == 0 && fib[i] % x2 == 0 ) ) {
+                    while ( ! ( x1*x2 == fib[i]  ) ) {
                         Inner++ ;
                         if ( fib[i] % x1 == 0 )
                             x2 = fib[i] / x1 ;
