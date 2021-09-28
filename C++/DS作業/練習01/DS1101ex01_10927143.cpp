@@ -1,8 +1,10 @@
 #include <iostream>
 #include <cmath>
+#include<vector>
+#include<time.h>
 
 using namespace std;
-
+int NUMBER = 1 ;
 long long Outer = 0, Inner = 0 ;
 struct Matrix{
     unsigned long long m[2][2] ;
@@ -62,16 +64,29 @@ void Factor( unsigned long long n, unsigned long long & x1, unsigned long long &
     Factor( n, x1, x2, type, tmp ) ;
 } // Factor()
 
+void Comb(int k, int n, int m, vector < int > list) {
+    list.push_back(k - 1);
+    for (int i = k; i <= (m - n) && n > 0; ++i)
+        Comb(i + 1, n - 1, m, list);
+
+    if (n == 0) {
+        cout << "[ " << NUMBER++ << "] " ;
+        for (int i = 0; i < list.size(); ++i)
+            cout << list[i] << " " ;
+        cout << endl;
+    } // if
+} // Comb()
+
 int main() {
 
-    cout << "0: Quit. 1: Recursive. 2:Iterative.\n" ;
+    cout << "0: Quit. 1: Iterative. 2:Recursive. 3.Combination.\n" ;
 
     int num = 0 ;
     Matrix A ;
     A.m[0][0] = 1, A.m[0][1] = 1, A.m[1][0] = 1, A.m[1][1] = 0 ;
 
     while ( cin >> num && num ) {
-        if ( num == 1 ) { // Recursive
+        if ( num == 2 ) { // Recursive
             cout << "Please enter a number between 1~92 .\n" ;
             cin >> num ;
 
@@ -104,7 +119,7 @@ int main() {
             } // if
             else cout << "Error! Wrong number range\n" ;
         } // if
-        else if ( num == 2 ) { // Iterative
+        else if ( num == 1 ) { // Iterative
             cout << "Please enter a number between 1~92 .\n" ;
             cin >> num ;
             if ( num <= 92 && num >= 1 ) {
@@ -136,60 +151,6 @@ int main() {
 
                     } // while
 
-                    /*
-                    while ( 1 )  {
-                        Inner++ ;
-                        if ( Inner > 1000000000 ) break ;
-
-                        if ( fib[i] % x1 == 0 ) {
-                            x2 = x1 ;
-                            if ( x1 * x2  == fib[i] ) break ;
-                            else {
-                                if ( type ) x2 +=2 ;
-                                else x2++ ;
-                                while ( !( fib[i] % x2 == 0 && x2 * x1 == fib[i]  ) && x1 * x2 < fib[i]  )  {
-                                    Inner++ ;
-                                    if ( Inner > 1000000000 ) break ;
-                                    if ( type ) x2 +=2 ;
-                                    else x2++ ;
-                                } // while
-
-                                if ( fib[i] ==  x1 * x2 ) break ;
-                                else {
-                                    if ( type ) x1-=2 ;
-                                    else x1-- ;
-                                } // else
-                            } // else
-
-                        } // if
-                        else {
-                            if ( type ) x1-=2 ;
-                            else x1-- ;
-                        } // else
-                        // cout << x1 << " " << x2 << "\n" ;
-
-                    } // while
-                        /*
-                        while( fib[i] % x1 ) {
-                            x1-- ;
-                            Inner++ ;
-                        } // while
-
-                        x2 = x1 ;
-                        if ( x1 * x2 != fib[i] ) x2++ ;
-                        else break ;
-
-                        while( fib[i]%x2 && x1 * x2 <= fib[i] ) {
-                            x2++ ;
-                            Inner++ ;
-                        } // while
-
-                        if ( x1 * x2 != fib[i] ) x1-- ;
-                        else break ;
-                        Inner++;
-                    } // while
-                    //*/
-
                     cout << "[" << i+1 << "] " << fib[i] << " = " << x1 << "*" << x2 << "     (Inner loop:" <<Inner<< " times)\n" ;
                     Inner = 0 ;
                 } // for
@@ -198,10 +159,27 @@ int main() {
             } // if
             else cout << "Error! Wrong number range\n" ;
         } // else if
+        else if ( num == 3 ) {
+            int n;
+            double start, end ;
+            cout << "Please enter a number between 1~10 .\n" ;
+            cin >> n;
+            if ( n >=1 && n <=10) {
+                vector < int > list;
+                start = clock() ;
+                for (int i = 0; i <= (10 - n) && n > 0; ++i)
+                    Comb( i + 1, n - 1, 10, list);
+                end = clock() ;
+                cout  << "<Recursion: " << end - start << " ms>\n" ;
+                NUMBER = 1 ;
+            } // if
+            else cout << "Error! Wrong number range\n" ;
+        } // else if
         else cout << "Error! No this function!\n" ;
 
-        cout << "0: Quit. 1: Recursive. 2:Iterative.\n" ;
+        cout << "0: Quit. 1: Iterative. 2:Recursive. 3.Combination.\n" ;
     }
 
-    return 0 ;
+    system("pause") ;
 } // main()
+
