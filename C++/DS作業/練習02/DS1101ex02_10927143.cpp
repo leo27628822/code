@@ -132,7 +132,33 @@ void Maze::Search_For_N( int & N, int i, int j, bool & find ) {
 
 void Maze::Search_For_N_R( int & N, int i, int j, bool & find) {
     //*
+
+    //*
+    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G' ) ) return ; // 確認下一步是否合法和避免超過vector的大小
+    if ( v1[i][j] == 'G' ) { // check goal reached?
+        int *p = std::find( goalx, goalx + 9, i ), *q = std::find( goaly, goaly + 9, j ) ;     // 確認找到的 G 不重複
+        if ( p == goalx + 9 || q == goaly + 9 ) {
+            cout << i << " " << j << " " << v1[i][j] << endl;
+            N-- ;
+            goalx[xi++] = i ;
+            goaly[yi++] = j ;
+        } // if
+
+        if ( N == 0 ) {
+            find = true ;
+            return ;
+        } // if
     
+    } // if
+    
+    if ( v1[i][j] != 'G' ) v1[i][j] = 'R' ;           // mark route
+    if ( !find ) Search_For_N_R( N, i, j+1, find ) ;  // go right
+    if ( !find ) Search_For_N_R( N, i-1, j, find ) ;  // go up 
+    if ( !find ) Search_For_N_R( N, i, j-1, find ) ;  // go left
+    if ( !find ) Search_For_N_R( N, i+1, j, find ) ;  // go down
+    if ( !find && v1[i][j] != 'G' ) v1[i][j] = 'E' ;
+    //*/
+    /*
     if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G' ) ) return ; // 確認下一步是否合法和避免超過vector的大小
     
     if ( v1[i][j] == 'G' ) { // check goal reached?
@@ -142,13 +168,15 @@ void Maze::Search_For_N_R( int & N, int i, int j, bool & find) {
             N-- ;
             goalx[xi++] = i ;
             goaly[yi++] = j ;
-            find  = true ;
         }
 
         if ( N == 0 ) {
             find = true ;
             return ;
         } // if
+
+        find  = true ;
+        return ;
     } // if
     
     if ( v1[i][j] != 'G' ) v1[i][j] = 'R' ;           // mark route
@@ -159,9 +187,10 @@ void Maze::Search_For_N_R( int & N, int i, int j, bool & find) {
         Search_For_N_R( N, i+1, j, find ) ;  // go down 
     } // if
 
-    if ( !find && v1[i][j] != 'G' ) v1[i][j] = 'E' ;
+    if ( !find ) v1[i][j] = 'E' ;
     //cout << i << " " << j << " " << v1[i][j] << endl ;
-    //*/
+    
+    */
 } // Search_For_N_R()
 
 int main() {
@@ -220,7 +249,7 @@ int main() {
                     find = false ;
                     mouse.init( filename ) ;
                     mouse.Search_For_N_R( num, 0, 0, find ) ;
-                    if ( 1 ) mouse.print() ;
+                    if ( num == 0 ) mouse.print() ;
                 } // else if
             } // if
         } // else if
