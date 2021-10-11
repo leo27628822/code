@@ -1,4 +1,4 @@
-// 10927143 王胤迦
+// DS1101ex2_20_10927143_10927141 王胤迦 黃詳諺
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -8,9 +8,9 @@
 
 using namespace std;
 
-int goalx[10] = {0}, goaly[10] = {0} ;
+int goalx[10] = {0}, goaly[10] = {0}, dir[50] = {0} ;
 int xi = 0, yi = 0 ;
-
+bool check[20][20] = {{0}} ;
 class Maze {
 
 public:
@@ -18,7 +18,7 @@ public:
     vector< vector<char> > v1 ;
     vector< char > v2 ;
     bool init( string filename ) ;
-    void print() {  // 運用迭代器遍歷
+    void print() {                  // 運用迭代器遍歷
         vector< vector<char> >::iterator it2 = v1.begin() ;
         while ( it2 != v1.end() ) {
             vector< char >::iterator it = (*it2 ).begin() ;
@@ -50,6 +50,10 @@ bool Maze::init( string filename ) {
         goaly[i] = 0 ;
     } // for
 
+    for ( int i = 0 ; i < 20 ; i++ ) {
+        for ( int j = 0 ; j < 20 ; j++ )
+            check[i][j] = false ;
+    }
     ifstream ifs( filename, std::ios::in);
     if ( !ifs.is_open() ) {
         cout << "Failed to open file.\n";
@@ -78,40 +82,39 @@ bool Maze::init( string filename ) {
 void Maze::Search( int i, int j, bool & find) {
 
     if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G' ) ) return ; // 避免超過vector的大小
-    if ( v1[i][j] == 'G' ) { // check goal reached?
+    if ( v1[i][j] == 'G' ) {    // check goal reached?
         find = true ;
         return ;
     } // if()
 
-    v1[i][j] = 'V' ;    // mark visited
+    v1[i][j] = 'V' ;       // mark visited
     if ( !find ) Search( i, j+1, find ) ;  // go right
-    if ( !find ) Search( i, j-1, find ) ;  // go left
+    if ( !find ) Search( i, j-1, find ) ;   // go left
     if ( !find ) Search( i+1, j, find ) ;  // go down
-    if ( !find ) Search( i-1, j, find ) ;  // go up 
-    
+    if ( !find ) Search( i-1, j, find ) ;   // go up
+
 } // Search()
 
 void Maze::SearchR( int i, int j, bool & find) {
 
     if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G' ) ) return ; // 避免超過vector的大小
-    if ( v1[i][j] == 'G' ) { // check goal reached?
+    if ( v1[i][j] == 'G' ) {    // check goal reached?
         find = true ;
         return ;
     } // if()
 
-    v1[i][j] = 'R' ;    // mark route
+    v1[i][j] = 'R' ;       // mark route
     if ( !find ) SearchR( i, j+1, find ) ;  // go right
+    if ( !find ) SearchR( i, j-1, find ) ;   // go left
     if ( !find ) SearchR( i+1, j, find ) ;  // go down
-    if ( !find ) SearchR( i, j-1, find ) ;  // go left
-    if ( !find ) SearchR( i-1, j, find ) ;  // go up 
+    if ( !find ) SearchR( i-1, j, find ) ;   // go up
     if ( !find ) v1[i][j] = 'E' ;
-    
+
 } // SearchR()
 
 void Maze::Search_For_N( int & N, int i, int j, bool & find ) {
-    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G' ) ) return ; // 避免超過vector的大小
+    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G' ) ) return ;   // 避免超過vector的大小
     if ( v1[i][j] == 'G' ) { // check goal reached?
-        // cout << i << " " << j << " " << N << endl ;
         int *p = std::find( goalx, goalx + 9, i ), *q = std::find( goaly, goaly + 9, j ) ;
         if ( p == goalx + 9 || q == goaly + 9 ) N-- ;
         goalx[xi++] = i ;
@@ -122,75 +125,52 @@ void Maze::Search_For_N( int & N, int i, int j, bool & find ) {
         } // if
     } // if()
 
-    if ( v1[i][j] != 'G' ) v1[i][j] = 'V' ;    // mark visited but avoid 'G'
+    if ( v1[i][j] != 'G' ) v1[i][j] = 'V' ;            // mark visited but avoid 'G'
     if ( !find ) Search_For_N( N, i, j+1, find ) ;  // go right
-    if ( !find ) Search_For_N( N, i, j-1, find ) ;  // go left
-    if ( !find ) Search_For_N( N, i-1, j, find ) ;  // go up 
+    if ( !find ) Search_For_N( N, i, j-1, find ) ;   // go left
+    if ( !find ) Search_For_N( N, i-1, j, find ) ;   // go up
     if ( !find ) Search_For_N( N, i+1, j, find ) ;  // go down
-    
+
 } // Search_For_N()
 
-void Maze::Search_For_N_R( int & N, int i, int j, bool & find) {
-    //*
+void Maze::Search_For_N_R( int & N, int i, int j, bool & find ) {
+    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G'  ) ) return ; // 確認下一步是否合法和避免超過vector的大小
 
-    //*
-    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G' ) ) return ; // 確認下一步是否合法和避免超過vector的大小
     if ( v1[i][j] == 'G' ) { // check goal reached?
         int *p = std::find( goalx, goalx + 9, i ), *q = std::find( goaly, goaly + 9, j ) ;     // 確認找到的 G 不重複
         if ( p == goalx + 9 || q == goaly + 9 ) {
-            cout << i << " " << j << " " << v1[i][j] << endl;
             N-- ;
             goalx[xi++] = i ;
             goaly[yi++] = j ;
+            for ( int k = 0 ; k < y ; k++ ) {
+                for ( int l = 0 ; l < x ; l++ ) {
+                    if ( check[k][l] ) v1[k][l] = 'R' ;
+                    else if ( v1[k][l] == 'V' ) v1[k][l] = 'E' ;
+                } // for
+            } // for
+
         } // if
 
         if ( N == 0 ) {
             find = true ;
             return ;
         } // if
-    
+
     } // if
-    
-    if ( v1[i][j] != 'G' ) v1[i][j] = 'R' ;           // mark route
+
+    if ( v1[i][j] != 'G' ) {
+        check[i][j] = true ;       // mark route
+        v1[i][j] = 'V' ;
+    } // if
+
     if ( !find ) Search_For_N_R( N, i, j+1, find ) ;  // go right
-    if ( !find ) Search_For_N_R( N, i-1, j, find ) ;  // go up 
-    if ( !find ) Search_For_N_R( N, i, j-1, find ) ;  // go left
     if ( !find ) Search_For_N_R( N, i+1, j, find ) ;  // go down
-    if ( !find && v1[i][j] != 'G' ) v1[i][j] = 'E' ;
-    //*/
-    /*
-    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G' ) ) return ; // 確認下一步是否合法和避免超過vector的大小
-    
-    if ( v1[i][j] == 'G' ) { // check goal reached?
-        int *p = std::find( goalx, goalx + 9, i ), *q = std::find( goaly, goaly + 9, j ) ;     // 確認找到的 G 不重複
-        if ( p == goalx + 9 || q == goaly + 9 ) {
-            cout << i << " " << j << " " << v1[i][j] << endl;
-            N-- ;
-            goalx[xi++] = i ;
-            goaly[yi++] = j ;
-        }
-
-        if ( N == 0 ) {
-            find = true ;
-            return ;
-        } // if
-
-        find  = true ;
-        return ;
-    } // if
-    
-    if ( v1[i][j] != 'G' ) v1[i][j] = 'R' ;           // mark route
-    if ( N!=0 ) {
-        Search_For_N_R( N, i, j+1, find ) ;  // go right
-        Search_For_N_R( N, i, j-1, find ) ;  // go left
-        Search_For_N_R( N, i-1, j, find ) ;  // go up 
-        Search_For_N_R( N, i+1, j, find ) ;  // go down 
+    if ( !find ) Search_For_N_R( N, i, j-1, find ) ;   // go left
+    if ( !find ) Search_For_N_R( N, i-1, j, find ) ;   // go up
+    if ( !find && v1[i][j] != 'G' ) {
+        check[i][j] = false ;
     } // if
 
-    if ( !find ) v1[i][j] = 'E' ;
-    //cout << i << " " << j << " " << v1[i][j] << endl ;
-    
-    */
 } // Search_For_N_R()
 
 int main() {
@@ -207,8 +187,8 @@ int main() {
             string filename = "input" ;
             cin >> num ;
             ss << filename << num ;        // 將字串和數字一起丟進去字串流
-            ss >> filename ;               // 將流內的字串丟回 filename
-            filename += ".txt" ;           // 之後再字串結尾加上 .txt
+            ss >> filename ;                      // 將流內的字串丟回 filename
+            filename += ".txt" ;                  // 之後再字串結尾加上 .txt
             Maze mouse ;
             if ( mouse.init( filename ) ) {
                 // mouse.print() ;
@@ -227,8 +207,8 @@ int main() {
             string filename = "input" ;
             cin >> num ;
             ss << filename << num ;        // 將字串和數字一起丟進去字串流
-            ss >> filename ;               // 將流內的字串丟回 filename
-            filename += ".txt" ;           // 之後再字串結尾加上 .txt
+            ss >> filename ;                      // 將流內的字串丟回 filename
+            filename += ".txt" ;                  // 之後再字串結尾加上 .txt
             Maze mouse ;
             if ( mouse.init( filename ) ) {
                 cout << "Number of G (goals) : " ;
