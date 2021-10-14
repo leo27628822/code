@@ -8,9 +8,9 @@
 
 using namespace std;
 
-int goalx[10] = {0}, goaly[10] = {0}, step = 100, tempStep = 0 ;
+int goalx[10] = {0}, goaly[10] = {0}, step = 100, tempStep = 1 ;
 int xi = 0, yi = 0 ;
-bool check[20][20] = {{0}} ;
+bool check[20][20] = {{0}}, need[20][20] ;
 class Maze {
 
 public:
@@ -38,13 +38,13 @@ public:
     void SearchR( int i, int j, bool & find ) ;
     void Search_For_N( int & N, int i, int j, bool & find) ;
     void Search_For_N_R( int & N, int i, int j, bool & find) ;
-    void Search_For_S1( int &N,int i, int j, bool & find ) ;
-    void Search_For_S2( int &N,int i, int j, bool & find ) ;
+    void Search_For_S( int &N,int i, int j, bool & find ) ;
+    void Search_For_S_R( int &N,int i, int j, bool & find ) ;
 };
 
 
 bool Maze::init( string filename ) {
-    tempStep = 0 ;
+    tempStep = 1 ;
     step = 100 ;
     v1.clear() ;
     xi = yi = 0 ;
@@ -176,146 +176,59 @@ void Maze::Search_For_N_R( int & N, int i, int j, bool & find ) {
 
 } // Search_For_N_R()
 
-void Maze::Search_For_S1( int & N ,int i, int j, bool & find ) {
-    // cout << i << " " << j << "\n" ;
-    /*
-    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G'  ) || tempStep == step ) return ; // 確認下一步是否合法和避免超過vector的大小
-    if ( v1[i][j] == 'G' ) { // check goal reached?
-
-        N-- ;
-        find = true ;
-
-        if ( tempStep < step ) {
-
-            step = tempStep ;
-            cout << "Check S1:\n" ;
-            for ( int k = 0 ; k < y ; k++ ) {
-                for ( int l = 0 ; l < x ; l++ ) {
-                    cout << check[k][l] << " " ;
-                    if ( check[k][l] ) v1[k][l] = 'R' ;
-                    else if ( v1[k][l] != 'O' && v1[k][l] != 'G' ) v1[k][l] = 'E' ;
-                } // for
-                cout << endl ;
-            } // for
-            cout << endl ;
-        } // if
-
-        return ;
-    } // if
-
-    if ( v1[i][j] != 'G' ) {
-        check[i][j] = true ;       // mark route
-        v1[i][j] = 'V' ;
-    } // if
-
-    tempStep++ ;
-    Search_For_S1( N, i+1, j, find ) ;  // go down
-    Search_For_S1( N, i, j+1, find ) ;  // go right
-    Search_For_S1( N, i, j-1, find ) ;   // go left
-    Search_For_S1( N, i-1, j, find ) ;   // go up
-    tempStep-- ;
-    check[i][j] = false ;
-    */
+void Maze::Search_For_S( int & N ,int i, int j, bool & find ) {
     if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G'  ) || tempStep > step ) return ; // 確認下一步是否合法和避免超過vector的大小
-    
+
     if ( v1[i][j] == 'G' ) { // check goal reached?
         if ( tempStep <= step ) {
             step = tempStep ;
-            for ( int k = 0 ; k < y ; k++ ) {
-                for ( int l = 0 ; l < x ; l++ ) {
-                    // cout << check[k][l] << " " ;
-                    if ( check[k][l] ) v1[k][l] = 'R' ;
-                    else if ( v1[k][l] == 'V' ) v1[k][l] = 'E' ;
-                    else if ( v1[k][l] == 'R' ) v1[k][l] = 'E' ;
-                } // for
-            } // for
 
-        } // if()
+            find = true ;
+        } // if
+        return ;
+    } // if
 
+
+    check[i][j] = true;
+    v1[i][j] = 'V' ;
+    tempStep++ ;
+    Search_For_S( N, i, j+1, find ) ;  // go right
+    Search_For_S( N, i+1, j, find ) ;  // go down
+    Search_For_S( N, i, j-1, find ) ;   // go left
+    Search_For_S( N, i-1, j, find ) ;   // go up
+    for ( int k = 0 ; k < y ; k++ )
+            for ( int l = 0 ; l < x ; l++ )
+                if ( check[k][l] ) need[k][l] = true ;
+    tempStep-- ;
+    check[i][j] = false;
+    v1[i][j] = 'E' ;
+} // Search_For_S_R()
+
+void Maze::Search_For_S_R( int & N ,int i, int j, bool & find ) {
+    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G'  ) || tempStep > step ) return ; // 確認下一步是否合法和避免超過vector的大小
+
+    if ( v1[i][j] == 'G' ) { // check goal reached?
+        if ( tempStep <= step ) {
+            step = tempStep ;
+            for ( int k = 0 ; k < y ; k++ )
+                for ( int l = 0 ; l < x ; l++ )
+                    need[k][l] = check[k][l] ;
+            find = true ;
+        } // if
         return ;
     } // if
 
     check[i][j] = true;
     v1[i][j] = 'V' ;
     tempStep++ ;
-    Search_For_S1( N, i+1, j, find ) ;  // go down
-    Search_For_S1( N, i-1, j, find ) ;   // go up
-    Search_For_S1( N, i, j+1, find ) ;  // go right
-    Search_For_S1( N, i, j-1, find ) ;   // go left
+    Search_For_S_R( N, i, j+1, find ) ;  // go right
+    Search_For_S_R( N, i+1, j, find ) ;  // go down
+    Search_For_S_R( N, i, j-1, find ) ;   // go left
+    Search_For_S_R( N, i-1, j, find ) ;   // go up
     tempStep-- ;
-    // v1[i][j] = 'E' ;
+    v1[i][j] = 'E' ;
     check[i][j] = false;
-} // Search_For_N_S1()
-
-void Maze::Search_For_S2( int & N ,int i, int j, bool & find ) {
-    // cout << i << " " << j << "\n" ;
-    /*
-    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G'  ) || tempStep == step ) return ; // 確認下一步是否合法和避免超過vector的大小
-    
-    if ( v1[i][j] == 'G' ) { // check goal reached?
-        
-        N-- ;
-        find = true ;
-
-        if ( tempStep < step ) {
-            step = tempStep ;
-            cout << "Check S2:\n" ;
-            for ( int k = 0 ; k < y ; k++ ) {
-                for ( int l = 0 ; l < x ; l++ ) {
-                    cout << check[k][l] << " " ;
-                    if ( check[k][l] ) v1[k][l] = 'R' ;
-                    else if ( v1[k][l] != 'O' && v1[k][l] != 'G' ) v1[k][l] = 'E' ;
-                } // for
-                cout << endl ;
-            } // for
-            cout << endl ;
-        } // if
-
-        return ;
-    } // if
-
-    if ( v1[i][j] != 'G' ) {
-        check[i][j] = true ;       // mark route
-        v1[i][j] = 'V' ;
-    } // if
-
-    tempStep++ ;
-    Search_For_S2( N, i, j+1, find ) ;  // go right
-    Search_For_S2( N, i+1, j, find ) ;  // go down
-    Search_For_S2( N, i, j-1, find ) ;   // go left
-    Search_For_S2( N, i-1, j, find ) ;   // go up
-    tempStep-- ;
-    check[i][j] = false ;
-    */
-    if ( i < 0 || j < 0 || j >= x || i >= y ||  !( v1[i][j] == 'E' || v1[i][j] == 'G'  ) || tempStep > step ) return ; // 確認下一步是否合法和避免超過vector的大小
-    
-    if ( v1[i][j] == 'G' ) { // check goal reached?
-        if ( tempStep <= step ) {
-            step = tempStep ;
-            for ( int k = 0 ; k < y ; k++ ) {
-                for ( int l = 0 ; l < x ; l++ ) {
-                    // cout << check[k][l] << " " ;
-                    if ( check[k][l] ) v1[k][l] = 'R' ;
-                    else if ( v1[k][l] == 'V' ) v1[k][l] = 'E' ;
-                    else if ( v1[k][l] == 'R' ) v1[k][l] = 'E' ;
-                } // for
-            } // for
-        } // if
-        return ;
-    } // if
-
-    
-    v1[i][j] = 'V' ;
-    check[i][j]=true;
-    tempStep++ ;
-    Search_For_S2( N, i, j+1, find ) ;  // go right
-    Search_For_S2( N, i, j-1, find ) ;   // go left
-    Search_For_S2( N, i+1, j, find ) ;  // go down
-    Search_For_S2( N, i-1, j, find ) ;   // go up
-    tempStep-- ;
-    // v1[i][j] = 'E' ;
-    check[i][j]=false;
-} // Search_For_N_S2()
+} // Search_For_S_R()
 
 int main() {
 
@@ -389,31 +302,22 @@ int main() {
             Maze mouse ;
             int N = 1000 ;
             if ( mouse.init( filename ) ) {
-                cout << "Check init:\n" ;
+                mouse.Search_For_S( N,0,0, find ) ;
+                for ( int i = 0 ; i < mouse.y ; i++ )
+                    for ( int j = 0 ; j < mouse.x ; j++ )
+                        if ( need[i][j] ) mouse.v1[i][j] = 'V' ;
                 mouse.print() ;
-                int temp1 = 0, temp2 = 0 ;
-                mouse.Search_For_S1( N, 0, 0, find ) ;
-                cout << "Check S1:\n" ;
-                mouse.print() ;
-                temp1 = step ;
-                find = false ;
                 mouse.init( filename ) ;
-                cout << "Check init:\n" ;
-                mouse.print() ;
-                mouse.Search_For_S2( N, 0, 0, find ) ;
-                cout << "Check S2:\n" ;
-                mouse.print() ;
-                temp2 = step ;
                 find = false ;
-                cout << temp1 << " " << temp2 << endl ;
-                mouse.init( filename ) ;
-                cout << "Check init:\n" ;
-                mouse.print() ;
-                if ( temp1 <= temp2 ) mouse.Search_For_S1( N, 0, 0, find ) ;
-                else mouse.Search_For_S2( N, 0, 0, find )  ;
-                cout << "Check S:\n" ;
-                mouse.print() ;
-                cout << "Shortest steps : " << step+1 << "\n" ;
+                mouse.Search_For_S_R( N, 0, 0, find ) ;
+                for ( int i = 0 ; i < mouse.y ; i++ )
+                    for ( int j = 0 ; j < mouse.x ; j++ )
+                        if ( need[i][j] ) mouse.v1[i][j] = 'R' ;
+                if ( find ) {
+                    mouse.print() ;
+                    cout << "Shortest steps : " << step << "\n" ;
+                } // if
+                else cout << "Shortest steps : #####\n" ;
             } // if
         } // else if
 
