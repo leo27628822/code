@@ -1,0 +1,260 @@
+// DS1101ex3_20_10927143_10927141
+#include <iostream>
+#include <list>
+#include <string>
+#include <sstream>
+#include <algorithm>
+
+using namespace std;
+
+bool isOperator_( char ch ) ;
+bool isOperand_( char ch ) ;
+
+struct Node {
+    bool type ; // 1 : operand  | 0 : operator
+    string name ;
+    int priority = 0 ; // operand = 0 | +,- = 1 | *,/ = 2
+};
+
+class Stack {
+
+    public :
+        bool isEmpty() ;
+        void push( Node n ) ;
+        void pop() ;
+        Node getTop() ;
+        void init() ;
+        void print() {
+            if ( !alist.empty() ) {
+                string tmp ;
+                tmp = "" ;
+                tmp.clear() ;
+                for ( list<string>::reverse_iterator it = alist.rbegin(); it != alist.rend(); it++) {
+                    /*
+                    int time = 0 ;
+                    if ( isOperand_(*it ) ) {
+                        while ( it != alist.rend() && !isOperator_( *it ) ) {
+                            tmp += *it ;
+                            it++ ;
+                            time++ ;
+                        } // while
+
+                        cout << tmp << ", " ;
+                    } // if
+                    // else cout << *it << ", " ;
+                    */
+                    cout << *it << ", " ;
+                } // for
+            } // if
+        } // print()
+
+    private :
+        list<Node> alist ;
+};
+
+bool Stack::isEmpty() {
+    return alist.empty() ;
+}
+
+void Stack::push( Node n ) {
+    alist.push_front( n ) ;
+}
+
+void Stack::pop() {
+    alist.pop_front() ;
+}
+
+Node Stack::getTop() {
+    return alist.front() ;
+}
+
+void Stack::init() {
+    alist.clear() ;
+}
+
+bool isOperator_( char ch ) {
+    if ( ch == '+' || ch == '-' || ch == '*' || ch == '/' ) return true ;   // + - * /
+    else return false ;
+    // return ( ch == '+' || ch == '-' || ch == '*' || ch == '/' ) ;
+} // isOperator_()
+
+bool isOperand_( char ch ) {
+    if ( ch >= '0' && ch <= '9' ) return true ;
+    else return false ;
+    // return ( ch >= '0' && ch <= '9' ? 1:0 ) ;
+} // isOperand_()
+
+int check( const string & str, Stack tmp ) {
+    bool num = false, parenthesis = false ;
+    Stack temp ;
+    for ( char ch : str ) {
+        string s ;
+        if ( isOperand_( ch ) ) {  // ch = num ?
+            if ( parenthesis == true )  {
+                cout << "Error 3 : there is one extra operand.\n" ;
+                return 0 ;
+            } // if
+            else {
+                str += ch ;
+                num = true ;
+            } // else
+        } // if
+        else if ( isOperator_( ch ) ) {  // ch = +-*/ ?
+            if ( num == false ) {
+                cout << "Error 3 : there is one extra operator.\n" ;
+                return 0 ;
+            } // if
+            else {
+                tmp.push( s ) ;
+                s.clear() ;
+                tmp.push(ch) ;
+                parenthesis = num = false ;
+            } // else
+        } // else if
+        else if ( ch == '(' || ch == ')' ) {
+            tmp.push(ch) ;
+            if ( ch == '(' ) temp.push( ch ) ;
+            else if ( ch == ')' ) {
+                if ( temp.isEmpty() ) {
+                    cout << "Error 2 : there is one extra close parenthesis.\n  " ;
+                    return 0 ;
+                } // if
+                else {
+                    temp.pop() ;
+                    parenthesis = true ;
+                } // esle
+            } // esle if
+        } // else if
+        else {
+            cout << "Error 1 : " << ch << " is not a legitimate character.\n" ;
+            return 0 ;
+        } // else
+    } // for
+
+    if ( !temp.isEmpty() ) {
+        cout << "Error 2 : there is one extra open parenthesis.\n  " ;
+        return 0 ;
+    } // if
+    else return 1 ;
+} // check()
+
+void toPostfix( const string & str, Stack & st ) {
+    Stack op ;
+    op.init() ;
+    for ( char ch : str ) {
+        /*
+        cout << ch << "\n" ;
+        op.print() ;
+        cout << endl ;
+        st.print() ;
+        cout << endl ;
+        */
+        if ( isOperand_(ch) ) st.push(ch) ;
+        else if ( isOperator_(ch) ) { // ch = + - * / ?
+            if ( op.isEmpty() ) op.push(ch) ;
+            else {
+                while ( !op.isEmpty() ) { // +* :-
+                    if ( op.getTop() == '(' ) {
+                        op.push(ch) ;
+                        break ;
+                    } // if
+                    else if ( ch == '*' || ch == '/' ) {
+                        if ( op.getTop() == '+' || op.getTop() == '-' ) {
+                            op.push(ch) ;
+                           break ;
+                        } // if
+                        else if ( op.getTop() != '(' ) {
+                            st.push( op.getTop() ) ;
+                            op.pop() ;
+                        } // else if
+                    } // else if
+                    else if ( ch == '+' || ch == '-' ) {
+                        if ( op.getTop() == '*' || op.getTop() == '/' ) {
+                            st.push( op.getTop() ) ;
+                            op.pop() ;
+                        } // if
+                        else if ( op.getTop() != '(' ) {
+                            st.push( op.getTop() ) ;
+                            op.pop() ;
+                        } // else if
+                    } // else if
+                } // while
+
+                if ( op.isEmpty() ) op.push( ch ) ;
+                /*
+                if ( ch == '+' || ch == '-' ) {
+                    if ( op.getTop() == '*' || op.getTop() == '/' ) {
+                        st.push( op.getTop() ) ;
+                        op.pop() ;
+                        op.push(ch) ;
+                    } // else
+                    else if ( op.getTop() != '(' ) {
+                        st.push( op.getTop() ) ;
+                        op.pop() ;
+                        op.push(ch) ;
+                    } // else if
+                    else op.push(ch) ;
+                } // if
+                else {   // ch == * /
+                    if ( op.getTop() == '+' || op.getTop() == '-' ) {
+                        op.push(ch) ;
+                    } // else
+                    else if ( op.getTop() != '(' ) {
+                        st.push( op.getTop() ) ;
+                        op.pop() ;
+                        op.push(ch) ;
+                    } // else if
+                    else op.push(ch) ;
+                } // else
+                */
+            } // else
+        } // else if
+        else if ( ch == '(' ) op.push(ch) ;
+        else if ( ch == ')' ) {
+            bool finish = false ;
+            while ( !finish ) {
+                st.push( op.getTop() ) ;
+                op.pop() ;
+                if ( op.getTop() == '(' ) {
+                    op.pop() ;
+                    finish = true ;
+                } // if
+            } // while
+        } // else if
+    } // for
+
+    while ( !op.isEmpty() ) {
+        if ( op.getTop() != '(' ) st.push( op.getTop() ) ;
+        op.pop() ;
+    } // while
+} // toPostfix()
+
+int main() {
+    int n ;
+    string str ;
+    Stack st1, st2 ; // st1 : original infix formula st2 : postfix formula
+    cout << "0:quit 1: infix2postfix . \n" ;
+    while ( cin >> n && n ) {
+        st1.init() ;
+        st2.init() ;
+        cin.ignore() ;  // or cin.get() to remove '\n' in buffer
+        if ( n != 1 ) cout << "Wrong number! Please try again.\n" ;
+        else {
+            cout << "Input an infix expression : " ;
+            getline( cin, str ) ;
+            str.erase( std::remove( str.begin(), str.end(), ' ' ), str.end() ) ; // erase all spaces
+            cout << "Input: " << str << "\n" ;
+            if ( check( str, st1 ) ) {
+                cout << "It is a legitimate infix expression.\n" ;
+                toPostfix( str, st2 ) ;
+                cout << "Postfix expression : " ;
+                st2.print() ;
+                cout << "\n" ;
+            } // if
+        } // else
+
+        cout << "0:quit 1: infix2postfix . \n" ;
+    } // while
+
+    system("pause") ;
+} // main()
