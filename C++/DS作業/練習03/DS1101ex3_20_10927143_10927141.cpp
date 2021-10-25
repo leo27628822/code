@@ -9,6 +9,7 @@ using namespace std;
 bool isOperator_( char ch ) ;
 bool isOperand_( char ch ) ;
 
+
 struct Node {
     bool type ; // 0 : operand  | 1 : operator
     string name ;
@@ -248,7 +249,6 @@ int postfix_Answer( Stack & st2 ) {
                 num.push( nd ) ;
             } // else if
             else if ( it.name == "/" ) {
-
                 a = toInt( num.getTop().name ) ;
                 if ( a == 0 ) return -999999 ;
                 num.pop() ;
@@ -279,6 +279,7 @@ int main() {
             str.erase( std::remove( str.begin(), str.end(), ' ' ), str.end() ) ; // erase all spaces
             cout << "Input: " << str << "\n" ;
             if ( check( str, st1 ) ) {
+
                 if ( st1.getTop().type == 1 && st1.getTop().priority != 0 ) cout << "Error 3 : there is one extra operator.\n" ;
                 else {
                     st1.reverse() ;
