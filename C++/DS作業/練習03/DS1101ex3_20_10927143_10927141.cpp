@@ -3,6 +3,7 @@
 #include <list>
 #include <string>
 #include <algorithm>
+#include <iomanip>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ bool isOperand_( char ch ) ;
 struct Node {
     bool type ; // 0 : operand  | 1 : operator
     string name ;
+    double value = 0.0 ;
     int priority = 0 ; // operand = 0 | +,- = 1 | *,/ = 2
 };
 
@@ -75,6 +77,10 @@ bool isOperand_( char ch ) {
     return ( ch >= '0' && ch <= '9' ) ;
 } // isOperand_()
 
+int toInt( string str ) {
+    return stoi( str ) ;
+} // toInt()
+
 int check( string & str, Stack & tmp ) {
     bool num = false, parenthesis = false, oper = false ;
     Stack temp ;
@@ -100,6 +106,7 @@ int check( string & str, Stack & tmp ) {
             else {
                 if ( !s.empty() ) {
                     nd.name = s ;
+                    nd.value = (double)toInt( s ) ;
                     nd.type = 0 ;
                     tmp.push( nd ) ;
                     s = "" ;
@@ -121,6 +128,7 @@ int check( string & str, Stack & tmp ) {
 
             if ( !s.empty() ) {
                 nd.name = s ;
+                nd.value = (double)toInt( s ) ;
                 nd.type = 0 ;
                 tmp.push( nd ) ;
                 s = "" ;
@@ -166,6 +174,7 @@ int check( string & str, Stack & tmp ) {
 
     if ( !s.empty() ) {
         nd.name = s ;
+        nd.value = (double)toInt( s ) ;
         nd.type = 0 ;
         tmp.push( nd ) ;
     } // if
@@ -213,54 +222,51 @@ void toPostfix( Stack & st1, Stack & st2 ) {
     } // while
 } // toPostfix()
 
-int toInt( string str ) {
-    return stoi( str ) ;
-} // toInt()
-
-int postfix_Answer( Stack & st2 ) {
-    int a,b ;
+double postfix_Answer( Stack & st2 ) {
+    double a,b ;
     Node nd ;
     Stack num ;
+
     for ( auto it : st2.alist ) {
         if ( it.type == 0 ) num.push( it ) ;
         else {
             if ( it.name == "+" ) {
-                a = toInt( num.getTop().name ) ;
+                a = num.getTop().value ;
                 num.pop() ;
-                b = toInt( num.getTop().name ) ;
+                b = num.getTop().value ;
                 num.pop() ;
-                nd.name = std::to_string( b+a ) ;
+                nd.value = b+a ;
                 num.push( nd ) ;
             } // if
             else if ( it.name == "-" ) {
-                a = toInt( num.getTop().name ) ;
+                a = num.getTop().value ;
                 num.pop() ;
-                b = toInt( num.getTop().name ) ;
+                b = num.getTop().value ;
                 num.pop() ;
-                nd.name = std::to_string( b-a ) ;
+                nd.value = b-a ;
                 num.push( nd ) ;
             } // else if
             else if ( it.name == "*" ) {
-                a = toInt( num.getTop().name ) ;
+                a = num.getTop().value ;
                 num.pop() ;
-                b = toInt( num.getTop().name ) ;
+                b = num.getTop().value ;
                 num.pop() ;
-                nd.name = std::to_string( b*a ) ;
+                nd.value = b*a ;
                 num.push( nd ) ;
             } // else if
             else if ( it.name == "/" ) {
-                a = toInt( num.getTop().name ) ;
-                if ( a == 0 ) return -999999 ;
+                a = num.getTop().value ;
+                if ( a == 0 ) return -999999.0 ;
                 num.pop() ;
-                b = toInt( num.getTop().name ) ;
+                b = num.getTop().value ;
                 num.pop() ;
-                nd.name = std::to_string( b/a ) ;
+                nd.value = b/a ;
                 num.push( nd ) ;
             } // else if
         } // else
     } // for
 
-    return toInt( num.getTop().name ) ;
+    return num.getTop().value ;
 } // postfix_Answer
 
 int main() {
@@ -291,9 +297,9 @@ int main() {
                     st2.reverse() ;
                     st2.print() ;
                     cout << "\n" ;
-                    int ans = postfix_Answer( st2 ) ;
-                    if ( ans == -999999 ) cout << "Error 4 : divisor equals to 0.\n" ;
-                    else cout << "The answer of postfix formula is : " << ans << "\n" ;
+                    double ans = postfix_Answer( st2 ) ;
+                    if ( ans == -999999.0 ) cout << "Error 4 : divisor equals to 0.\n" ;
+                    else cout << "The answer of postfix formula is : " << fixed << setprecision(2) << ans << "\n" ;
                 } // else
             } // if
         } // else
