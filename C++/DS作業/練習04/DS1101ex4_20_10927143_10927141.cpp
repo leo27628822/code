@@ -1,6 +1,5 @@
-// DS1101ex3_20_10927143_10927141
+// DS1101ex4_20_10927143_10927141
 #include <iostream>
-#include <list>
 #include <string>
 #include <algorithm>
 #include <iomanip>
@@ -11,11 +10,8 @@ bool isOperator_( char ch ) ;
 bool isOperand_( char ch ) ;
 
 
-struct Node {
-    bool type ; // 0 : operand  | 1 : operator
-    string name ;
-    double value = 0.0 ;
-    int priority = 0 ; // operand = 0 | +,- = 1 | *,/ = 2
+struct queueNode {
+
 };
 
 class Stack {
