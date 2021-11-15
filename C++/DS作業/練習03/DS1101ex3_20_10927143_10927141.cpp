@@ -121,6 +121,7 @@ int check( string & str, Stack & tmp ) {
                 tmp.push( nd ) ;
                 s = "" ;
                 s.clear() ;
+                oper = true ;
                 parenthesis = num = false ;
             } // else
         } // else if
@@ -162,6 +163,7 @@ int check( string & str, Stack & tmp ) {
                 } // if
                 else {
                     temp.pop() ;
+                    oper = false ;
                     parenthesis = true ;
                 } // esle
             } // esle if
