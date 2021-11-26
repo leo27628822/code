@@ -3,305 +3,164 @@
 #include <string>
 #include <algorithm>
 #include <iomanip>
+#include <fstream>
+#include <vector>
+#include<time.h>
 
 using namespace std;
 
-bool isOperator_( char ch ) ;
-bool isOperand_( char ch ) ;
-
-
-struct queueNode {
-
+struct data {
+    int OID, Arrival, Duration, Timeout ;
 };
 
-class Stack {
+void shellSort( vector<data> & process, int n ) {
+
+    for ( int h = n / 2 ; h > 0 ; h /= 2 ) {
+        for ( int unsorted = h ; unsorted < n ; ++unsorted ) {
+            int loc = unsorted ;
+            data next = process[unsorted] ;
+            for ( ; ( loc >= h ) && ( ( process[loc-h].Arrival > next.Arrival ) || ( process[loc-h].Arrival == next.Arrival && process[loc-h].OID > next.OID ) ) ; loc -= h )
+                process[loc] = process[loc-h] ;
+            process[loc] = next ;
+        } // end for
+    } // end for
+
+} // end shellSort
+/*
+class Queue {
 
     public :
+        Queue() ;
+        ~Queue() ;
         bool isEmpty() ;
-        void push( Node n ) ;
-        void pop() ;
-        Node getTop() ;
-        void init() ;
-        void reverse() ;
-        void print() {
-            if ( !alist.empty() ) {
-                for ( auto it : alist ) {
-                    cout << it.name << ", " ;
-                } // for
-            } // if
-        } // print()
-        list<Node> alist ;
+        void enqueue() ;
+        void dequeue() ;
+        void getFront() ;
+        void cleanQueue() ;
+    private :
+        struct QueueNode {
+            data Data ;
+            QueueNode * next  ;
+        };
+        QueueNode * backPtr ;
 };
 
-bool Stack::isEmpty() {
-    return alist.empty() ;
-}
+Queue::Queue() {
+    backPtr = NULL ;
+} // end Queue
 
-void Stack::push( Node n ) {
-    alist.push_front( n ) ;
-}
+bool Queue::isEmpty() {
+    return backPtr == NULL ;
+} // qnd isEmpty
 
-void Stack::pop() {
-    alist.pop_front() ;
-}
+void Queue::enqueue( struct data ) {
+    QueueNode * newPtr = new QueueNode ;
+    newPtr -> Data = ;
+    if ( isEmpty() )
+        newPtr -> next = newPtr ;
+    else {
+        newPtr -> next = backPtr -> next ;
+        backPtr -> next = new Ptr ;
+    } // end else
+    backPtr = newPtr ;
+} // end enqueue
 
-Node Stack::getTop() {
-    return alist.front() ;
-}
+void Queue::dequeue() {
+    if ( isEmpty() )
+    else {
+        QueueNode * tempPtr = backPtr -> next ;
+        if ( backPtr -> next == backPtr )
+            backPtr = NULL ;
+        else
+            tempPtr -> next = NULL ;
+        delete tempPtr ;
+    } // end else
+} // end dequeue
 
-void Stack::init() {
-    alist.clear() ;
-}
+void Queue::getFornt() {
+    = backPtr -> next -> ;
+} // end getFront
 
-void Stack::reverse() {
-    alist.reverse() ;
-}
+void Queue::cleanQueue() {
+    while ( !isEmpty() )
+        deQueue() ;
+} // end cleanQueue
 
-bool isOperator_( char ch ) {
-    /*
-    if ( ch == '+' || ch == '-' || ch == '*' || ch == '/' ) return true ;   // + - * /
-    else return false ;
-    */
-    return ( ch == '+' || ch == '-' || ch == '*' || ch == '/' ) ;
-} // isOperator_()
-
-bool isOperand_( char ch ) {
-    /*
-    if ( ch >= '0' && ch <= '9' ) return true ;
-    else return false ;
-    */
-    return ( ch >= '0' && ch <= '9' ) ;
-} // isOperand_()
-
-int toInt( string str ) {
-    return stoi( str ) ;
-} // toInt()
-
-int check( string & str, Stack & tmp ) {
-    bool num = false, parenthesis = false, oper = false ;
-    Stack temp ;
-    string s ;
-    Node nd ;
-    for ( char ch : str ) {
-        if ( isOperand_( ch ) ) {  // ch = num ?
-            if ( parenthesis == true )  {
-                cout << "Error 3 : there is one extra operand.\n" ;
-                return 0 ;
-            } // if
-            else {
-                s.push_back(ch) ;
-                num = true ;
-                oper = false ;
-            } // else
-        } // if
-        else if ( isOperator_( ch ) ) {  // ch = +-*/ ?
-            if ( num == false || oper == true ) {
-                cout << "Error 3 : there is one extra operator.\n" ;
-                return 0 ;
-            } // if
-            else {
-                if ( !s.empty() ) {
-                    nd.name = s ;
-                    nd.value = (double)toInt( s ) ;
-                    nd.type = 0 ;
-                    tmp.push( nd ) ;
-                    s = "" ;
-                    s.clear() ;
-                } // if
-
-                s.push_back(ch) ;
-                nd.name = s ;
-                nd.type = 1 ;
-                if ( ch == '+' || ch == '-' ) nd.priority = 1 ;
-                else nd.priority = 2 ;
-                tmp.push( nd ) ;
-                s = "" ;
-                s.clear() ;
-                parenthesis = num = false ;
-            } // else
-        } // else if
-        else if ( ch == '(' || ch == ')' ) {
-
-            if ( !s.empty() ) {
-                nd.name = s ;
-                nd.value = (double)toInt( s ) ;
-                nd.type = 0 ;
-                tmp.push( nd ) ;
-                s = "" ;
-                s.clear() ;
-            } // if
-
-            s.push_back( ch ) ;
-            nd.name = s ;
-            nd.type = 1 ;
-            nd.priority = 0 ;
-            tmp.push( nd ) ;
-            s = "" ;
-            s.clear() ;
-
-            if ( ch == '(' ) {
-                if ( num == true ) {
-                    cout << "Error 3 : there is one extra operand.\n" ;
-                    return 0 ;
-                } // if
-
-                temp.push( nd ) ;
-            } // if
-            else if ( ch == ')' ) {
-                if ( oper == true ) {
-                    cout << "Error 3 : there is one extra operator.\n" ;
-                    return 0 ;
-                } // if
-                else if ( temp.isEmpty() ) {
-                    cout << "Error 2 : there is one extra close parenthesis.\n" ;
-                    return 0 ;
-                } // if
-                else {
-                    temp.pop() ;
-                    parenthesis = true ;
-                } // esle
-            } // esle if
-        } // else if
-        else {
-            cout << "Error 1 : " << ch << " is not a legitimate character.\n" ;
-            return 0 ;
-        } // else
-    } // for
-
-    if ( !s.empty() ) {
-        nd.name = s ;
-        nd.value = (double)toInt( s ) ;
-        nd.type = 0 ;
-        tmp.push( nd ) ;
-    } // if
-    if ( !temp.isEmpty() ) {
-        cout << "Error 2 : there is one extra open parenthesis.\n" ;
-        return 0 ;
-    } // if
-    else return 1 ;
-} // check()
-
-void toPostfix( Stack & st1, Stack & st2 ) {
-    Stack op ;
-    op.init() ;
-    for ( auto it : st1.alist ) {
-        if ( it.type == 0 ) st2.push( it ) ;
-        else { //  + - * / ( )
-            if ( op.isEmpty() ) op.push( it ) ;
-            else {
-                if ( it.name == "(" ) {
-                    op.push( it ) ;
-                } // if
-                else if ( it.name == ")" ) {
-                    while ( op.getTop().name != "(" ) {
-                        st2.push( op.getTop() ) ;
-                        op.pop() ;
-                    } // while
-
-                    op.pop() ;
-                } // else if
-                else {  // +-*/
-                    while ( !op.isEmpty() && it.priority <= op.getTop().priority && op.getTop().priority != 0 ) {
-                        st2.push( op.getTop() ) ;
-                        op.pop() ;
-                    } // while
-
-                    op.push(it) ;
-                } // else
-            } // else
-        } // else
-    } // for
-
-    while ( !op.isEmpty() ) {
-        if ( op.getTop().name != "(" ) st2.push(op.getTop() ) ;
-        op.pop() ;
-    } // while
-} // toPostfix()
-
-double postfix_Answer( Stack & st2 ) {
-    double a,b ;
-    Node nd ;
-    Stack num ;
-
-    for ( auto it : st2.alist ) {
-        if ( it.type == 0 ) num.push( it ) ;
-        else {
-            if ( it.name == "+" ) {
-                a = num.getTop().value ;
-                num.pop() ;
-                b = num.getTop().value ;
-                num.pop() ;
-                nd.value = b+a ;
-                num.push( nd ) ;
-            } // if
-            else if ( it.name == "-" ) {
-                a = num.getTop().value ;
-                num.pop() ;
-                b = num.getTop().value ;
-                num.pop() ;
-                nd.value = b-a ;
-                num.push( nd ) ;
-            } // else if
-            else if ( it.name == "*" ) {
-                a = num.getTop().value ;
-                num.pop() ;
-                b = num.getTop().value ;
-                num.pop() ;
-                nd.value = b*a ;
-                num.push( nd ) ;
-            } // else if
-            else if ( it.name == "/" ) {
-                a = num.getTop().value ;
-                if ( a == 0 ) return -999999.0 ;
-                num.pop() ;
-                b = num.getTop().value ;
-                num.pop() ;
-                nd.value = b/a ;
-                num.push( nd ) ;
-            } // else if
-        } // else
-    } // for
-
-    return num.getTop().value ;
-} // postfix_Answer
-
+Queue::~Queue() {
+    cleanQueue() ;
+} // end ~Queue
+//*/
 int main() {
-    int n ;
-    string str ;
-    Stack st1, st2 ; // st1 : original infix formula st2 : postfix formula
-    cout << "0:quit 1: infix2postfix calculator.\n" ;
-    while ( cin >> n && n ) {
-        st1.init() ;
-        st2.init() ;
-        cin.ignore() ;  // or cin.get() to remove '\n' in buffer
-        if ( n != 1 ) cout << "Wrong number! Please try again.\n" ;
-        else {
-            cout << "Input an infix expression : " ;
-            getline( cin, str ) ;
-            str.erase( std::remove( str.begin(), str.end(), ' ' ), str.end() ) ; // erase all spaces
-            cout << "Input: " << str << "\n" ;
-            if ( check( str, st1 ) ) {
 
-                if ( st1.getTop().type == 1 && st1.getTop().priority != 0 ) cout << "Error 3 : there is one extra operator.\n" ;
-                else {
-                    st1.reverse() ;
-                    // st1.print() ;
-                    // cout << endl ;
-                    cout << "It is a legitimate infix expression.\n" ;
-                    toPostfix( st1, st2 ) ;
-                    cout << "Postfix expression : " ;
-                    st2.reverse() ;
-                    st2.print() ;
-                    cout << "\n" ;
-                    double ans = postfix_Answer( st2 ) ;
-                    if ( ans == -999999.0 ) cout << "Error 4 : divisor equals to 0.\n" ;
-                    else cout << "The answer of postfix formula is : " << fixed << setprecision(2) << ans << "\n" ;
-                } // else
-            } // if
-        } // else
+    int command = 0 ;
+    cout << "*** Simulate FIFO Queues by SQF *****\n" ;
+    cout << "* 0. Quit                            *\n" ;
+    cout << "* 1. Sort a file                     *\n" ;
+    cout << "* 2. Simulate one FIFO queue         *\n" ;
+    cout << "**************************************\n" ;
+    cout << "Input a command(0, 1, 2): " ;
 
-        cout << "0:quit 1: infix2postfix calculator.\n" ;
-    } // while
+    string filename, number ;
+    vector <data> process ;
+    double start, end ;
+    while ( cin >> command && command ) {
+        double start, end, r, s, w;
+        string temp ;
+        if ( command == 1 ) {
+            cout << "Input a file number : ( e.g., 401, 402, ...... ) : " ;
+            cin.ignore() ;
+            getline( cin, number ) ;
+            filename = "input" + number + ".txt" ;
+            //cout << "\nCheck filename : " << filename << "\n" ;
+            ifstream file ;
+            start = clock() ;
+            file.open( filename ) ;
+            if ( !file.is_open() )
+                cout << "\n### " << filename << " does not exists! ###\n\n";
+            else {
+                getline( file, temp ) ;
+                while ( !file.eof() ) {
+                    data data ;
+                    file >> data.OID >> data.Arrival >> data.Duration >> data.Timeout ;
+                    process.push_back( data ) ;
+                } // end while
+
+                file.close() ;
+                end = clock() ;
+                r = end - start ;
+                start = clock() ;
+                shellSort( process, process.size() ) ;
+                end = clock() ;
+                s = end - start ;
+                ofstream newFile ;
+                filename = "sorted" + number + ".txt" ;
+                start = clock() ;
+                newFile.open( filename ) ;
+                newFile << temp << "\n" ;
+                for ( int i = 0 ; i < process.size() ; i++ )
+                    newFile << process[i].OID << "\t" << process[i].Arrival << "\t" << process[i].Duration << "\t" << process[i].Timeout << "\n" ;
+
+                newFile.close() ;
+                end = clock() ;
+                w = end - start ;
+            } // else
+        } // end if
+        else if ( command == 2 ) {
+
+        } // end else if
+        else
+            cout << "\nCommand does not exists!\n\n" ;
+
+        process.clear() ;
+        cout << "\n" ;
+        cout << "**** Simulate FIFO Queues by SQF *****\n" ;
+        cout << "* 0. Quit                            *\n" ;
+        cout << "* 1. Sort a file                     *\n" ;
+        cout << "* 2. Simulate one FIFO queue         *\n" ;
+        cout << "**************************************\n" ;
+        cout << "Input a command(0, 1, 2): " ;
+
+    } // end while
 
     system("pause") ;
 } // main()
