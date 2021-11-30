@@ -51,17 +51,6 @@ class Queue {
         int size() {
             return queue_size ;
         } // end size() ;
-        void print() {
-            if ( !isEmpty() ) {
-                QueueNode * tempPtr = backPtr -> next ;
-                int t = 3 ;
-                while ( t-- ) {
-                    cout << tempPtr -> process.OID << "\n" ;
-                    tempPtr = tempPtr -> next ;
-                } // end while
-            } // end if
-            else cout << "No data!!\n" ;
-        } // end print
     private :
         int queue_size ;
         struct QueueNode {
@@ -159,6 +148,7 @@ int main() {
             filename = "input" + number + ".txt" ;
         else if ( command == 2 )
             filename = "sorted" + number + ".txt" ;
+
         ifstream file ;
         start = clock() ;
         file.open( filename ) ;
@@ -167,11 +157,9 @@ int main() {
         else {
 
             getline( file, temp ) ;
-
             while ( !file.eof() ) {
                 data data ;
                 file >> data.OID >> data.Arrival >> data.Duration >> data.Timeout ;
-                if ( file.fail() ) break;
                 process.push_back( data ) ;
             } // end while
             file.close() ;
@@ -285,6 +273,7 @@ int main() {
                     } // end else
                 } // end while
 
+
                 ofstream newFile ;
                 filename = "output" + number + ".txt" ;
                 newFile.open( filename ) ;
@@ -310,6 +299,7 @@ int main() {
             } // end else if
 
         } // end else
+
 
         process.clear() ;
 
