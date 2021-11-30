@@ -135,7 +135,6 @@ int check( string & str, Stack & tmp ) {
                 s = "" ;
                 s.clear() ;
             } // if
-
             s.push_back( ch ) ;
             nd.name = s ;
             nd.type = 1 ;
