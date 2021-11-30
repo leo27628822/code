@@ -11,15 +11,15 @@ using namespace std;
 
 struct data {
     int OID, Arrival, Duration, Timeout ;
+    int Departure, cpu ;
 };
 
 struct simulation {
     int OID, Time, Delay ;
-    bool status ;  // 0 : Arrival  1 : Departure
 };
 
 struct simulation2 {
-    int OID, Time, CID, Delay ;
+    int OID, Departure, Abort, CID, Delay, Arrival ;
     bool status ;  // 0 : Arrival  1 : Departure
 };
 
@@ -57,25 +57,13 @@ class Queue {
             return queue_size ;
         } // end size() ;
         void print() {
-<<<<<<< HEAD
-            if ( !isEmpty() ) {
-                QueueNode * tempPtr = backPtr -> next ;
-                int t = 3 ;
-                while ( t-- ) {
-                    cout << tempPtr -> process.OID << "\n" ;
-                    tempPtr = tempPtr -> next ;
-                } // end while
-            } // end if
-            else cout << "No data!!\n" ;
-        } // end print
-=======
             QueueNode * temp = backPtr -> next ;
             for ( int j = 3 ; j > 0 ; j-- ) {
                 cout << temp -> process.OID << "\t CHECK q\n" ;
                 temp = temp -> next ;
             }
         }
->>>>>>> cda09c722d8ae6730ec45d16bd655bddc0ee8eea
+
     private :
         int queue_size ;
         struct QueueNode {
@@ -325,171 +313,136 @@ int main() {
 
             } // end else if
             else if ( command == 3 ) {
+
+                cout << "\n### 想不出來~~~ ###\n" ;
+
+                /*
                 int cputime1 = 0, cputime2 = 0, total = process.size() ;
-                bool work = 0 ;
+                bool done = 0 ;
                 Queue queue1, queue2 ;
                 simulation2 sim ;
                 data nextjob ;
                 vector<simulation2> Done, Abort ;
-                sim.OID = process[0].OID ;
-                sim.CID = 1 ;
-                cputime1 = process[0].Arrival + process[0].Duration ;
-                if ( cputime1 <= process[0].Timeout ) {
-                    sim.Time = cputime1  ;
-                    sim.Delay = 0 ;
-                    Done.push_back( sim ) ;
-                } // end if
-                else {
-                    sim.Time = process[0].Timeout ;
-                    sim.Delay = process[0].Timeout - process[0].Arrival ;
-                    Abort.push_back( sim ) ;
-                } // end else
-                process.erase( process.begin() ) ;
-                
-                sim.OID = process[0].OID ;
-                sim.CID = 2 ;
-                cputime2 = process[0].Arrival + process[0].Duration ;
-                if ( cputime2 <= process[0].Timeout ) {
-                    sim.Time = cputime2  ;
-                    sim.Delay = 0 ;
-                    Done.push_back( sim ) ;
-                } // end if
-                else {
-                    sim.Time = process[0].Timeout ;
-                    sim.Delay = process[0].Timeout - process[0].Arrival ;
-                    Abort.push_back( sim ) ;
-                } // end else
-                process.erase( process.begin() ) ;
 
-                bool done = false ;
-                int loop = 0 ;
+                int ct = 1 ;
+                bool cpu1 = 0, cpu2 = 0;
+                int i = 0 ;
                 while ( !done ) {
-                    cout << "LOOP : " << loop << endl ;
-                    system( "pause" ) ;
-                    loop++ ;
-                    int i = 0 ;
-                    for ( ; i < process.size() && process[i].Arrival < cputime1 || process[i].Arrival < cputime2 ; i++ ) {
-                        if ( queue1.size() <= queue2.size() && queue1.size() < 3 && process[i].Arrival < cputime2 )
-                                queue1.enqueue( process[i] ) ;
-                        else if ( queue2.size() < 3 )
+
+
+                    if ( !queue1.isEmpty() ) {
+
+                        if ( ct == queue1.getFront().Departure ) {
+
+                            int tmp = ct ;
+                            while ( !queue1.isEmpty() ) {
+
+                                sim.OID = queue1.getFront().OID ;
+                                sim.CID = 1 ;
+
+                                if ( tmp + queue1.getFront().Duration <= queue1.getFront().Timeout ) {
+                                    sim.Departure = tmp + queue1.getFront().Duration ;
+                                    sim.Delay = tmp - queue1.getFront().Arrival ;
+                                    Done.push_back( sim ) ;
+                                    tmp += queue1.getFront().Departure ;
+                                } // end if
+                                else {
+                                    sim.Abort = queue1.getFront().Timeout ;
+                                    sim.Delay = tmp - queue1.getFront().Arrival ;
+                                    Abort.push_back( sim ) ;
+                                    tmp = queue1.getFront().Timeout ;
+                                } // end else
+
+                                queue1.dequeue() ;
+
+                            } // end while
+
+                            cpu1 = false ;
+                        } // end if
+
+                    } // end if
+
+                    if ( !queue2.isEmpty() ) {
+
+                        if ( ct == queue2.getFront().Departure ) {
+
+                            int tmp = ct ;
+                            while ( !queue2.isEmpty() ) {
+
+                                sim.OID = queue2.getFront().OID ;
+                                sim.CID = 1 ;
+
+                                if ( tmp + queue2.getFront().Duration <= queue2.getFront().Timeout ) {
+                                    sim.Departure = tmp + queue2.getFront().Duration ;
+                                    sim.Delay = tmp - queue2.getFront().Arrival ;
+                                    Done.push_back( sim ) ;
+                                    tmp += queue2.getFront().Departure ;
+                                } // end if
+                                else {
+                                    sim.Abort = queue2.getFront().Timeout ;
+                                    sim.Delay = tmp - queue2.getFront().Arrival ;
+                                    Abort.push_back( sim ) ;
+                                    tmp = queue2.getFront().Timeout ;
+                                } // end else
+
+                                queue2.dequeue() ;
+
+                            } // end while
+
+                            cpu2 = false ;
+                        } // end if
+
+                    } // end if
+
+                    while ( i < process.size() && process[i].Arrival == ct ) {
+
+                        if ( cpu1 == false ) {
+                            process[i].Departure = process[i].Arrival + process[i].Duration ;
+                            process[i].Arrival = ct ;
+                            process[i].cpu = 1 ;
+                            queue1.enqueue( process[i] ) ;
+                            cpu1 = true ;
+                        } // end if
+                        else if ( cpu2 == false ) {
+                            process[i].Departure = process[i].Arrival + process[i].Duration ;
+                            process[i].Arrival = ct ;
+                            process[i].cpu = 2 ;
                             queue2.enqueue( process[i] ) ;
-                        else {
-                            sim.OID = process[i].OID ;
-                            sim.Time = process[i].Arrival ;
-                            sim.CID = 0 ;
-                            sim.Delay = 0 ;
-                            Abort.push_back( sim ) ;
-                        } // end else
-                    } // end for
-
-                    queue1.print() ;
-                    system( "pause" ) ;
-                    queue2.print() ;
-                    system( "pause" ) ;
-
-                    process.erase( process.begin(), process.begin() + i ) ;
-
-                    while ( !queue1.isEmpty() ) {
-                        
-                        
-                        sim.OID = queue1.getFront().OID ;
-                        sim.CID = 1 ;
-                        cout << sim.OID << endl ;
-                        cout << cputime1 << endl ;
-                        system( "pause" ) ;
-                        if ( queue1.getFront().Timeout < cputime1 ) {
-                            sim.Time = cputime1 ;
-                            sim.Delay = cputime1 - queue1.getFront().Arrival ;
-                            Abort.push_back( sim ) ;
-                        } // end if
-                        else if ( cputime1 + queue1.getFront().Duration <= queue1.getFront().Timeout ) {
-                            sim.Time = cputime1 + queue1.getFront().Duration ;
-                            sim.Delay = cputime1 - queue1.getFront().Arrival ;
-                            Done.push_back( sim ) ;
-                            cputime1 += queue1.getFront().Duration ;
+                            cpu2 = true ;
                         } // end else if
-                        else {
-                            cputime1 = queue1.getFront().Timeout ;
-                            sim.Time = queue1.getFront().Timeout ;
-                            sim.Delay = cputime1 - queue1.getFront().Arrival ;
-                            Abort.push_back( sim ) ;
-                        } // end else
-                        queue1.dequeue() ;
-                    } // end while
+                        else {  // Queue
 
-                    while ( !queue2.isEmpty() ) {
-                        sim.OID = queue2.getFront().OID ;
-                        cout << sim.OID << endl ;
-                        cout << cputime2 << endl ;
-                        system( "pause" ) ;
-                        sim.CID = 2 ;
-                        if ( queue2.getFront().Timeout < cputime2 ) {
-                            sim.Time = cputime2 ;
-                            sim.Delay = cputime2 - queue2.getFront().Arrival ;
-                            Abort.push_back( sim ) ;
-                        } // end if
-                        else if ( cputime2 + queue2.getFront().Duration <= queue2.getFront().Timeout ) {
-                            sim.Time = cputime2 + queue2.getFront().Duration ;
-                            sim.Delay = cputime2 - queue2.getFront().Arrival ;
-                            Done.push_back( sim ) ;
-                            cputime2 += queue2.getFront().Duration ;
-                        } // end else if
-                        else {
-                            cputime2 = queue2.getFront().Timeout ;
-                            sim.Time = queue2.getFront().Timeout ;
-                            sim.Delay = cputime2 - queue2.getFront().Arrival ;
-                            Abort.push_back( sim ) ;
-                        } // end else
-                        queue2.dequeue() ;
-                    } // end while
-
-                    cout << "CHECK CPUTime :\t" << cputime1 << "\t" << cputime2 << "\n" ; 
-
-                    if ( process.empty() ) done = true ;
-                    else {
-                        
-                        if ( cputime1 < process[0].Arrival ) {
-                            if ( cputime1 < process[0].Arrival ) cputime1 = process[0].Arrival ;
-                            sim.OID = process[0].OID ;
-                            sim.CID = 1 ;
-                            if ( cputime1 + process[0].Duration <= process[0].Timeout ) {
-                                sim.Time = cputime1 + process[0].Duration ;
-                                sim.Delay = cputime1 - process[0].Arrival;
-                                Done.push_back( sim ) ;
-                                cputime1 += process[0].Duration ;
+                            if ( queue1.size() <= queue2.size() && queue1.size() < 4 ) {
+                                process[i].Departure = process[i].Arrival + process[i].Duration ;
+                                process[i].Arrival = ct ;
+                                process[i].cpu = 1 ;
+                                queue1.enqueue( process[i] ) ;
                             } // end if
+                            else if ( queue2.size() < 4 ) {
+                                process[i].Departure = process[i].Arrival + process[i].Duration ;
+                                process[i].Arrival = ct ;
+                                process[i].cpu = 2 ;
+                                queue1.enqueue( process[i] ) ;
+                            } // end else
                             else {
-                                sim.Time = cputime1 ;
-                                sim.Delay = cputime1 - process[0].Arrival ;
+                                // ABORT
+                                sim.OID = process[i].OID ;
+                                sim.CID = 0 ;
+                                sim.Delay = 0 ;
+                                sim.Abort = process[i].Arrival ;
                                 Abort.push_back( sim ) ;
                             } // end else
-                            process.erase( process.begin() ) ;
 
-                        } // end if
-                        else if ( cputime2 < process[0].Arrival ) {
-                            cputime2 = process[0].Arrival ;
-                            sim.OID = process[0].OID ;
-                            sim.CID = 2 ;
-                            if ( cputime2 + process[0].Duration <= process[0].Timeout ) {
-                                sim.Time = cputime2 + process[0].Duration ;
-                                sim.Delay = cputime2 - process[0].Arrival;
-                                Done.push_back( sim ) ;
-                                cputime2 += process[0].Duration ;
-                            } // end if
-                            else {
-                                sim.Time = cputime2 ;
-                                sim.Delay = cputime2 - process[0].Arrival ;
-                                Abort.push_back( sim ) ;
-                            } // end else
-                            process.erase( process.begin() ) ;
-                       
-                        } // end if
+                        } // end else
 
-                        if ( process.empty() ) done = true ;
-                        cout << "CHECK CPUTime :\t" << cputime1 << "\t" << cputime2 << "\n" ; 
-                    } // end else
+                        i++ ;
+
+                    } // end while
+
+                    if ( i == process.size() && queue1.isEmpty() && queue2.isEmpty() ) done = true ;
+                    ct++ ;
+
                 } // end while
-
 
                 ofstream newFile ;
                 filename = "double" + number + ".txt" ;
@@ -497,14 +450,14 @@ int main() {
                 newFile << "\t[Abort Jobs]\n" ;
                 newFile << "\tOID\tCID\tAbort\tDelay\n" ;
                 float delay = 0 ;
-                for ( int i = 0 ; i < Abort.size() ; i++ ) {
-                    newFile << "[" << i+1 << "]\t" << Abort[i].OID << "\t" << Abort[i].CID << "\t" << Abort[i].Time << "\t" << Abort[i].Delay << "\n" ;
+                for ( i = 0 ; i < Abort.size() ; i++ ) {
+                    newFile << "[" << i+1 << "]\t" << Abort[i].OID << "\t" << Abort[i].CID << "\t" << Abort[i].Abort << "\t" << Abort[i].Delay << "\n" ;
                     delay += Abort[i].Delay ;
                 } // end for
                 newFile << "\t[Jobs Done]\n" ;
                 newFile << "\tOID\tCID\tDeparture\tDelay\n" ;
                 for ( int i = 0 ; i < Done.size() ; i++ ) {
-                    newFile << "[" << i+1 << "]\t" << Done[i].OID << "\t" << Done[i].CID << "\t" << Done[i].Time << "\t" << Done[i].Delay << "\n" ;
+                    newFile << "[" << i+1 << "]\t" << Done[i].OID << "\t" << Done[i].CID << "\t" << Done[i].Departure << "\t" << Done[i].Delay << "\n" ;
                     delay += Done[i].Delay ;
                 } // end for
                 newFile << "[Average Delay]\t" << fixed << setprecision(2) << delay / total << " ms\n" ;
@@ -512,6 +465,8 @@ int main() {
                 newFile.close() ;
                 Done.clear() ;
                 Abort.clear() ;
+
+                //*/
 
             } // end else if
 
