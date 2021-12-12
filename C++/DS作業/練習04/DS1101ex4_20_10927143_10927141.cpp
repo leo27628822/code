@@ -536,7 +536,7 @@ int main() {
 
                                 if ( !process.empty() ) {
 
-                                    if ( process[0].Arrival <= cputime1 ) {
+                                    if ( process[0].Arrival < cputime1 ) {
                                         cputime2 = process[0].Arrival ;
                                         for ( i = 0 ; i < process.size() && process[i].Arrival < cputime1 ; ) {
                                             if ( queue2.size() < 3 )

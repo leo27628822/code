@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1638769963 source:d:\code\code\assembly\main\id.s
+
+1638770004 source:d:\code\code\assembly\main\main.cpp
+	<iostream>
+
+1638769908 source:d:\code\code\assembly\main\main.s
+
+1638769950 source:d:\code\code\assembly\main\name.s
+
