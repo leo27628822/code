@@ -60,6 +60,8 @@ class Tree {
         } // end init
         void search_name( string name, TreeNode * tempPtr, int & i, bool & find ) ;
         void search_graduate( int number, TreeNode * tempPtr, int & i, bool & find ) ;
+        bool delete_name( string name) ;
+        bool delete_graduate(int number ) ;
 
 };
 
@@ -158,6 +160,88 @@ void Tree::search_graduate( int number, TreeNode * tempPtr, int & i, bool & find
     } // end if
     search_graduate( number, tempPtr -> right, i, find ) ;
 } // end search_name
+
+bool Tree::delete_name( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr, bool & find ) {
+    if ( tempPtr == NULL ) return false ;
+    if ( tempPtr -> node.school == name ) {
+        find = true ;
+        deletePtr = tempPtr ;
+        process(  ) ;
+        return true ;
+    } // end if
+    if ( !find ) {
+        prePtr = tempPtr ;
+        if ( name < tempPtr -> node.school ) tempPtr = tempPtr -> left ;
+        else tempPtr = tempPtr -> right ;
+        return delete_name( name, tempPtr, prePtr, deletePtr, find ) ;
+    } // end if
+} // end delete_name
+
+void Tree::process( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr ) {
+    TreeNode * temp = tempPtr ;
+
+    if ( temp -> left == NULL && temp -> right != NULL ) {
+        TreeNode * pre = temp ;
+        temp = temp -> right ;
+        if ( pre -> node.school < prePtr -> node.school ) prePtr -> left = temp ;
+        else prePtr -> right = temp ;
+        delete pre ;
+        if ( temp -> node.school == prePtr -> node.school) process( name, temp, prePtr, deletePtr ) ;  
+    } // end if   DONE!
+    else if ( temp -> left != NULL && temp -> right == NULL ) {
+        temp = temp -> left ;
+        process() ;
+    } // end else if
+    else if ( temp -> left != NULL && temp -> right != NULL ) {
+        while ( temp -> left != NULL ) {
+            prePtr = temp ;
+            temp = temp -> left ;
+        } // end while
+
+        if ( temp -> right != NULL ) prePtr -> left = temp -> right ;
+        deletePtr -> node = temp -> node ;
+        delete temp ;
+    } // end else
+    else {
+
+    } // end else
+    /*
+    if ( temp == NULL ) {
+        if ( prePtr -> node.school >= deletePtr -> node.school ) prePtr -> right = NULL ;
+        else prePtr -> left = NULL ;
+        delete deletePtr ;
+    } // end if
+    else if ( deletePtr -> left == NULL && deletePtr -> right == NULL ) {
+        if ( prePtr -> node.school >= deletePtr -> node.school ) prePtr -> right = NULL ;
+        else prePtr -> left = NULL ;
+        delete deletePtr ;
+    } // end if
+    else if ( temp -> left == NULL && temp -> right == NULL ) {
+        deletePtr -> node = temp -> node ;
+        delete temp ;
+    } // end if
+    else if ( temp -> left == NULL && temp -> right != NULL ) {
+        temp = temp -> right ;
+        if ( temp -> node.school == name ) {
+            TreeNode * t = temp ;
+            temp = temp -> right ;
+            delete t ;
+            process( name, temp, prePtr, deletePtr ) ;
+        } // end if
+        else {
+            process()  
+        } // end else
+    } // end if
+    else if ( temp -> left != NULL && temp -> right == NULL ) {
+        prePtr -> left = deletePtr -> left ;
+        delete deletePtr ;
+    } // end else if
+    else {
+        temp = temp -> left ;
+        process( name, temp, prePtr, deletePtr ) ;
+    } // end else
+    */
+} // end process
 
 bool Read_File( vector <Node> & data ) {
     int tempint ;
