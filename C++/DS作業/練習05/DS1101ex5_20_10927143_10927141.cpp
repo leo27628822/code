@@ -9,7 +9,7 @@ using namespace std;
 
 string title ;
 
-struct Node {
+struct Node{
     int student, teacher, graduate ;
     string school, major, DN_en, DN_ch, RK_en, RK_ch ;
 };
@@ -17,13 +17,13 @@ struct Node {
 class Tree {
     private :
         int height ;
+    public :
         struct TreeNode {
             Node node ;
             TreeNode * left ;
             TreeNode * right ;
         };
         TreeNode * root ;
-    public :
         int getHeight( TreeNode * ) ;
         int Height() {
             return getHeight( root ) ;
@@ -49,19 +49,30 @@ class Tree {
             return root ;
         } // end getRoot
 
-        void setRoot() ;
-        void preorder() ;
-        void inorder() ;
-        void postorder() ;
-        int getleftheight() ;
-        int getrightgeight() ;
+        void setRoot( TreeNode * node ) {
+            root = node ;
+        } // end setRoot
+
         void init() {
             root = NULL ;
         } // end init
+
+        TreeNode * search_name2( string name, TreeNode * temp, bool & find ) {
+            if ( temp == NULL ) return temp ;
+            if ( temp -> node.school == name ) {
+                find = true ;
+                return temp ;
+            } // end if
+            if ( !find ) return search_name2( name, temp -> left, find ) ;
+            if ( !find ) return search_name2( name, temp -> right, find ) ;
+            return temp ;
+        } // end
+
         void search_name( string name, TreeNode * tempPtr, int & i, bool & find ) ;
         void search_graduate( int number, TreeNode * tempPtr, int & i, bool & find ) ;
-        bool delete_name( string name) ;
-        bool delete_graduate(int number ) ;
+        bool delete_name( string name, int & i ) ;
+        void process( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr, int & i ) ;
+        void process2( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr ) ;
 
 };
 
@@ -134,7 +145,6 @@ void Tree::createTree2( vector<Node> tree ) {
 void Tree::search_name( string name, TreeNode * tempPtr, int & i, bool & find ) {
     if ( tempPtr == NULL ) return ;
     if ( tempPtr -> node.school == name ) {
-        if ( i == 0 ) cout << "\n" << title << "\n" ;
         find = true ;
         cout << "[" << i+1 << "]\t" << tempPtr -> node.school << "\t" << tempPtr -> node.major << "\t" ;
         cout << tempPtr -> node.DN_en << " " << tempPtr -> node.DN_ch << "\t" << tempPtr -> node.RK_en << " " ;
@@ -149,7 +159,6 @@ void Tree::search_name( string name, TreeNode * tempPtr, int & i, bool & find ) 
 void Tree::search_graduate( int number, TreeNode * tempPtr, int & i, bool & find ) {
     if ( tempPtr == NULL ) return ;
     if ( tempPtr -> node.graduate >= number ) {
-        if ( i == 0 ) cout << "\n" << title << "\n" ;
         find = true ;
         cout << "[" << i+1 << "]\t" << tempPtr -> node.school << "\t" << tempPtr -> node.major << "\t" ;
         cout << tempPtr -> node.DN_en << " " << tempPtr -> node.DN_ch << "\t" << tempPtr -> node.RK_en << " " ;
@@ -161,89 +170,164 @@ void Tree::search_graduate( int number, TreeNode * tempPtr, int & i, bool & find
     search_graduate( number, tempPtr -> right, i, find ) ;
 } // end search_name
 
-bool Tree::delete_name( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr, bool & find ) {
-    if ( tempPtr == NULL ) return false ;
-    if ( tempPtr -> node.school == name ) {
-        find = true ;
-        deletePtr = tempPtr ;
-        process(  ) ;
-        return true ;
-    } // end if
-    if ( !find ) {
+
+
+bool Tree::delete_name( string name, int & i ) {
+    TreeNode * tempPtr = getRoot(), * prePtr = NULL , * deletePtr = NULL ;
+
+    while ( tempPtr != NULL && tempPtr -> node.school != name ) {
         prePtr = tempPtr ;
         if ( name < tempPtr -> node.school ) tempPtr = tempPtr -> left ;
         else tempPtr = tempPtr -> right ;
-        return delete_name( name, tempPtr, prePtr, deletePtr, find ) ;
+    } // end while
+    //bool find = false ;
+    //tempPtr = search_name2( name, tempPtr, find ) ;
+
+    if ( tempPtr != NULL ) {
+        deletePtr = tempPtr ;
+        if ( tempPtr != getRoot() ) process( name, tempPtr, prePtr, deletePtr, i ) ;
+        else {
+                cout << "AAAA\n" ;
+            cout << "[" << i+1 << "]\t" << root -> node.school << "\t" << root -> node.major << "\t" ;
+            cout << root -> node.DN_en << " " << root -> node.DN_ch << "\t" << root -> node.RK_en << " " ;
+            cout << root -> node.RK_ch << "\t" << root -> node.student << "\t" << root -> node.teacher << "\t" ;
+            cout << root -> node.graduate << "\n" ;
+            i++ ;
+            if ( root -> left == NULL && root -> right == NULL ) {
+                root = NULL ;
+            } // end if
+            else if ( root -> left != NULL && root -> right == NULL ) {
+                TreeNode * temp = root ;
+                root = root -> left ;
+                delete temp ;
+            } // else if
+            else if ( root -> left == NULL && root -> right != NULL ) {
+                TreeNode * temp = root ;
+                root = root -> right ;
+                delete temp ;
+                temp = NULL ;
+                if ( root -> node.school == name ) delete_name( name, i ) ;
+            } // else if
+            else {
+
+                TreeNode * pre , * temp = root ;
+                pre = temp ;
+                temp = temp -> right ;
+                cout << "CHECK\n" ;
+                cout << "CCCCCC\n" ;;
+                cout << temp -> node.school ;
+                if ( temp -> node.school == name ) {
+                    temp -> left = root -> left ;
+                    root = root -> right ;
+                } // end if
+                else {
+                        cout << "CHECK\n" ;
+                    cout << "CCCCCC\n" ;;
+                    cout << temp -> node.school ;
+
+                    while ( temp -> left != NULL ) {
+                        pre = temp ;
+                        temp = temp -> left ;
+
+                    } // while
+
+
+                    root -> node = temp -> node ;
+
+                    if ( temp -> right != NULL ) pre -> left = temp -> right ;
+                    // cout << "CHECK15151\n" ;
+
+                    // cout << "CHECK15151\n"
+
+                    delete temp ;
+
+                    temp = NULL ;
+                } // end else
+
+                delete_name( name, i ) ;
+            } // end else
+        } // end else
+        return true ;
     } // end if
+    else return false ;
 } // end delete_name
 
-void Tree::process( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr ) {
-    TreeNode * temp = tempPtr ;
-
+void Tree::process( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr, int & i ) {
+    TreeNode * temp = deletePtr ;
+    cout << "[" << i+1 << "]\t" << deletePtr -> node.school << "\t" << deletePtr -> node.major << "\t" ;
+    cout << deletePtr -> node.DN_en << " " << deletePtr -> node.DN_ch << "\t" << deletePtr -> node.RK_en << " " ;
+    cout << deletePtr -> node.RK_ch << "\t" << deletePtr -> node.student << "\t" << deletePtr -> node.teacher << "\t" ;
+    cout << deletePtr -> node.graduate << "\n" ;
+    i++ ;
     if ( temp -> left == NULL && temp -> right != NULL ) {
-        TreeNode * pre = temp ;
-        temp = temp -> right ;
-        if ( pre -> node.school < prePtr -> node.school ) prePtr -> left = temp ;
-        else prePtr -> right = temp ;
-        delete pre ;
-        if ( temp -> node.school == prePtr -> node.school) process( name, temp, prePtr, deletePtr ) ;  
+        if ( temp -> node.school < prePtr -> node.school ) {
+            prePtr -> left = temp -> right ;
+            temp = prePtr -> left ;
+        } // end if
+        else {
+            prePtr -> right = temp -> right ;
+            temp -> left = temp -> right = NULL ;
+            delete temp ;
+            temp = prePtr -> right ;
+        } // end else
+        if ( temp -> node.school == name ) {
+            deletePtr = temp ;
+            process( name, temp, prePtr, deletePtr, i ) ;
+        } // end if
     } // end if   DONE!
     else if ( temp -> left != NULL && temp -> right == NULL ) {
-        temp = temp -> left ;
-        process() ;
+        if ( prePtr -> node.school < deletePtr ->node.school) prePtr -> right = deletePtr -> left ;
+        else prePtr -> left = deletePtr -> left ;
+        deletePtr ->left = deletePtr -> right = NULL ;
+        delete deletePtr ;
     } // end else if
     else if ( temp -> left != NULL && temp -> right != NULL ) {
+        TreeNode * pre = temp ;
+        temp = temp -> right ;
+        if ( temp -> node.school == name ) {
+            temp -> left = pre -> left ;
+            deletePtr = temp ;
+            process( name, temp, prePtr, deletePtr, i ) ;
+        } // end if
+        else process2( name, temp, prePtr, deletePtr ) ;
+    } // end else
+    else {
+        if ( deletePtr -> node.school < prePtr -> node.school ) prePtr ->left = NULL ;
+        else prePtr -> right = NULL ;
+        deletePtr -> left = deletePtr -> right = NULL ;
+        delete deletePtr ;
+        deletePtr = NULL ;
+    } // end else
+} // end process
+
+void Tree::process2( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr ) {
+    TreeNode * temp = tempPtr ;
+
+    if ( temp -> left != NULL ) {
+        TreeNode * pre = temp ;
+
         while ( temp -> left != NULL ) {
-            prePtr = temp ;
+            pre =temp ;
             temp = temp -> left ;
         } // end while
 
-        if ( temp -> right != NULL ) prePtr -> left = temp -> right ;
         deletePtr -> node = temp -> node ;
+        if ( temp -> right != NULL ) pre -> left = temp -> right ;
         delete temp ;
-    } // end else
+        temp = NULL ;
+    } // end if
     else {
-
+        if ( deletePtr -> node.school > prePtr -> node.school ) prePtr -> right = temp ; // temp -> left == NULL
+        else prePtr -> left = temp ;
+        temp -> left = deletePtr -> left ;
+        deletePtr -> left = deletePtr -> right = NULL ;
+        delete deletePtr ;
+        deletePtr = NULL ;
     } // end else
-    /*
-    if ( temp == NULL ) {
-        if ( prePtr -> node.school >= deletePtr -> node.school ) prePtr -> right = NULL ;
-        else prePtr -> left = NULL ;
-        delete deletePtr ;
-    } // end if
-    else if ( deletePtr -> left == NULL && deletePtr -> right == NULL ) {
-        if ( prePtr -> node.school >= deletePtr -> node.school ) prePtr -> right = NULL ;
-        else prePtr -> left = NULL ;
-        delete deletePtr ;
-    } // end if
-    else if ( temp -> left == NULL && temp -> right == NULL ) {
-        deletePtr -> node = temp -> node ;
-        delete temp ;
-    } // end if
-    else if ( temp -> left == NULL && temp -> right != NULL ) {
-        temp = temp -> right ;
-        if ( temp -> node.school == name ) {
-            TreeNode * t = temp ;
-            temp = temp -> right ;
-            delete t ;
-            process( name, temp, prePtr, deletePtr ) ;
-        } // end if
-        else {
-            process()  
-        } // end else
-    } // end if
-    else if ( temp -> left != NULL && temp -> right == NULL ) {
-        prePtr -> left = deletePtr -> left ;
-        delete deletePtr ;
-    } // end else if
-    else {
-        temp = temp -> left ;
-        process( name, temp, prePtr, deletePtr ) ;
-    } // end else
-    */
-} // end process
+} // end process2
 
 bool Read_File( vector <Node> & data ) {
+    data.clear() ;
     int tempint ;
     string filename, tempstr ;
     ifstream file ;
@@ -282,8 +366,9 @@ void PrintTitle() {
     cout << "* 1. Create Two Binary Search Trees          *\n" ;
     cout << "* 2. Search by Number of Graduates           *\n" ;
     cout << "* 3. Search by School Name                   *\n" ;
+    cout << "* 4. Removal by School Name                  *\n" ;
     cout << "**********************************************\n" ;
-    cout << "Input a command(0, 1-3):" ;
+    cout << "Input a command(0, 1-4):" ;
 } // end PrintTitle
 
 int main() {
@@ -300,14 +385,14 @@ int main() {
             check = true ;
             tree1.init() ;
             tree2.init() ;
-            cout << title << "\n" ;
+            /*
             for ( int i = 0 ; i < data.size() ; i++ ) {
                 cout << "[" << i+1 << "]\t" << data[i].school << "\t" << data[i].major << "\t" ;
                 cout << data[i].DN_en << " " << data[i].DN_ch << "\t" << data[i].RK_en << " " ;
                 cout << data[i].RK_ch << "\t" << data[i].student << "\t" << data[i].teacher << "\t" ;
                 cout << data[i].graduate << "\n" ;
             } // end for
-
+            */
             tree1.createTree1( data ) ;
             tree2.createTree2( data ) ;
             cout << "\nTree height {School name} = " << tree1.Height() << "\n" ;
@@ -339,8 +424,30 @@ int main() {
                 if ( !find ) cout << "There is no match!\n" ;
             } // end else
         } // end else if
+        else if ( command == 4 ) {
+            if ( !check ) cout << "\nPlease choose command 1 first!\n" ;
+            else {
+                string name ;
+                cout << "Input a school name:" ;
+                getline( cin, name ) ;
+                int i = 0 ;
+                if ( tree1.delete_name( name, i ) ) {
+
+                    for ( int i = 0 ; i < data.size() ; i++ ) {
+                        if ( data[i].school == name  ) {
+                            data.erase( data.begin() + i ) ;
+                            i-- ;
+                        } // end if
+                    } // end for
+                    tree2.init() ;
+                    tree2.createTree2( data ) ;
+                } // end if
+                else cout << "There is no match!\n" ;
+                cout << "\nTree height {School name} = " << tree1.Height() << "\n" ;
+                cout << "\nTree height {Number of graduates} = " << tree2.Height() << "\n" ;
+            } // end else
+        } // end else
         else cout << "\nCommand does not exist!\n" ;
-        data.clear() ;
         find = false ;
         cout << "\n" ;
         PrintTitle() ;
