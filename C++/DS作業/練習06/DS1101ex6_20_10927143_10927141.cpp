@@ -107,13 +107,17 @@ int main() {
         else if ( command == 2 ) {
             if ( !done ) cout << "\n----- Execute Mission 1 first! -----\n\n" ;
             else {
-                pL.buildMaxHeap2() ;
-                /*
-                pL.buildMaxHeap() ;
-                cout << "HP tree height = " << pL.getHeight_mh() << "\n" ;
-                pL.printMhLeftMost() ;
-                pL.printMhBottom() ;
-                //*/
+                int method ;
+                cout << "\nWhich version do you want?\n(1: method One 2: method Two ) : " ;
+                cin >> method ;
+                if ( method == 2 ) pL.buildMaxHeap2() ;
+                else if ( method == 1 ) {
+                    pL.buildMaxHeap() ;
+                    cout << "HP tree height = " << pL.getHeight_mh() << "\n" ;
+                    pL.printMhLeftMost() ;
+                    pL.printMhBottom() ;
+                } // end else if
+                else cout << "\nmethod" << method << " does not exist!\n\n" ;
             } // end else
         } // end else if
         else cout << "\nCommand does not exist!\n" ;
@@ -211,10 +215,10 @@ void pokemonList::buildBST() {
 } // end buildBST
 
 void pokemonList::buildMaxHeap() {
+    mh.clearUp() ;
     for ( int i = 0 ; i < pSet.size() ; i++ ) {
         mh.heapInsert( pSet[i].no, pSet[i].hp, pSet[i].atk, pSet[i].def, pSet[i].name, pSet[i].type1 ) ;
     } // end for
-
     mh.showAll() ;
 } // end buildMaxHeap
 
