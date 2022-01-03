@@ -73,7 +73,6 @@ class Tree {
         bool delete_name( string name, int & i ) ;
         void process( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr, int & i ) ;
         void process2( string name, TreeNode * tempPtr, TreeNode * prePtr, TreeNode * deletePtr ) ;
-
 };
 
 int Tree::getHeight( TreeNode * temp ) {
@@ -170,8 +169,6 @@ void Tree::search_graduate( int number, TreeNode * tempPtr, int & i, bool & find
     search_graduate( number, tempPtr -> right, i, find ) ;
 } // end search_name
 
-
-
 bool Tree::delete_name( string name, int & i ) {
     TreeNode * tempPtr = getRoot(), * prePtr = NULL , * deletePtr = NULL ;
 
@@ -187,7 +184,6 @@ bool Tree::delete_name( string name, int & i ) {
         deletePtr = tempPtr ;
         if ( tempPtr != getRoot() ) process( name, tempPtr, prePtr, deletePtr, i ) ;
         else {
-                cout << "AAAA\n" ;
             cout << "[" << i+1 << "]\t" << root -> node.school << "\t" << root -> node.major << "\t" ;
             cout << root -> node.DN_en << " " << root -> node.DN_ch << "\t" << root -> node.RK_en << " " ;
             cout << root -> node.RK_ch << "\t" << root -> node.student << "\t" << root -> node.teacher << "\t" ;
@@ -213,34 +209,21 @@ bool Tree::delete_name( string name, int & i ) {
                 TreeNode * pre , * temp = root ;
                 pre = temp ;
                 temp = temp -> right ;
-                cout << "CHECK\n" ;
-                cout << "CCCCCC\n" ;;
-                cout << temp -> node.school ;
                 if ( temp -> node.school == name ) {
                     temp -> left = root -> left ;
                     root = root -> right ;
                 } // end if
                 else {
-                        cout << "CHECK\n" ;
-                    cout << "CCCCCC\n" ;;
-                    cout << temp -> node.school ;
-
                     while ( temp -> left != NULL ) {
                         pre = temp ;
                         temp = temp -> left ;
 
                     } // while
 
-
                     root -> node = temp -> node ;
 
                     if ( temp -> right != NULL ) pre -> left = temp -> right ;
-                    // cout << "CHECK15151\n" ;
-
-                    // cout << "CHECK15151\n"
-
                     delete temp ;
-
                     temp = NULL ;
                 } // end else
 
