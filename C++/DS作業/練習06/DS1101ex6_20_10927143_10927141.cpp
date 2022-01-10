@@ -84,11 +84,13 @@ public:
     void printMhLeftMost() { mh.printLeftMost() ; } // end printMhLeftMost
     void printMhBottom() { mh.printBottom() ; } // end printMhBottom
     void reheapUp( int i ) ;
+    bool deleteRoot() ;
+    void reheapDown( int i ) ;
 }; // class pokemonList
 
 int main() {
     int command ;
-    bool done = false ;
+    bool done = false, done2 = false ; ;
     pokemonList pL ;
     PrintTitle() ;
     while ( cin >> command ) {
@@ -107,18 +109,21 @@ int main() {
         else if ( command == 2 ) {
             if ( !done ) cout << "\n----- Execute Mission 1 first! -----\n\n" ;
             else {
-                int method ;
-                cout << "\nWhich version do you want?\n(1: method One 2: method Two ) : " ;
-                cin >> method ;
-                if ( method == 2 ) pL.buildMaxHeap2() ;
-                else if ( method == 1 ) {
-                    pL.buildMaxHeap() ;
-                    cout << "HP tree height = " << pL.getHeight_mh() << "\n" ;
-                    pL.printMhLeftMost() ;
-                    pL.printMhBottom() ;
-                } // end else if
-                else cout << "\nmethod" << method << " does not exist!\n\n" ;
+                done2 = true ;
+                pL.buildMaxHeap2() ;
             } // end else
+        } // end else if
+        else if ( command == 3 ) {
+            if ( !done ) cout << "\n----- Execute Mission 1 first! -----\n\n" ;
+            else if ( !done2 ) cout << "\n----- Execute Mission 2 first! -----\n\n" ;
+            else if ( !pL.isEmpty() ) {
+                pL.deleteRoot() ;
+            } // end else if
+            else {
+                done2 = false ;
+                done = false ;
+                cout << "\n----- Execute Mission 1 first! -----\n\n" ;
+            } // end else 
         } // end else if
         else cout << "\nCommand does not exist!\n" ;
         PrintTitle() ;
@@ -132,8 +137,9 @@ void PrintTitle() {
     cout << "* 0. QUIT                         *\n" ;
     cout << "* 1. Read a file to build BST     *\n" ;
     cout << "* 2. Transform it into Max Heap   *\n" ;
+    cout << "* 3. Delete max from Max Heap     *\n" ;
     cout << "***********************************\n" ;
-    cout << "Input a choice(0, 1, 2): " ;
+    cout << "Input a choice(0, 1, 2, 3): " ;
 } // end PrintTitle
 
 bool pokemonList::isEmpty() {
@@ -272,36 +278,36 @@ void pokemonList::buildMaxHeap2() {
 } // end buildMaxHeap2
 
 void pokemonList::reheapUp( int i ) {
-        int lchild = i*2+1, rchild = i*2+2 ;
-        vector <pokemonType> temp ;
-        if ( lchild < pSet.size() ) {
-            if ( rchild < pSet.size() )  {
-                if ( pSet[lchild].hp >= pSet[rchild].hp && pSet[i].hp < pSet[lchild].hp ) {
-                    temp.push_back( pSet[i] ) ;
-                    pSet[i] = pSet[lchild] ;
-                    pSet[lchild] = temp[0] ;
-                    temp.pop_back() ;
-                    reheapUp(lchild) ;
-                    // swap
-                } // end if
-                else if ( pSet[i].hp < pSet[rchild].hp ) {
-                    temp.push_back( pSet[i] ) ;
-                    pSet[i] = pSet[rchild] ;
-                    pSet[rchild] = temp[0] ;
-                    temp.pop_back() ;
-                    reheapUp(rchild) ;
-                    // swap
-                } // end else if
-            } // end if
-            else if ( pSet[i].hp < pSet[lchild].hp ) {
+    int lchild = i*2+1, rchild = i*2+2 ;
+    vector <pokemonType> temp ;
+    if ( lchild < pSet.size() ) {
+        if ( rchild < pSet.size() )  {
+            if ( pSet[lchild].hp >= pSet[rchild].hp && pSet[i].hp < pSet[lchild].hp ) {
                 temp.push_back( pSet[i] ) ;
                 pSet[i] = pSet[lchild] ;
                 pSet[lchild] = temp[0] ;
                 temp.pop_back() ;
                 reheapUp(lchild) ;
                 // swap
-            } // end else
+            } // end if
+            else if ( pSet[i].hp < pSet[rchild].hp ) {
+                temp.push_back( pSet[i] ) ;
+                pSet[i] = pSet[rchild] ;
+                pSet[rchild] = temp[0] ;
+                temp.pop_back() ;
+                reheapUp(rchild) ;
+                // swap
+            } // end else if
         } // end if
+        else if ( pSet[i].hp < pSet[lchild].hp ) {
+            temp.push_back( pSet[i] ) ;
+            pSet[i] = pSet[lchild] ;
+            pSet[lchild] = temp[0] ;
+            temp.pop_back() ;
+            reheapUp(lchild) ;
+            // swap
+        } // end else
+    } // end if
 
 } // reheapUp
 
@@ -472,4 +478,103 @@ void MaxHeap::printBottom() {
     else cout << "\t" ;
     cout << mh[i].hp << "\t" << mh[i].atk << "\t" << mh[i].def << "\n" ;
 } // end printBottom
+
+bool pokemonList::deleteRoot() {
+    if ( pSet.empty() ) {
+        return false ;
+    } // end if
+    int i = pSet.size() - 1 ;
+    cout << "\t#\tName\t\t\tType 1\t\tHP\tAttack\tDefense\n\t" ;
+    cout << pSet[0].no << "\t" << pSet[0].name ;
+    if ( pSet[0].name.length() < 8 ) cout << "\t\t\t" ;
+    else if ( pSet[0].name.length() < 16 ) cout << "\t\t" ;
+    else cout << "\t" ;
+    cout << pSet[0].type1 ;
+    if ( pSet[0].type1.length() < 8 ) cout << "\t\t" ;
+    else cout << "\t" ;
+    cout << pSet[0].hp << "\t" << pSet[0].atk << "\t" << pSet[0].def << "\n\n" ;
+    pSet[0] = pSet[i] ;
+    pSet.pop_back() ;
+    if ( pSet.size() == 0 ) return true ;
+    for ( i = (pSet.size()-2)/2 ; i >= 0 ; i-- ) {
+       reheapUp( i ) ;
+    } // end for
+
+    showAll() ;
+
+    int mhHeight = 0 ;
+
+    int n = pSet.size() ;
+
+    while ( n > 0 ) {
+        n /= 2 ;
+        mhHeight++ ;
+    } // end while
+
+    cout << "HP tree height = " << mhHeight << "\n\n" ;
+
+    cout << "Leftmost node:\n" ;
+    cout << "\t#\tName\t\t\tType 1\t\tHP\tAttack\tDefense\n" ;
+    i = pow(2,mhHeight) - pow(2,mhHeight-1) - 1 ;
+    if ( i < 9 ) cout << "[  " << i+1 << "]\t" ;
+    else if ( i < 99 ) cout << "[ " << i+1 << "]\t" ;
+    else cout << "[" << i+1 << "]\t" ;
+    cout << pSet[i].no << "\t" << pSet[i].name ;
+    if ( pSet[i].name.length() < 8 ) cout << "\t\t\t" ;
+    else if ( pSet[i].name.length() < 16 ) cout << "\t\t" ;
+    else cout << "\t" ;
+    cout << pSet[i].type1 ;
+    if ( pSet[i].type1.length() < 8 ) cout << "\t\t" ;
+    else cout << "\t" ;
+    cout << pSet[i].hp << "\t" << pSet[i].atk << "\t" << pSet[i].def << "\n\n" ;
+
+    cout << "Bottom:\n" ;
+    cout << "\t#\tName\t\t\tType 1\t\tHP\tAttack\tDefense\n" ;
+    i = pSet.size() - 1 ;
+    if ( i < 9 ) cout << "[  " << i+1 << "]\t" ;
+    else if ( i < 99 ) cout << "[ " << i+1 << "]\t" ;
+    else cout << "[" << i+1 << "]\t" ;
+    cout << pSet[i].no << "\t" << pSet[i].name ;
+    if ( pSet[i].name.length() < 8 ) cout << "\t\t\t" ;
+    else if ( pSet[i].name.length() < 16 ) cout << "\t\t" ;
+    else cout << "\t" ;
+    cout << pSet[i].type1 ;
+    if ( pSet[i].type1.length() < 8 ) cout << "\t\t" ;
+    else cout << "\t" ;
+    cout << pSet[i].hp << "\t" << pSet[i].atk << "\t" << pSet[i].def << "\n\n" ;
+    return true ;    
+} // end deleteRoot
+
+void pokemonList::reheapDown( int i ) {
+    int lchild = i*2+1, rchild = i*2+2 ;
+    vector<pokemonType> temp ;
+    if ( lchild < pSet.size() ) {
+        if ( rchild < pSet.size() )  {
+            if ( pSet[lchild].hp >= pSet[rchild].hp && pSet[i].hp < pSet[lchild].hp ) {
+                temp.push_back( pSet[i] ) ;
+                pSet[i] = pSet[lchild] ;
+                pSet[lchild] = temp[0] ;
+                temp.pop_back() ;
+                reheapDown(lchild) ;
+                // swap
+            } // end if
+            else if ( pSet[i].hp < pSet[rchild].hp ) {
+                temp.push_back( pSet[i] ) ;
+                pSet[i] = pSet[rchild] ;
+                pSet[rchild] = temp[0] ;
+                temp.pop_back() ;
+                reheapDown(rchild) ;
+                // swap
+            } // end else if
+        } // end if
+        else if ( pSet[i].hp < pSet[lchild].hp ) {
+            temp.push_back( pSet[i] ) ;
+            pSet[i] = pSet[lchild] ;
+            pSet[lchild] = temp[0] ;
+            temp.pop_back() ;
+            reheapDown(lchild) ;
+            // swap
+        } // end else
+    } // end if
+} // end reheapDown
 
