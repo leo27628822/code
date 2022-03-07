@@ -59,7 +59,12 @@ public:
     void verifyMax( int index ) ;
     void verifyMin( int index ) ;
 };
+/*
+class MinMaxHeap {
 
+
+};
+*/
 int main() {
     printTitle() ;
     int command ;
@@ -275,11 +280,50 @@ void Deap::deapInsert() {
     } // for
 } // end deapInsert()
 
+void MaxHeap::setHeight() {
+
+    height = 0 ;
+    int n = mh.size() ;
+    if ( n == 0 || n == 1 ) {
+        height = n ;
+    } // if
+    else {
+        while ( n > 0 ) {
+            n /= 2 ;
+            height++ ;
+        } // end while
+    } // else
+
+} // end setHeight()
+
+void Deap::setHeight() {
+
+    height = 0 ;
+    int n = dp.size() ;
+    if ( n == 0 || n == 1 ) {
+        height = n ;
+    } // if
+    else {
+        while ( n > 0 ) {
+            n /= 2 ;
+            height++ ;
+        } // end while
+    } // else
+
+} // end setHeight()
+
+void Deap::swapData( int index1, int index2 ) {
+    dataType temp = dp[index1] ;
+    dp[index1] = dp[index2] ;
+    dp[index2] = temp ;
+} // swapData()
+
 void Deap::verifyMin( int index ) {
     // maintain min-heap structure
 
     for ( int parent = (index-1)/2 ; parent > 0 ; parent = (index-1)/2 ) {
         if ( dp[index].numOfStudent < dp[parent].numOfStudent ) {
+            // swapData( index, parent ) ;
             dataType temp = dp[index] ;
             dp[index] = dp[parent] ;
             dp[parent] = temp ;
@@ -297,6 +341,7 @@ void Deap::verifyMax( int index ) {
 
     for ( int parent = (index-1)/2 ; parent > 0 ; parent = (index-1)/2 ) {
         if ( dp[index].numOfStudent > dp[parent].numOfStudent ) {
+            // swapData( index, parent ) ;
             dataType temp = dp[index] ;
             dp[index] = dp[parent] ;
             dp[parent] = temp ;
@@ -343,43 +388,6 @@ void Deap::printBottom() {
 
 } // end printBottom()
 
-void MaxHeap::setHeight() {
-
-    height = 0 ;
-    int n = mh.size() ;
-    if ( n == 0 || n == 1 ) {
-        height = n ;
-    } // if
-    else {
-        while ( n > 0 ) {
-            n /= 2 ;
-            height++ ;
-        } // end while
-    } // else
-
-} // end setHeight()
-
-void Deap::setHeight() {
-
-    height = 0 ;
-    int n = dp.size() ;
-    if ( n == 0 || n == 1 ) {
-        height = n ;
-    } // if
-    else {
-        while ( n > 0 ) {
-            n /= 2 ;
-            height++ ;
-        } // end while
-    } // else
-
-} // end setHeight()
-
-void Deap::swapData( int index1, int index2 ) {
-    dataType temp = dp[index1] ;
-    dp[index1] = dp[index2] ;
-    dp[index2] = temp ;
-} // swapData()
 
 
 
