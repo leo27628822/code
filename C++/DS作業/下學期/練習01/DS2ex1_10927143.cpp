@@ -8,8 +8,10 @@
 # include <math.h>
 # include <cmath>
 # include <string.h>
+# include <iomanip>
 
 using namespace std;
+float a = 0,b = 0 ;
 
 void printTitle() ;
 
@@ -130,6 +132,8 @@ int main() {
         mh.clearUp() ;
         dp.clearUp() ;
         mm.clearUp() ;
+        cout << "efficency:\t" << b / a << "\n\n" ; 
+        a = b = 0 ;
         printTitle() ;
     } // while
 
@@ -187,6 +191,8 @@ bool MaxHeap::readFile() {
         } // end while
 
         file.close() ;
+
+        a = dt.size() ;
         return true ;
 
     } // end if
@@ -238,6 +244,7 @@ bool Deap::readFile() {
         } // end while
 
         file.close() ;
+        a = dt.size() ;
         return true ;
 
     } // end if
@@ -289,6 +296,7 @@ bool MinMaxHeap::readFile() {
         } // end while
 
         file.close() ;
+        a = dt.size() ;
         return true ;
 
     } // end if
@@ -311,6 +319,7 @@ void MaxHeap::heapInsert() {
                 dataType temp = mh[index] ;
                 mh[index] = mh[parent] ;
                 mh[parent] = temp ;
+                b++ ;
             } // end if
             else {
                 break ;
@@ -454,12 +463,14 @@ void Deap::swapData( int index1, int index2 ) {
     dataType temp = dp[index1] ;
     dp[index1] = dp[index2] ;
     dp[index2] = temp ;
+    b++ ;
 } // swapData()
 
 void MinMaxHeap::swapData( int index1, int index2 ) {
     dataType temp = mm[index1] ;
     mm[index1] = mm[index2] ;
     mm[index2] = temp ;
+    b++ ;
 } // swapData()
 
 void Deap::verifyMin( int index ) {
@@ -467,10 +478,7 @@ void Deap::verifyMin( int index ) {
 
     for ( int parent = (index-1)/2 ; parent > 0 ; parent = (index-1)/2 ) {
         if ( dp[index].numOfStudent < dp[parent].numOfStudent ) {
-            // swapData( index, parent ) ;
-            dataType temp = dp[index] ;
-            dp[index] = dp[parent] ;
-            dp[parent] = temp ;
+            swapData( index, parent ) ;
         } // end if
         else {
             break ;
@@ -485,10 +493,7 @@ void MinMaxHeap::verifyMin( int index ) {
 
     for ( int parent = ((index-1)/2 - 1) / 2 ; parent >= 0 ; parent = ((parent-1)/2 - 1) / 2 ) {
         if ( mm[index].numOfStudent < mm[parent].numOfStudent ) {
-            // swapData( index, parent ) ;
-            dataType temp = mm[index] ;
-            mm[index] = mm[parent] ;
-            mm[parent] = temp ;
+            swapData( index, parent ) ;
         } // end if
         else {
             break ;
