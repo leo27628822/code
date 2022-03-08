@@ -114,7 +114,7 @@ int main() {
             while ( !mm.readFile() )  ;
             mm.minmaxHeapInsert() ;
             mm.setHeight() ;
-            cout << "<Max Heap>\n" ;
+            cout << "<MinMax Heap>\n" ;
             mm.printRoot() ;
             mm.printBottom() ;
             mm.printLeftMostBottom() ;
