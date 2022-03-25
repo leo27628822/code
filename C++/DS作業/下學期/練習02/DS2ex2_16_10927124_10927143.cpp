@@ -17,31 +17,38 @@ void printTitle() ;
 class TwoThreeTree {
 
 private:
+    typedef struct slotT {
+        vector<int> rSet ;
+        string key ;
+    } slotType;
+    typedef struct nT {
+        slotType data[-1] ;
+
+    } nodeType ;
     typedef struct dT{
-        string school, subject, dn, lv, student ;
+        string school, subject, dn, lv ;
+        int student ;
         int number ;
     }dataType ;
     vector<dataType> dt ;
 
     typedef struct nT{
-        string name ;
-        int serialNumber ;
+        vector <dataType> node ;
         nT * left ;
         nT * right ;
     }nodeType ;
+
+    nodeType * root ;
 
 
 
 public:
     bool readFile() ;
-    MaxHeap() { height = 0 ; mh.clear() ; dt.clear() ; } // end MaxHeap
-    void heapInsert() ;
-    void clearUp() { height = 0 ; mh.clear() ; dt.clear() ; } // end clearUp
-    void setHeight() ;
-    void showAll() ;
+    TwoThreeTree() { root = NULL ; dt.clear() ; } // constructor
+    ~TwoThreeTree() { destroy() ; } // destructor
+    void build() ;
+    void init() { height = 0 ; mh.clear() ; dt.clear() ; } // end clearUp
     void printRoot() ;
-    void printLeftMostBottom() ;
-    void printBottom() ;
 };
 
 class AVLTree {
@@ -70,20 +77,17 @@ public:
 };
 
 int main() {
+
     printTitle() ;
     int command ;
-    MaxHeap mh ;
-    Deap dp ;
-    MinMaxHeap mm ;
+    TwoThreeTree ttt ;
+
     while ( cin >> command ) {
+
         if ( command == 1 ) {
-            while ( !mh.readFile() )  ;
-            mh.heapInsert() ;
-            mh.setHeight() ;
-            cout << "<Max Heap>\n" ;
-            mh.printRoot() ;
-            mh.printBottom() ;
-            mh.printLeftMostBottom() ;
+            while ( !ttt.readFile() )  ;
+            ttt.build() ;
+            ttt.printRoot() ;
         } // if
         else if ( command == 2 ) {
             while ( !dp.readFile() )  ;
@@ -91,15 +95,6 @@ int main() {
             cout << "<Deap>\n" ;
             dp.printBottom() ;
             dp.printLeftMostBottom() ;
-        } // else if
-        else if ( command == 3 ) {
-            while ( !mm.readFile() )  ;
-            mm.minmaxHeapInsert() ;
-            mm.setHeight() ;
-            cout << "<MinMax Heap>\n" ;
-            mm.printRoot() ;
-            mm.printBottom() ;
-            mm.printLeftMostBottom() ;
         } // else if
         else if ( command == 0 ) {
             break ;
@@ -109,11 +104,7 @@ int main() {
         } // else
 
         cout << "\n" ;
-        mh.clearUp() ;
-        dp.clearUp() ;
-        mm.clearUp() ;
-        cout << "efficency:\t" << b / a << "\n\n" ;
-        a = b = 0 ;
+        ttt.init() ;
         printTitle() ;
     } // while
 
@@ -121,12 +112,14 @@ int main() {
 } // end main
 
 void printTitle() {
+
     cout << "*** Search Tree Utilities ***\n" ;
     cout << "* 0. QUIT                   *\n" ;
     cout << "* 1. Build 2-3 tree         *\n" ;
     cout << "* 2. Build AVL tree         *\n" ;
     cout << "*****************************\n" ;
     cout << "Input a choice(0, 1, 2): " ;
+
 } // end PrintTitle
 
 bool TwoThreeTree::readFile() {
@@ -139,7 +132,13 @@ bool TwoThreeTree::readFile() {
     cin.ignore() ;
     filename = "input" + filename + ".txt" ;
     file.open( filename ) ;
-    if ( file.is_open() ) {
+    if ( !file.is_open() ) {
+
+        cout << "\n### " << filename << " does not exist! ###\n\n" ;
+        return false ;
+    } // end if
+    else {
+
         getline( file, tempStr ) ;
         getline( file, tempStr ) ;
         getline( file, tempStr ) ;
@@ -163,7 +162,11 @@ bool TwoThreeTree::readFile() {
             } // if
 
             dataType dT ;
-            dT.numOfStudent = stoi( words[6] ) ;
+            dT.school = words[1] ;
+            dT.subject = words[3] ;
+            dT.dn = words[4] ;
+            dT.lv = words[5] ;
+            dT.student = stoi( words[6] ) ;
             dT.serialNumber = i ;
             i++ ;
             dt.push_back( dT ) ;
@@ -171,13 +174,15 @@ bool TwoThreeTree::readFile() {
 
         file.close() ;
 
-        a = dt.size() ;
         return true ;
-
-    } // end if
-    else {
-        cout << "\n### " << filename << " does not exist! ###\n\n" ;
-        return false ;
     } // end else
 
 } // end readFile()
+
+void TwoThreeTree::build() {
+    if ( root == NULL ) {
+        root = new nodeType ;
+        root.name = dt[0].school ;
+        root.serialNumber = dt[0].number ;
+    }
+} // end build()
