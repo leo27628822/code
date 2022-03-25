@@ -121,13 +121,12 @@ int main() {
 } // end main
 
 void printTitle() {
-    cout << "**** Heap Construction  *****\n" ;
+    cout << "*** Search Tree Utilities ***\n" ;
     cout << "* 0. QUIT                   *\n" ;
-    cout << "* 1. Build a Max Heap       *\n" ;
-    cout << "* 2. Build a DEAP           *\n" ;
-    cout << "* 3. Build a min-max heap   *\n" ;
+    cout << "* 1. Build 2-3 tree         *\n" ;
+    cout << "* 2. Build AVL tree         *\n" ;
     cout << "*****************************\n" ;
-    cout << "Input a choice(0, 1, 2, 3): " ;
+    cout << "Input a choice(0, 1, 2): " ;
 } // end PrintTitle
 
 bool TwoThreeTree::readFile() {
