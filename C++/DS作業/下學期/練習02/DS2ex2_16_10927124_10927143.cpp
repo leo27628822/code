@@ -209,7 +209,7 @@ int TwoThreeTree::findPath( int i, nodeType * tempPtr, slotType * tempSlot, bool
 // find insert position and check school name < | = | >
 
     if ( i == tempPtr -> school.size() ) {
-        return i-1 ;
+        return i ;
     } // end if
     if ( slotType -> school.name < tempPtr -> school[i].name ) {
         return i ;
@@ -228,7 +228,7 @@ void TwoThreeTree::insert( nodeType * curPtr, slotType * tempSlot, nodeType * pr
 
     if ( curPtr == NULL ) {
         prePtr -> school.push_back( tempSlot ) ;
-        sort() ;
+        sort( prePtr ) ;
         if ( prePtr -> school.size() == 3 ) {
             split( prePtr ) ;
         } // end if
@@ -239,8 +239,15 @@ void TwoThreeTree::insert( nodeType * curPtr, slotType * tempSlot, nodeType * pr
     bool equal = false ;
     i = findPath( i, curPtr, tempSlot, equal ) ;
 
-    // nodeType * tempPtr = curPtr ;
-    if ( !equal ) {
+    if ( !equal && curPtr -> school.size() == 1 ) {
+        if ( i == 0 ) {
+            insert( curPtr -> left, tempSlot, curPtr ) ;
+        } // else if
+        else if ( i == 1 ) {
+            insert( curPtr -> right, tempSlot, curPtr ) ;
+        } // else if
+    } // end if
+    else if ( !equal && curPtr -> school.size() == 2 ) {
         if ( i == 0 ) {
             insert( curPtr -> left, tempSlot, curPtr ) ;
         } // else if
@@ -250,7 +257,7 @@ void TwoThreeTree::insert( nodeType * curPtr, slotType * tempSlot, nodeType * pr
         else if ( i == 2 ) {
             insert( curPtr -> right, tempSlot, curPtr ) ;
         } // else if
-    } // else if
+    } // end else if
 
 } // end insert()
 
@@ -262,11 +269,31 @@ void TwoThreeTree::split( nodeType * tempPtr ) {
     n2 = tempPtr ;
     n2 -> school.erase( n2 -> school.begin() ) ;
 
+    if ( tempPtr == root ) {
+        p = new nodeType ;
+    } // end if
+    else {
+        p = tempPtr -> parent ;
+    } // end else
+
+    n1 -> parent = p ;
+    n2 -> parent = p ;
+
+
+
 
 } // end split()
 
-void TwoThreeTree::sort( ) {
-
+void TwoThreeTree::sort( nodeType * tempPtr ) {
+    for ( int i = 0 ; i < tempPtr -> school.size() ; ++i ) {
+        for ( int j = 0 ; j < tempPtr -> school.size() ; ++j ) {
+            if ( tempPtr -> school[i].name > tempPtr -> school[j].name ) {
+                auto x = tempPtr -> school[i] ;
+                tempPtr -> school[i] = tempPtr -> school[j] ;
+                tempPtr -> school[j] = x ;
+            } // end if
+        } // inner for
+    } // outer for
 } // end split()
 
 void TwoThreeTree::destroy( nodeType * tempPtr ) {
