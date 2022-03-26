@@ -14,43 +14,48 @@ using namespace std;
 
 void printTitle() ;
 
+typedef struct dT{
+    string school, subject, dn, lv ;
+    int student ;
+    int number ;
+} dataType ;
+vector<dataType> dt ;
+
+bool readFile() ;
+
 class TwoThreeTree {
 
 private:
-    typedef struct slotT {
-        vector<int> rSet ;
-        string key ;
-    } slotType;
-    typedef struct nT {
-        slotType data[-1] ;
 
-    } nodeType ;
-    typedef struct dT{
-        string school, subject, dn, lv ;
-        int student ;
-        int number ;
-    }dataType ;
-    vector<dataType> dt ;
+
+    typedef struct sT {
+        vector<int> number ;
+        string name ;
+    } slotType ;
 
     typedef struct nT{
-        vector <dataType> node ;
+        vector<slotType> school ;
         nT * left ;
+        nT * middle ;
         nT * right ;
+        nT * parent ;
+        nT * temp ;
     }nodeType ;
 
     nodeType * root ;
 
-
-
 public:
-    bool readFile() ;
+    // bool readFile() ;
     TwoThreeTree() { root = NULL ; dt.clear() ; } // constructor
     ~TwoThreeTree() { destroy() ; } // destructor
     void build() ;
-    void init() { height = 0 ; mh.clear() ; dt.clear() ; } // end clearUp
+    void insert( nodeType * tempPtr ) ;
+    void destroy() ;
+    void split()
+    void init() { dt.clear() ; destroy() ; } // end clearUp
     void printRoot() ;
 };
-
+/*
 class AVLTree {
 
 private:
@@ -75,28 +80,32 @@ public:
     void verifyMax( int index ) ;
     void verifyMin( int index ) ;
 };
-
+*/
 int main() {
 
     printTitle() ;
-    int command ;
+    string command ;
     TwoThreeTree ttt ;
 
-    while ( cin >> command ) {
+    while ( getline( cin, command ) ) {
 
-        if ( command == 1 ) {
-            while ( !ttt.readFile() )  ;
+        if ( command == "1" ) {
+            while ( !readFile() )  ;
             ttt.build() ;
             ttt.printRoot() ;
         } // if
-        else if ( command == 2 ) {
-            while ( !dp.readFile() )  ;
+        else if ( command == "2" ) {
+            if ( dt.empty() ) {
+                cout << "\nPlease input '1' at the first time.\n\n" ;
+                break ;
+            } // end if
+
             dp.deapInsert() ;
             cout << "<Deap>\n" ;
             dp.printBottom() ;
             dp.printLeftMostBottom() ;
         } // else if
-        else if ( command == 0 ) {
+        else if ( command == "0" ) {
             break ;
         } // else if
         else {
@@ -122,7 +131,7 @@ void printTitle() {
 
 } // end PrintTitle
 
-bool TwoThreeTree::readFile() {
+bool readFile() {
     // readFile and put data into vector
 
     string filename, tempStr ;
@@ -180,9 +189,91 @@ bool TwoThreeTree::readFile() {
 } // end readFile()
 
 void TwoThreeTree::build() {
-    if ( root == NULL ) {
-        root = new nodeType ;
-        root.name = dt[0].school ;
-        root.serialNumber = dt[0].number ;
-    }
+
+    for ( int i = 0 ; i < dt.size() ; ++i ) {
+        slotType tempSlot ;
+        tempSlot.name = dt[i].school ;
+        tempSlot.number.push_back( dt[i].number ) ;
+        if ( root != NULL ) {
+            insert( root, tempSlot, NULL ) ;
+        } // end if
+        else {
+            root = new nodeType ;
+            root -> parent = root -> left = root -> right = root -> middle = NULL ;
+            root -> school.push_back( tempSlot ) ;
+        } // end else
+    } // end for
 } // end build()
+
+int TwoThreeTree::findPath( int i, nodeType * tempPtr, slotType * tempSlot, bool & equal ) {
+// find insert position and check school name < | = | >
+
+    if ( i == tempPtr -> school.size() ) {
+        return i-1 ;
+    } // end if
+    if ( slotType -> school.name < tempPtr -> school[i].name ) {
+        return i ;
+    } // end if
+
+    if ( slotType -> school.name == tempPtr -> school[i].name ) {
+        tempPtr -> school[i].number.push_back( tempSlot.number.get( tempSlot.begin() ) ) ;
+        equal = true ;
+        return i ;
+    } // end else if
+    i++ ;
+    findPath( i, tempPtr, tempSlot, equal ) ;
+} // findPath()
+
+void TwoThreeTree::insert( nodeType * curPtr, slotType * tempSlot, nodeType * prePtr ) {
+
+    if ( curPtr == NULL ) {
+        prePtr -> school.push_back( tempSlot ) ;
+        sort() ;
+        if ( prePtr -> school.size() == 3 ) {
+            split( prePtr ) ;
+        } // end if
+        return ;
+    } // if
+
+    int i = 0 ;
+    bool equal = false ;
+    i = findPath( i, curPtr, tempSlot, equal ) ;
+
+    // nodeType * tempPtr = curPtr ;
+    if ( !equal ) {
+        if ( i == 0 ) {
+            insert( curPtr -> left, tempSlot, curPtr ) ;
+        } // else if
+        else if ( i == 1 ) {
+            insert( curPtr -> middle, tempSlot, curPtr ) ;
+        } // else if
+        else if ( i == 2 ) {
+            insert( curPtr -> right, tempSlot, curPtr ) ;
+        } // else if
+    } // else if
+
+} // end insert()
+
+void TwoThreeTree::split( nodeType * tempPtr ) {
+
+    nodeType * n1, * n2, * p ;
+    n1 = new nodeType ;
+    n1 -> school.push_back( tempPtr -> school[0] ) ;
+    n2 = tempPtr ;
+    n2 -> school.erase( n2 -> school.begin() ) ;
+
+
+} // end split()
+
+void TwoThreeTree::sort( ) {
+
+} // end split()
+
+void TwoThreeTree::destroy( nodeType * tempPtr ) {
+
+    if ( tempPtr != NULL) {
+        destroy( tempPtr -> left);
+        destroy( tempPtr -> right);
+        delete tempPtr ;
+    } // end if
+} // destroy()
