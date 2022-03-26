@@ -208,10 +208,7 @@ void TwoThreeTree::build() {
 int TwoThreeTree::findPath( int i, nodeType * tempPtr, slotType * tempSlot, bool & equal ) {
 // find insert position and check school name < | = | >
 
-    if ( i == tempPtr -> school.size() ) {
-        return i ;
-    } // end if
-    if ( slotType -> school.name < tempPtr -> school[i].name ) {
+    if ( i == tempPtr -> school.size() || slotType -> school.name < tempPtr -> school[i].name ) {
         return i ;
     } // end if
 
@@ -278,9 +275,10 @@ void TwoThreeTree::split( nodeType * tempPtr ) {
 
     n1 -> parent = p ;
     n2 -> parent = p ;
-
-
-
+    n1
+    p -> left = ;
+    p -> right = ;
+    p -> middle = ;
 
 } // end split()
 
