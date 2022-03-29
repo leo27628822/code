@@ -1,0 +1,45 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\Verilog\Lab04
+vMux_4to1
+Z1 Ie2B65bN`5Mj:YRl8FKz7G0
+Z2 VBR]jQz9MUBF_KSVI]fD=H2
+Z3 dD:\code\Verilog\Lab04
+Z4 w1648533235
+Z5 8D:/code/Verilog/Lab04/Mux_4to1.v
+Z6 FD:/code/Verilog/Lab04/Mux_4to1.v
+L0 2
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 !s90 -reportprogress|300|-work|work|D:/code/Verilog/Lab04/Mux_4to1.v|
+Z9 o-work work -O0
+Z10 n@mux_4to1
+!i10b 1
+Z11 !s100 6jRb3L4a?4B=oddNLh:E?0
+!s85 0
+Z12 !s108 1648533244.767000
+Z13 !s107 D:/code/Verilog/Lab04/Mux_4to1.v|
+!s101 -O0
+vTM_Mux_4to1
+!i10b 1
+Z14 !s100 <X1GgZz41=5OAZOLHhg4m2
+Z15 IMT?JU3bA74djVai3c8IE81
+Z16 VeDe3i?^m6_m]PVjV7RE8Z3
+R3
+Z17 w1648533087
+Z18 8D:/code/Verilog/Lab04/TM_ Mux_4to1.v
+Z19 FD:/code/Verilog/Lab04/TM_ Mux_4to1.v
+L0 1
+R7
+r1
+!s85 0
+31
+!s108 1648533246.504000
+!s107 D:/code/Verilog/Lab04/TM_ Mux_4to1.v|
+Z20 !s90 -reportprogress|300|-work|work|D:/code/Verilog/Lab04/TM_ Mux_4to1.v|
+!s101 -O0
+R9
+Z21 n@t@m_@mux_4to1
