@@ -155,7 +155,9 @@ public:
             cur -> school.push_back(content) ;
             Sort(cur) ;
 
-            if( cur -> school.size() == 3 ) Split(cur, NULL, NULL, NULL, NULL) ;
+            if( cur -> school.size() == 3 ) {
+                Split(cur, NULL, NULL, NULL, NULL) ;
+            }
         }
 
     }
@@ -208,7 +210,6 @@ public:
 
         // setting *p
         if( ptr == head ) {
-            c1++ ;
             p = new Tree() ;
         } // if
         else p = ptr -> father ;
@@ -245,7 +246,6 @@ public:
         } // end if
 
         else if( p -> school.size() == 3 ){
-
             if( ptr == p -> left )
                 Split(p, n1, n2, p->middle, p->right) ;
 
@@ -257,7 +257,6 @@ public:
         } // end else if
 
         else {
-            c1++ ;
             if( ptr == p -> left ){
                 p -> left = n1 ;
                 p -> middle = n2 ;
@@ -377,6 +376,23 @@ public:
         } // end else1
 
     } // end Clear
+
+    void Count() {
+        Count( head );
+    }
+
+    void Count( Tree *root ){
+        if( root == NULL ) {
+            return ;
+        }
+
+        c1++ ;
+        Count( root -> left ) ;
+        Count( root -> middle ) ;
+        Count( root -> right ) ;
+        
+        
+    } // end Count
 
     bool HaveData(){
         if( head == NULL ) return false ;
@@ -628,6 +644,7 @@ int main(){
                 cin >> key2 ;
                 avl.Search(department, key2) ;
 
+                
                 for( int x = 0 ; x < school.size() ; x++ )
                     for( int y = 0 ; y < department.size() ; y++ )
                         if( school[x] == department[y] )
@@ -635,12 +652,16 @@ int main(){
 
                 cout << endl ;
                 int i = 0 ;
-                for(  ; i < both.size() ; i++ )
+                for(  ; !both.empty() && i < both.size() ; i++ ) {
+                    cout << i+1 << " : " ;
                     two_three_tree.SearchFile(both[i]) ;
+                } // for
                 if ( i == 0 ) {
                     cout << "No Data Match!\n" ;
                 }
                 else {
+                    c1 = 0 ;
+                    two_three_tree.Count() ;
                     cout << "\nMission one : " << c1 << "\n" ;
                     cout << "\nMission two : " << c2 << "\n" ;
                 }
