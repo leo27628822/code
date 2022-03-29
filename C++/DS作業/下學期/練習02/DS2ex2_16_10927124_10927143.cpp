@@ -1,4 +1,4 @@
-// Team16_10927124®}ÖöµØ 10927143¤ý­N­{
+// Team16_10927124_10927143
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -11,6 +11,7 @@
 
 using namespace std ;
 
+int c1 = 0, c2 = 0  ;
 string command = "", file_name = "" ;
 
 struct Inf{
@@ -33,6 +34,7 @@ void InputCommand(){
         cout << "**  0. Quit                       **" << endl ;
         cout << "**  1. Build 2-3 tree             **" << endl ;
         cout << "**  2. Build AVL tree             **" << endl ;
+        cout << "**  3. Search Data                **" << endl ;
         cout << "************************************" << endl ;
         cout << endl << "Input a command(0, 1, 2, 3): " ;
         cin >> command ;
@@ -82,13 +84,13 @@ void ReadFile(){
     file.getline(buffer, sizeof(buffer)) ;
 
     while( !file.eof() ){
-        inf.index = num ;   // ³]©w°ß¤@§Ç¸¹
+        inf.index = num ;   // ï¿½]ï¿½wï¿½ß¤@ï¿½Ç¸ï¿½
 
         for( int i = 0 ; i < 7 ; i++ ){
             file.getline(buffer, sizeof(buffer), '\t') ;
             title = buffer ;
 
-            if( i == 0 && title == "" ){    //´«¦æ«á¤°»ò¸ê®Æ³£¨S¦³ªº±¡ªp
+            if( i == 0 && title == "" ){    //ï¿½ï¿½ï¿½ï¿½á¤°ï¿½ï¿½ï¿½Æ³ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½p
                 file.close() ;
                 return ;
             }
@@ -131,6 +133,7 @@ public:
 
         if( head == NULL ){
             head = new Tree() ;
+            c1++ ;
             content.push_back(make_pair(role[0].index, role[0].school_name)) ;
             head -> school.push_back(content) ;
             return ;
@@ -204,7 +207,10 @@ public:
         n2 = new Tree() ;
 
         // setting *p
-        if( ptr == head ) p = new Tree() ;
+        if( ptr == head ) {
+            c1++ ;
+            p = new Tree() ;
+        } // if
         else p = ptr -> father ;
 
         // put into n1, n2, p
@@ -251,6 +257,7 @@ public:
         } // end else if
 
         else {
+            c1++ ;
             if( ptr == p -> left ){
                 p -> left = n1 ;
                 p -> middle = n2 ;
@@ -341,6 +348,7 @@ public:
 
     void Clear(){
         content.clear();
+        c1 = 0 ;
         Clear(head) ;
     } // end Clear
 
@@ -400,6 +408,7 @@ public:
         // check the Location of Insert
 
         if( cur == NULL ){
+            c2++ ;
             cur = new Tree ;
             cur -> school.push_back(role[0].index) ;
             cur -> key = role[0].deparment_name ;
@@ -509,6 +518,7 @@ public:
 
     void Clear(){
         Clear(head) ;
+        c2 = 0 ;
     } // end Clear
 
     void Clear( Tree *root ){
@@ -610,11 +620,11 @@ int main(){
                 vector<int> school, department, both ;
                 string key1, key2 ;
 
-                cout << endl << "KEY1 : " ;
+                cout << endl << "Enter a college name to search [*]: " ;
                 cin >> key1 ;
                 two_three_tree.Search(school, key1) ;
 
-                cout << endl << "KEY2 : " ;
+                cout << endl << "Enter a department name to search [*]: " ;
                 cin >> key2 ;
                 avl.Search(department, key2) ;
 
@@ -624,8 +634,16 @@ int main(){
                             both.push_back(school[x]) ;
 
                 cout << endl ;
-                for( int i = 0 ; i < both.size() ; i++ )
+                int i = 0 ;
+                for(  ; i < both.size() ; i++ )
                     two_three_tree.SearchFile(both[i]) ;
+                if ( i == 0 ) {
+                    cout << "No Data Match!\n" ;
+                }
+                else {
+                    cout << "\nMission one : " << c1 << "\n" ;
+                    cout << "\nMission two : " << c2 << "\n" ;
+                }
 
                 cout << endl << endl ;
 
