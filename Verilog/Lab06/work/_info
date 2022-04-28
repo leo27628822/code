@@ -1,0 +1,44 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\code\Verilog\Lab06
+vcounter_4bit
+Z1 !s100 9RP_nF>9NVEE^BcH8o`f10
+Z2 I?;c:<22CFdnBmY1l1KiIj1
+Z3 V`bYV7M2mO=ERYGXz7cY]k3
+Z4 dD:\code\code\Verilog\Lab06
+Z5 w1650955909
+Z6 8D:/code/code/Verilog/Lab06/counter_4bit.v
+Z7 FD:/code/code/Verilog/Lab06/counter_4bit.v
+L0 2
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/Lab06/counter_4bit.v|
+Z10 o-work work -O0
+Z11 !s108 1650956019.476000
+Z12 !s107 D:/code/code/Verilog/Lab06/counter_4bit.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vTM_counter_4bit
+!i10b 1
+Z13 !s100 8lS:UjmAo;eh?Fe4b_fQ:0
+Z14 I?P2iQmYV<P>@jgAh:O[em0
+Z15 VZY=i9MNZH]^LDnUQ6`J7h2
+R4
+w1650956721
+Z16 8D:/code/code/Verilog/Lab06/TM_counter_4bit.v
+Z17 FD:/code/code/Verilog/Lab06/TM_counter_4bit.v
+L0 1
+R8
+r1
+!s85 0
+31
+!s108 1650956732.521000
+!s107 D:/code/code/Verilog/Lab06/TM_counter_4bit.v|
+!s90 -reportprogress|300|-work|work|-O0|D:/code/code/Verilog/Lab06/TM_counter_4bit.v|
+!s101 -O0
+R10
+Z18 n@t@m_counter_4bit
