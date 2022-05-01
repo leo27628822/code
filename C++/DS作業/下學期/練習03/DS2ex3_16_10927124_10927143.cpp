@@ -1,6 +1,7 @@
 // Team16_10927124_10927143
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <cstring>
 #include <vector>
 #include <fstream>
@@ -8,6 +9,7 @@
 #include <math.h>
 #include <utility>
 #include <stack>
+#include <iomanip>
 
 using namespace std ;
 
@@ -22,21 +24,19 @@ void printTitle() {
     cout << "Input a command(0, 1, 2): " ;
 } // end PrintTitle
 
-class Hash {
+class FileProcess {
 
-private:
+protected:
     typedef struct data {
-
         char id[10], name[10] ;
         unsigned char score[6] ;
         float average ;
-
     } dataType ;
-    vector<dataType> data ;
+    vector<dataType> dt ;
 
 public:
 
-    void Input() {
+    bool input() {
         string filename, tempStr ;
         ifstream file ;
         cout << "Input a file number : " ;
@@ -45,41 +45,49 @@ public:
         filename = "input" + filenum + ".bin" ;
         file.open( filename ) ;
         if ( file.is_open() ) {
-            cout << "file is open!\n" ;
             file.close() ;
+            readbin( filename ) ;
+
         } // end if
         else {
+            file.close() ;
             filename = "input" + filenum + ".txt" ;
             if ( readtxt( filename ) ) {
                 transferToBinary( filename ) ;
             } // if
             else {
                 cout << "\n### " << filename << " does not exist! ###\n\n" ;
+                return false ;
             } // else
         } // end else
 
+        return true ;
     } // readFile()
 
     bool readtxt( string filename ) {
         ifstream file ;
         string tempStr ;
+        file.open( filename ) ;
         if ( !file.is_open() ) {
             return false ;
         } // end if
         else {
+
             while ( !file.eof() ) {
                 getline( file, tempStr ) ;
                 if ( file.fail() ) {
                     break ;
                 } // if
 
-                string delimiter = "\t";
                 vector<string> words ;
+                string delimiter = "\t";
                 size_t pos ;
+
                 while ( ( pos = tempStr.find(delimiter) ) != string::npos ) {
                     words.push_back( tempStr.substr(0, pos) ) ;
                     tempStr.erase( 0, pos + delimiter.length() ) ;
                 } // end while
+                words.push_back( tempStr.substr(0, pos) ) ;
 
                 dataType dT ;
                 strcpy( dT.id, words[0].c_str() ) ;
@@ -87,11 +95,10 @@ public:
                 for ( int i = 0 ; i < 6 ; i++ ) {
                     dT.score[i] = (unsigned char)stoi( words[i+2] ) ;
                 } // for
-
                 dT.average = stof( words[8] );
 
                 dt.push_back( dT ) ;
-                dT.clear() ;
+                words.clear() ;
             } // end while
 
             file.close() ;
@@ -100,35 +107,303 @@ public:
         } // end else
     } // readtxt()
 
+    void transferToBinary( string filename ) {
+        filename = "input" + filenum + ".bin" ;
+        ofstream out( filename, ios::binary ) ;
+        for ( int i = 0 ; i < dt.size() ; i++ ) {
+            out.write( (char*)&dt[i], sizeof(dt[i]) ) ;
+        } // while
+        out.close() ;
+    } // transferToBinary
+
+    void readbin( string filename ) {
+        dataType dT ;
+        ifstream in( filename, ios::in|ios::binary) ;
+        while ( in.read( (char*)&dT, sizeof(dT) ) ) {
+            dt.push_back( dT ) ;
+        } // while
+        in.close() ;
+    } // readbin()
+};
+
+class Hash:public FileProcess {
+
+private:
+    typedef struct content {
+        string id, name ;
+        int score[6] ;
+        float average ;
+        bool exists = false ;
+        int hvalue ;
+    } hashType ;
+    vector<hashType> linearHash ;
+    float success = 0 ;
+
+public:
     void clear() {
-        data.clear() ;
+        while ( !linearHash.empty() ) {
+            linearHash.pop_back() ;
+        } // while
+        linearHash.clear() ;
+        while ( !dt.empty() ) {
+            dt.pop_back() ;
+        } // while
+        dt.clear() ;
+        success = 0 ;
     } // clear()
 
+    unsigned long long findPrime( int n ) {
+
+        unsigned long long i,j;
+        i = ( unsigned long long ) n;
+        while( true ){
+            i++;
+            for ( j = 2 ; j <= i ; j++ ) {
+                if( i == j ) {
+                    return i;
+                } // if
+                if( i % j == 0 ) {
+                    break;
+                } // if
+            } // for
+        } // while
+    } // findPrime()
+
+    void build() {
+        unsigned long long size = findPrime( ( (int)(dt.size() * 1.2) ) ) ;
+
+        linearHash.resize( size ) ;
+
+        for ( int i = 0 ; i < dt.size() ; i++ ) {
+            hashType ht ;
+            ht.id = dt[i].id ;
+            ht.name = dt[i].name ;
+            for( int j = 0 ; j < 6 ; j++ ) {
+                ht.score[j] = (int)dt[i].score[j] ;
+            } // for
+            ht.average = dt[i].average ;
+            int key = hash( dt[i].id ) ;
+            ht.hvalue = key ;
+            ht.exists = true ;
+
+            for ( ; linearHash[key].exists != false ; key = (key+1) % linearHash.size(), success++ )
+            ;
+            success++ ;
+            linearHash[key] = ht ;
+        } // for
+    } // build()
+
+    int hash( string key ) {
+        unsigned long long sum = 1 ;
+        for ( int i = 0 ; i < key.size() ; i++ ) {
+            sum *= (int)key[i] ;
+        }
+        return sum % linearHash.size() ;
+    } // hash()
+
+    void calculate() {
+        cout << "\n\nHash Table X has been created.\n\n" ;
+
+        float unsuccess = 0 ;
+
+        for( int i = 0 ; i < linearHash.size() ; i++ ){
+            int gap = 0, temp = i ;
+            if( linearHash[i].exists == true ) {
+                while( linearHash[temp].exists != false ){
+                    temp++ ;
+                    gap++ ;
+                    if( temp >= linearHash.size() ) temp -= linearHash.size() ;
+                } // while
+                unsuccess += gap ;
+            } // if
+        } // for
+
+        cout << "unsuccessful search: " ;
+        cout << fixed << setprecision(4) << unsuccess / linearHash.size() ;
+        cout << " comparisons on a average.\n\n" ;
+
+        cout << "successful search: " ;
+        cout << success / dt.size() ;
+        cout << " comparisons on a average.\n\n";
+
+    } // calculate()
+
+    void writeData() {
+        ofstream file ;
+        file.open( "linear" + filenum + ".txt" ) ;
+
+        file << "--- Hash Table X --- (linear probing)\n" ;
+
+        for( int i = 0 ; i < linearHash.size() ; i++ ){
+
+            if( linearHash[i].exists == false ){
+                file << "[" << i << "]" << endl ;
+            } // if
+            else{
+                file << "[" << i << "]" ;
+                file << "\t" << linearHash[i].hvalue ;
+                file << "\t" << linearHash[i].id ;
+                file << "\t" << linearHash[i].name ;
+                file << "\t" << linearHash[i].average << "\n" ;
+            } // else
+        } // end output
+
+        file.close() ;
+
+    } // writeData
+
+};
+
+class DHash:public FileProcess {
+
+private:
+    typedef struct content {
+        string id, name ;
+        int score[6] ;
+        float average ;
+        bool exists = false ;
+        int hvalue ;
+    } hashType ;
+    vector<hashType> doubleHash ;
+    float success = 0 ;
+    long long highStep ;
+
+public:
+    void clear() {
+        while(!dt.empty()) {
+            dt.pop_back() ;
+        } // while
+        dt.clear() ;
+        while(!doubleHash.empty()){
+            doubleHash.pop_back() ;
+        } // while
+        doubleHash.clear() ;
+        success = 0 ;
+        highStep = 0 ;
+    } // clear()
+
+    unsigned long long findPrime( int n ) {
+        unsigned long long i,j;
+        i = ( unsigned long long ) n;
+        while( true ){
+            i++;
+            for ( j = 2 ; j <= i ; j++ ) {
+                if( i == j ) {
+                    return i;
+                } // if
+                if( i % j == 0 ) {
+                    break;
+                } // if
+            } // for
+        } // while
+    } // findPrime()
+
+    int hash( string key ) {
+        unsigned long long sum = 1 ;
+        for ( int i = 0 ; i < key.size() ; i++ ) {
+            sum *= (int)key[i] ;
+        }
+        return sum % doubleHash.size() ;
+    } // hash()
+
+    void build() {
+        unsigned long long size = findPrime( ( (int)(dt.size() * 1.2) ) ) ;
+
+        doubleHash.resize( size ) ;
+
+        highStep = findPrime( ceil( (float)dt.size() / 3 ) ) ;
+        for ( int i = 0 ; i < dt.size() ; i++ ) {
+            hashType ht ;
+            ht.id = dt[i].id ;
+            ht.name = dt[i].name ;
+            for( int j = 0 ; j < 6 ; j++ ) {
+                ht.score[j] = (int)dt[i].score[j] ;
+            } // for
+            ht.average = dt[i].average ;
+            int steps = step( dt[i].id  ) ;
+            int key = hash( dt[i].id ) ;
+            ht.hvalue = key ;
+            ht.exists = true ;
+
+            for ( ; doubleHash[key].exists != false ; key = ( key + steps ) % doubleHash.size(), success++ )
+            ;
+            success++ ;
+            doubleHash[key] = ht ;
+        } // for
+    } // build()
+
+    long long step( string key ) {
+        unsigned long long sum = 1 ;
+
+        for( int i = 0 ; i < key.size() ; i++ )
+            sum *= (int)key[i] ;
+
+        return highStep - ( sum % highStep ) ;
+    } // step()
+
+    void calculate() {
+        cout << "\n\nHash Table Y has been created.\n\n" ;
+
+        cout << "successful search: " ;
+        cout << fixed << setprecision(4) << success / dt.size() ;
+        cout << " comparisons on a average.\n\n";
+    } // calculate()
+
+    void writeData() {
+        ofstream file ;
+        file.open( "double" + filenum + ".txt" ) ;
+
+        file << "--- Hash Table Y --- (double hash)\n" ;
+
+        for( int i = 0 ; i < doubleHash.size() ; i++ ) {
+
+            if( doubleHash[i].exists == false ){
+                file << "[" << i << "]" << endl ;
+            } // if
+            else{
+                file << "[" << i << "]" ;
+                file << "\t" << doubleHash[i].hvalue ;
+                file << "\t" << doubleHash[i].id ;
+                file << "\t" << doubleHash[i].name ;
+                file << "\t" << doubleHash[i].average << "\n" ;
+            } // else
+        } // end output
+
+        file.close() ;
+    } // writeData
 };
 
 int main() {
 
     printTitle() ;
-    Hash hh ;
+    Hash h ;
+    DHash dh ;
 
     int command ;
     while ( cin >> command && command ) {
 
-        hh.Input() ;
-
         if ( command == 1 ) {
-            hh.
+            if ( h.input() ) {
+                h.build() ;
+                h.calculate() ;
+                h.writeData() ;
+            } // if
         } // if
         else if ( command == 2 ) {
-
+            if ( dh.input() ) {
+                dh.build() ;
+                dh.calculate() ;
+                dh.writeData() ;
+            } // if
         } // else if
         else {
-            cout << "\nCommand does not exist!\n" ;
+            cout << "\nCommand does not exist!\n\n" ;
         } // else
 
         printTitle() ;
-        hh.clear() ;
+        h.clear() ;
+        dh.clear() ;
     } // while
 
     return 0 ;
-}
+} // main()
