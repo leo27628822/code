@@ -10,8 +10,12 @@
 #include <utility>
 #include <stack>
 #include <iomanip>
+#include <cmath>
+#include <time.h>
 
 using namespace std ;
+
+double START, END ;
 
 string filenum ;
 
@@ -20,8 +24,9 @@ void printTitle() {
     cout << "**  0. Quit                       **\n" ;
     cout << "**  1. Linear probing             **\n" ;
     cout << "**  2. Double probing             **\n" ;
+    cout << "**  3. Quadratic probing          **\n" ;
     cout << "************************************\n" ;
-    cout << "Input a command(0, 1, 2): " ;
+    cout << "Input a command(0, 1, 2, 3): " ;
 } // end PrintTitle
 
 class FileProcess {
@@ -128,7 +133,7 @@ public:
 
 class Hash:public FileProcess {
 
-private:
+protected:
     typedef struct content {
         string id, name ;
         int score[6] ;
@@ -140,6 +145,11 @@ private:
     float success = 0 ;
 
 public:
+
+    int getSize() {
+        return dt.size() ;
+    } // getSize()
+
     void clear() {
         while ( !linearHash.empty() ) {
             linearHash.pop_back() ;
@@ -207,15 +217,14 @@ public:
         float unsuccess = 0 ;
 
         for( int i = 0 ; i < linearHash.size() ; i++ ){
-            int gap = 0, temp = i ;
-            if( linearHash[i].exists == true ) {
-                while( linearHash[temp].exists != false ){
-                    temp++ ;
-                    gap++ ;
-                    if( temp >= linearHash.size() ) temp -= linearHash.size() ;
-                } // while
-                unsuccess += gap ;
-            } // if
+            int temp = i ;
+
+            while( linearHash[temp].exists == true ){
+                temp++ ;
+                unsuccess++ ;
+                if( temp == linearHash.size() ) temp = 0 ;
+            } // while
+
         } // for
 
         cout << "unsuccessful search: " ;
@@ -269,6 +278,7 @@ private:
     long long highStep ;
 
 public:
+
     void clear() {
         while(!dt.empty()) {
             dt.pop_back() ;
@@ -311,7 +321,7 @@ public:
 
         doubleHash.resize( size ) ;
 
-        highStep = findPrime( ceil( (float)dt.size() / 3 ) ) ;
+        highStep = findPrime( dt.size() / 3 ) ;
         for ( int i = 0 ; i < dt.size() ; i++ ) {
             hashType ht ;
             ht.id = dt[i].id ;
@@ -373,20 +383,163 @@ public:
     } // writeData
 };
 
+class QHash:public FileProcess {
+private:
+    typedef struct content {
+        string id, name ;
+        int score[6] ;
+        float average ;
+        bool exists = false ;
+        int hvalue ;
+    } hashType ;
+    vector<hashType> quadraticHash ;
+    float success = 0 ;
+
+public:
+    int getSize() {
+        return dt.size() ;
+    } // getSize()
+
+    int hash( string key ) {
+        unsigned long long sum = 1 ;
+        for ( int i = 0 ; i < key.size() ; i++ ) {
+            sum *= (int)key[i] ;
+        }
+        return sum % quadraticHash.size() ;
+    } // hash()
+
+    unsigned long long findPrime( int n ) {
+        unsigned long long i,j;
+        i = ( unsigned long long ) n;
+        while( true ){
+            i++;
+            for ( j = 2 ; j <= i ; j++ ) {
+                if( i == j ) {
+                    return i;
+                } // if
+                if( i % j == 0 ) {
+                    break;
+                } // if
+            } // for
+        } // while
+    } // findPrime()
+
+    void clear() {
+        while ( !quadraticHash.empty() ) {
+            quadraticHash.pop_back() ;
+        } // while
+        quadraticHash.clear() ;
+        while ( !dt.empty() ) {
+            dt.pop_back() ;
+        } // while
+        dt.clear() ;
+        success = 0 ;
+    } // clear()
+
+    void build() {
+        unsigned long long size = findPrime( ( (int)(dt.size() * 1.2) ) ) ;
+
+        quadraticHash.resize( size ) ;
+        for ( int i = 0 ; i < dt.size() ; i++ ) {
+            hashType ht ;
+            ht.id = dt[i].id ;
+            ht.name = dt[i].name ;
+            for( int j = 0 ; j < 6 ; j++ ) {
+                ht.score[j] = (int)dt[i].score[j] ;
+            } // for
+            ht.average = dt[i].average ;
+            int key = hash( dt[i].id ) ;
+            ht.hvalue = key ;
+            ht.exists = true ;
+
+            int temp = key, probes = 0 ;
+            for ( int num = 1 ; quadraticHash[temp].exists != false ; temp = (int)(key+pow(num,2)) % quadraticHash.size(), success++,num++,probes++ ) {
+                if ( probes == quadraticHash.size() ) {
+                    cout << "Fail : [" << temp << "]" << endl ;
+                    break ;
+                } // if
+            } // for
+
+            success++ ;
+            quadraticHash[temp] = ht ;
+        } // for
+    } // build()
+
+    void calculate() {
+        cout << "\n\nHash Table Z has been created.\n\n" ;
+
+        float unsuccess = 0 ;
+        for( int index = 0 ; index < quadraticHash.size() ; index++ ){
+            int probe = 0, temp = index ;
+            if( quadraticHash[index].exists == true ) {
+                int num = 1 ;
+                while( quadraticHash[temp].exists != false ){
+                    temp = index + pow(num, 2) ;
+                    num++ ;
+                    probe++ ;
+                    if( temp >= quadraticHash.size() ) temp = temp % quadraticHash.size() ;
+                    if ( probe == quadraticHash.size() ) {
+                        break ;
+                    } // if
+                } // end while
+
+                unsuccess += probe ;
+            } // end if
+        } // end unsuccess
+        cout << "unsuccessful search: " ;
+        cout << fixed << setprecision(4) << unsuccess / quadraticHash.size() ;
+        cout << " comparisons on a average.\n\n" ;
+
+        cout << "successful search: " ;
+        cout << success / dt.size() ;
+        cout << " comparisons on a average.\n\n";
+
+    } // calculate()
+
+    void writeData() {
+        ofstream file ;
+        file.open( "quadratic" + filenum + ".txt" ) ;
+
+        file << "--- Hash Table Z --- (linear probing)\n" ;
+
+        for( int i = 0 ; i < quadraticHash.size() ; i++ ){
+
+            if( quadraticHash[i].exists == false ){
+                file << "[" << i << "]" << endl ;
+            } // if
+            else{
+                file << "[" << i << "]" ;
+                file << "\t" << quadraticHash[i].hvalue ;
+                file << "\t" << quadraticHash[i].id ;
+                file << "\t" << quadraticHash[i].name ;
+                file << "\t" << quadraticHash[i].average << "\n" ;
+            } // else
+        } // end output
+
+        file.close() ;
+
+    } // writeData
+
+};
+
 int main() {
 
     printTitle() ;
     Hash h ;
     DHash dh ;
+    QHash qh ;
 
     int command ;
     while ( cin >> command && command ) {
 
         if ( command == 1 ) {
             if ( h.input() ) {
+                START = clock() ;
                 h.build() ;
                 h.calculate() ;
+                END = clock() ;
                 h.writeData() ;
+                cout << (END-START) / (double)h.getSize() << endl ;
             } // if
         } // if
         else if ( command == 2 ) {
@@ -396,6 +549,16 @@ int main() {
                 dh.writeData() ;
             } // if
         } // else if
+        else if ( command == 3 ) {
+            if ( qh.input() ) {
+                START = clock() ;
+                qh.build() ;
+                qh.calculate() ;
+                END = clock() ;
+                qh.writeData() ;
+                cout << (END-START) / (double)qh.getSize() << endl ;
+            } // if
+        } // else if
         else {
             cout << "\nCommand does not exist!\n\n" ;
         } // else
@@ -403,6 +566,7 @@ int main() {
         printTitle() ;
         h.clear() ;
         dh.clear() ;
+        qh.clear() ;
     } // while
 
     return 0 ;
