@@ -214,7 +214,7 @@ public:
     void calculate() {
         cout << "\n\nHash Table X has been created.\n\n" ;
 
-        float unsuccess = 0 ;
+        double unsuccess = 0 ;
 
         for( int i = 0 ; i < linearHash.size() ; i++ ){
             int temp = i ;
