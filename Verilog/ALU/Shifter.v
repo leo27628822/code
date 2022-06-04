@@ -6,10 +6,9 @@ input [31:0] dataB ;
 input [5:0] Signal ;
 output [31:0] dataOut ;
 
-
 reg [31:0] temp ;
 
-parameter SRL = 6'b000010;
+parameter SLL = 6'b000000;
 
 /*
 =====================================================
@@ -28,9 +27,16 @@ reset訊號 如果是reset就做歸0
 	else
 	begin
 		case ( Signal )
-		SRL:
+		SLL:
 		begin
-			temp = dataA >> dataB ;
+			// temp = dataA << dataB ;
+
+			temp = dataB[0] ? { dataA[30:0], 1'b0 } : dataA ;
+			temp = dataB[1] ? { dataA[29:0], 2'b0 } : temp ;
+			temp = dataB[2] ? { dataA[27:0], 4'b0 } : temp ;
+			temp = dataB[3] ? { dataA[23:0], 8'b0 } : temp ;
+			temp = dataB[4] ? { dataA[15:0], 16'b0 } : temp ;
+ 
 		end
 		default: temp = 32'b0 ;	
 	

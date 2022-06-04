@@ -35,12 +35,431 @@ reset訊號 如果是reset就做歸0
 		case ( Signal )
   		DIVU:
 		begin
+			temp = dataA ;
+			temp = temp << 1 ;
+			temp[63:32] = temp[63:32] - dataB ;
 
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] - dataB ;
+
+			if ( temp >= 0 )
+			begin
+				temp = temp << 1 ;
+				temp[0] = 1 ;
+			end
+			else
+			begin
+				temp[63:32] = temp[63:32] + dataB ;
+				temp = temp << 1 ;
+			end
+
+			temp[63:32] = temp[63:32] >> 1 ;
+			// assign temp[63:32] = {1'b0, temp[63:33] } ;
 		end
   		OUT:
 		begin
-			 temp[63:32] = dataA / dataB ;
-			 temp[31:0]= dataA % dataB ;
+			temp[63:32] = dataA % dataB ;
+			temp[31:0]= dataA / dataB ;
 			#330 ;
 		end
 		endcase

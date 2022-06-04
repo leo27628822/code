@@ -12,7 +12,7 @@ output [31:0] Output ;
 //   OR   : 37
 //   ADD  : 32
 //   SUB  : 34
-//   SRL  : 2
+//   SLL  : 00
 //   SLT  : 42
 //   DIVU : 27
 
@@ -24,7 +24,7 @@ parameter ADD = 6'b100000;
 parameter SUB = 6'b100010;
 parameter SLT = 6'b101010;
 
-parameter SRL = 6'b000010;
+parameter SLL = 6'b000000;
 
 parameter DIVU= 6'b011011;
 parameter MFHI= 6'b010000;

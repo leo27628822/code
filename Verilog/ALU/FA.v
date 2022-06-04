@@ -4,7 +4,7 @@ module FA(a,b,cin,cout,sum);
   input a,b,cin;
   output cout, sum;
 
-  assign s = a ^ b ^ cin ;
+  assign sum = a ^ b ^ cin ;
   assign cout = a & b | ( cin & ( a ^ b ) ) ;
   
 endmodule  

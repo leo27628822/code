@@ -11,6 +11,7 @@
 #include <stack>
 #include <ctime>
 #include <queue>
+#include <stack>
 #include <iomanip>
 
 #define ID first
@@ -30,7 +31,6 @@ protected:
     vector<Inf> list ;
 
     string file_num = "" ;
-
 public:
     string Command(){
         string command ;
@@ -39,11 +39,12 @@ public:
             cout << "**  0. Quit                          **" << endl ;
             cout << "**  1. Build adjacency lists         **" << endl ;
             cout << "**  2. Compute influence values      **" << endl ;
+            cout << "**  3. Estimate influence values     **" << endl ;
             cout << "***************************************" << endl ;
-            cout << endl << "Input a command(0, 1, 2): " ;
+            cout << endl << "Input a command(0, 1, 2, 3): " ;
             cin >> command ;
 
-            if(command != "0" && command != "1" && command != "2")
+            if(command != "0" && command != "1" && command != "2" && command != "3")
                 cout << endl << endl << "Command does not exist!" << endl << endl ;
 
             else return command ;
@@ -102,6 +103,8 @@ private:
     Data data ;
 
 public:
+    bool insert = true ;
+
     void Insert(){
         while( list.size() > 0 ){
             int pre; // pre = predecessor
@@ -214,26 +217,17 @@ public:
             for( target = 0 ; adj_pre[target].putID != q.front() ; target++ ) ;
             adj_pre[target].situation = visited ;
 
-            // put all the putID from adj_pre[target] into queue
-            // target is a predecessor
-            // suc means successor
             for( int suc = 0 ; suc < adj_pre[target].adj_suc.size() ; suc++ ){
-
+                // cout << "TEST\n" ;
                 // avoid put visited vertex into vector
-                if( Unvisited(adj_pre[target].adj_suc[suc].ID ) ){
-
-                    // avoid put added vertex into vector
-                    if( !Added(adj_pre[target].adj_suc[suc].ID)){
+                if( Unvisited(adj_pre[target].adj_suc[suc].ID) && !Added(adj_pre[target].adj_suc[suc].ID) ){
                         adj_pre[target].situation = visited ;
                         string getID = adj_pre[target].adj_suc[suc].ID ;
                         q.push(getID) ;
                         predecessor[end].successor.push_back(getID) ;
-                    } // end if
-
                 } // end if
 
             } // end for
-
 
             q.pop() ;
         } // end while
@@ -243,7 +237,7 @@ public:
 
     } // end BFS
 
-    bool Added( string id ){
+    bool Added( string id ) {
         int i ;
         unsigned long end = predecessor.size()-1 ;
         for( i = 0 ; i < predecessor[end].successor.size() && predecessor[end].successor[i] != id ; i++ ) ;
@@ -284,11 +278,145 @@ public:
     void NumClear(){
         predecessor.clear() ;
     } // end NumClear
+
+    void WeightInfluence(){
+        float key ;
+        while(true){
+            cout << "Input a real number in [0,1]: " ;
+            cin >> key ;
+            if( key >= 0 && key <= 1 ) break ;
+            cout << "### It is NOT in [0,1]" << endl << endl ;
+        } // end while
+
+        for( int index = 0 ; index < adj_pre.size() ; index++ ){
+            predecessor.push_back(data) ;
+            predecessor[predecessor.size()-1].putID = adj_pre[index].putID ;
+            adj_pre[index].situation == visited ;
+
+            DFS(adj_pre[index].putID, key) ;
+        } // end for
+
+        // SORT
+        for( int x = 0 ; x < predecessor.size() ; x++ ){
+            for( int y = x+1 ; y < predecessor.size() ; y++ ){
+                if( predecessor[x].successor.size() < predecessor[y].successor.size() )
+                    swap(predecessor[x], predecessor[y]) ;
+                if( predecessor[x].successor.size() == predecessor[y].successor.size() )
+                    if( predecessor[x].putID > predecessor[y].putID )
+                        swap(predecessor[x], predecessor[y]) ;
+            }
+        }
+
+        for( int index = 0 ; index < predecessor.size() ; index++ ){
+            for( int x = 0 ; x < predecessor[index].successor.size() ; x++ ){
+                for( int y = x+1 ; y < predecessor[index].successor.size() ; y++ )
+                    if( predecessor[index].successor[x] > predecessor[index].successor[y] ) swap(predecessor[index].successor[x], predecessor[index].successor[y]) ;
+
+            }
+        } // end for
+
+    } // end WeightInfluence
+
+    void DFS(string pre, float key){
+        stack<string> s ;
+        s.push(pre);
+
+        while( !s.empty() ){
+            string top = s.top() ;
+            predecessor[predecessor.size()-1].successor.push_back(s.top()) ;
+            s.pop() ;
+
+            int target ;
+            for( target = 0 ; adj_pre[target].putID != top ; target++ ) ;
+
+            for( int suc = 0 ; suc < adj_pre[target].adj_suc.size() ; suc++ ){
+
+                if( adj_pre[target].adj_suc[suc].WEIGHT >=  key ){
+
+                    // avoid put visited vertex into vector
+                    if( Unvisited(adj_pre[target].adj_suc[suc].ID ) && !Added(adj_pre[target].adj_suc[suc].ID) ){
+
+                        // avoid put added vertex into vector
+
+                            adj_pre[target].situation = visited ;
+                            string getID = adj_pre[target].adj_suc[suc].ID ;
+                            s.push(getID) ;
+
+
+                    } // end if
+                } // end if
+            } // end for
+        } // end while
+
+        for( int i = 0 ; i < adj_pre.size() ; i++ )
+            adj_pre[i].situation = unvisited ;
+
+    } // end BFS
+
+    /*
+    void DFS(string pre, float key){
+        int target ;
+        for( target = 0 ; adj_pre[target].putID != pre ; target++ ) ;
+        adj_pre[target].situation = visited ;
+
+        for( int i = 0 ; i < adj_pre[target].adj_suc.size() ; i++ ){
+            string id = adj_pre[target].adj_suc[i].ID ;
+
+            if( adj_pre[target].adj_suc[i].WEIGHT >=  key && Unvisited(id) && !Added(id) ){
+                predecessor[predecessor.size()-1].successor.push_back(id) ;
+                DFS(adj_pre[target].adj_suc[i].ID, key) ;
+            } // end if
+        } // end for
+    } // end DFS
+    */
+
+    void WriteWeightData(){
+        ofstream file ;
+        file.open("pairs"+file_num+".inf") ;
+
+        file << "<<< There are " << predecessor.size() << " IDs in total. >>>" << endl ;
+
+        for( int index = 0 ; index < predecessor.size() ; index++ ){
+            file << "[" << setw(3) << index+1 << "] " << predecessor[index].putID ;
+            file << "(" << setw(2) << predecessor[index].successor.size() << "): " << endl ;
+
+            for( int i = 0 ; i < predecessor[index].successor.size() ; i++ ){
+                file << "\t(" << setw(2) << i+1 << ") " ;
+                file << predecessor[index].successor[i];
+                if( (i+1) % 10 == 0 ) file << endl ;
+            } // end input successor
+            file << endl ;
+        } // end input predecessor
+
+        file.close() ;
+
+        cout << "<<< There are " << predecessor.size() << " IDs in total. >>>" << endl << endl ;
+    } // end WriteWeightData
+
+    void WeightClear(){
+        predecessor.clear() ;
+    } // end WeightClear
 };
 
 int main() {
     Input input ;
     ADJ adj ;
+
+    while(true){
+        string command = input.Command() ;
+
+        if( command == "0" ) break ;
+
+        if( command == "1" ){
+            adj.Clear() ;
+            adj.File() ;
+            adj.Insert() ;
+            adj.WriteData() ;
+            break ;
+        } // end command1
+
+        else cout << endl << "Must input command1 before command2/command3." << endl << endl ;
+    } // end while
 
     while(true){
         string command = input.Command() ;
@@ -307,6 +435,12 @@ int main() {
             adj.NumInfluence() ;
             adj.WriteNumData() ;
         } // end command2
+
+        if( command == "3" ){
+            adj.WeightClear() ;
+            adj.WeightInfluence() ;
+            adj.WriteWeightData() ;
+        } // end command3
 
     } // end progammimg
 } // end main

@@ -12,7 +12,7 @@ output [5:0] SignaltoMUX ;
 //   OR   : 37
 //   ADD  : 32
 //   SUB  : 34
-//   SRL  : 2
+//   SLL  : 00
 //   SLT  : 42
 //   DIVU : 27
 
@@ -27,29 +27,18 @@ parameter ADD = 6'b100000;
 parameter SUB = 6'b100010;
 parameter SLT = 6'b101010;
 
-parameter SRL = 6'b000010;
+parameter SLL = 6'b000000;
 
 parameter DIVU= 6'b011011;
 parameter MFHI= 6'b010000;
 parameter MFLO= 6'b010010;
-/*
-定義各種訊號
-*/
 
-/*
-=====================================================
-下面為模擬範例，程式撰寫請遵照老師上課說明的方法來寫
-=====================================================
-*/
 always@( Signal )
 begin
   if ( Signal == DIVU )
   begin
     counter = 0 ;
   end
-/*
-如果訊號改變成除法 就把counter歸0
-*/
 end
 
 always@( posedge clk )
@@ -64,9 +53,6 @@ begin
       counter = 0 ;
     end
   end
-/*
-數32個clk然後開啟HiLo暫存器給除法器放值進去
-*/
 end
 
 

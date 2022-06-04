@@ -47,7 +47,7 @@ module tb_ALU();
 			else if ( ctrl == 6'd32 ) $write( "ADD(%d) ", ctrl );
 			else if ( ctrl == 6'd34 ) $write( "SUB(%d) ", ctrl );
 			else if ( ctrl == 6'd42 ) $write( "SLT(%d) ", ctrl );
-			else if ( ctrl == 6'd2 ) $write( "SRL(%d) ", ctrl );
+			else if ( ctrl == 6'd0 ) $write( "SLL(%d) ", ctrl );
 			else if ( ctrl == 6'd27 ) $write( "DIVU(%d) ", ctrl );
 			$display( "%d%d", inputA, inputB  );
 			if ( ctrl == 32'd27 ) begin
@@ -102,6 +102,6 @@ endmodule
 	ADD  : 32
 	SUB  : 34
 	SLT  : 42
-	SRL  : 02
+	SLL  : 00
 	DIVU : 27
 */
