@@ -241,10 +241,11 @@ public:
                 name2 = newFileName + ".bin" ;
                 rename(name1.c_str(), name2.c_str()) ;
 
+
                 inFile1.open(name1) ;
                 if( inFile1.is_open() ){
-                    remove(name1.c_str()) ;
                     inFile1.close() ;
+                    remove(name1.c_str()) ;
                 } // end if
 
                 total = 0 ;
