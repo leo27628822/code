@@ -240,6 +240,13 @@ public:
                 name1 = newFileName + "_" + to_string(num+1) + "_" + to_string(total-1) + ".bin" ;
                 name2 = newFileName + ".bin" ;
                 rename(name1.c_str(), name2.c_str()) ;
+
+                inFile1.open(name1) ;
+                if( inFile1.is_open() ){
+                    remove(name1.c_str()) ;
+                    inFile1.close() ;
+                } // end if
+
                 total = 0 ;
                 break ;
             }
