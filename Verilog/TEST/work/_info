@@ -1,0 +1,491 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\code\Verilog\TEST
+vadd32
+Z1 I7jT_ef7<e1XFT=d?fA1VN0
+Z2 VU=ZXz5UM7[GT`X^NWc0cQ1
+Z3 dD:\code\code\Verilog\TEST
+Z4 w1601979396
+Z5 8D:/code/code/Verilog/TEST/add32.v
+Z6 FD:/code/code/Verilog/TEST/add32.v
+L0 5
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 o-work work -O0
+Z9 !s100 <n:WfgUOZ8j[8VYGk6ZJ:3
+Z10 !s108 1655289630.966000
+Z11 !s107 D:/code/code/Verilog/TEST/add32.v|
+Z12 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/add32.v|
+!i10b 1
+!s85 0
+!s101 -O0
+valu
+Z13 InRi2KoM<m:cAH><ID<4D83
+Z14 V9bN5T==_dcdVB1Ng2k95=2
+R3
+R4
+Z15 8D:/code/code/Verilog/TEST/alu.v
+Z16 FD:/code/code/Verilog/TEST/alu.v
+L0 2
+R7
+r1
+31
+R8
+Z17 !s100 lm<8Q?=eH0J9eQfJXU7g73
+Z18 !s108 1655289631.040000
+Z19 !s107 D:/code/code/Verilog/TEST/alu.v|
+Z20 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/alu.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vALU_1bit
+Z21 IW0SCgcQ[>_JIgo_8c;K?Z3
+Z22 Vo8;B;4Je0SUiHo0g1k_S41
+R3
+R4
+Z23 8D:/code/code/Verilog/TEST/ALU_1bit.v
+Z24 FD:/code/code/Verilog/TEST/ALU_1bit.v
+L0 2
+R7
+r1
+31
+R8
+Z25 n@a@l@u_1bit
+Z26 !s100 Iag5g_5BG:A?3KEk<hHO@3
+Z27 !s108 1655289631.107000
+Z28 !s107 D:/code/code/Verilog/TEST/ALU_1bit.v|
+Z29 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/ALU_1bit.v|
+!i10b 1
+!s85 0
+!s101 -O0
+valu_ctl
+Z30 IoL5kEGSiKNlE_>k<YacMY2
+Z31 V6^kF3P_o3_zAId>n@:^Gk2
+R3
+R4
+Z32 8D:/code/code/Verilog/TEST/alu_ctl.v
+Z33 FD:/code/code/Verilog/TEST/alu_ctl.v
+L0 11
+R7
+r1
+31
+R8
+Z34 !s100 hH>FG[<h@`V=;7O;JP45j0
+Z35 !s108 1655289631.174000
+Z36 !s107 D:/code/code/Verilog/TEST/alu_ctl.v|
+Z37 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/alu_ctl.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vALU_MSB
+Z38 IBCEY_H2InameED?Y]D_2[2
+Z39 V<:]dDKLRE`HFWo<4RcYaZ3
+R3
+R4
+Z40 8D:/code/code/Verilog/TEST/ALU_MSB.v
+Z41 FD:/code/code/Verilog/TEST/ALU_MSB.v
+L0 2
+R7
+r1
+31
+R8
+Z42 n@a@l@u_@m@s@b
+Z43 !s100 JLNe;V7[ONF8:PnCm:Y290
+Z44 !s108 1655289631.240000
+Z45 !s107 D:/code/code/Verilog/TEST/ALU_MSB.v|
+Z46 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/ALU_MSB.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vbranch_equ
+Z47 I==aLh:`2gz0hUj]0V`7B:3
+Z48 V;l`JjoT]@dcoOB^o^bg<f2
+R3
+R4
+Z49 8D:/code/code/Verilog/TEST/branch_equ.v
+Z50 FD:/code/code/Verilog/TEST/branch_equ.v
+L0 2
+R7
+r1
+31
+R8
+Z51 !s100 NO>L9^oT6PUbFBf:OzBe;2
+Z52 !s108 1655289631.305000
+Z53 !s107 D:/code/code/Verilog/TEST/branch_equ.v|
+Z54 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/branch_equ.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vcontrol_pipelined
+Z55 I]nRnFL1A[b_Pj?V]?Wc7i1
+Z56 VF2RniL2l=:AW:2VW<KEHg0
+R3
+R4
+Z57 8D:/code/code/Verilog/TEST/control_pipelined.v
+Z58 FD:/code/code/Verilog/TEST/control_pipelined.v
+L0 17
+R7
+r1
+31
+R8
+Z59 !s100 KEeJ9Pe@MMP;0<oKNC30m1
+Z60 !s108 1655289631.373000
+Z61 !s107 D:/code/code/Verilog/TEST/control_pipelined.v|
+Z62 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/control_pipelined.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vEX_MEM
+Z63 IS[AnBQ8L9bC97cOQoQb;i0
+Z64 VQUN`FFYDj3YAR3kVWX[0:1
+R3
+R4
+Z65 8D:/code/code/Verilog/TEST/EX_MEM.v
+Z66 FD:/code/code/Verilog/TEST/EX_MEM.v
+L0 2
+R7
+r1
+31
+R8
+Z67 n@e@x_@m@e@m
+Z68 !s100 DDlIiRB:=4;PROmT93dg02
+Z69 !s108 1655289631.440000
+Z70 !s107 D:/code/code/Verilog/TEST/EX_MEM.v|
+Z71 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/EX_MEM.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vFA
+Z72 I87[XG=zII2MeAln_;65b01
+Z73 VY5j2^gTTX5VL9kj@olPz?2
+R3
+R4
+Z74 8D:/code/code/Verilog/TEST/FA.v
+Z75 FD:/code/code/Verilog/TEST/FA.v
+L0 2
+R7
+r1
+31
+R8
+n@f@a
+Z76 !s100 5oml^?jUQTM5[k7BzN<E;3
+Z77 !s108 1655289631.505000
+Z78 !s107 D:/code/code/Verilog/TEST/FA.v|
+Z79 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/FA.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vHiLo
+Z80 IM8UmCWIIM90];o3Z]>iMc0
+Z81 VEz^BM2N6<H`?=4WWA[Yd<3
+R3
+R4
+Z82 8D:/code/code/Verilog/TEST/HiLo.v
+Z83 FD:/code/code/Verilog/TEST/HiLo.v
+L0 2
+R7
+r1
+31
+R8
+Z84 n@hi@lo
+Z85 !s100 GZ5KiE<dHQP]OCfG1[SW^1
+Z86 !s108 1655289631.572000
+Z87 !s107 D:/code/code/Verilog/TEST/HiLo.v|
+Z88 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/HiLo.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vID_EX
+Z89 ITS@]c8eeGR9bAQT=_h5]_1
+Z90 V]]I7`IGC_49]9HPi[Gafn0
+R3
+R4
+Z91 8D:/code/code/Verilog/TEST/ID_EX.v
+Z92 FD:/code/code/Verilog/TEST/ID_EX.v
+L0 2
+R7
+r1
+31
+R8
+Z93 n@i@d_@e@x
+Z94 !s100 30NQ1nh30C>i<X84`bS8`0
+Z95 !s108 1655289631.640000
+Z96 !s107 D:/code/code/Verilog/TEST/ID_EX.v|
+Z97 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/ID_EX.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vIF_ID
+Z98 IGK;5=IM@D;N3Mz3G^Wdb93
+Z99 Vi1K9kDg66IbXLgKTVld_P1
+R3
+R4
+Z100 8D:/code/code/Verilog/TEST/IF_ID.v
+Z101 FD:/code/code/Verilog/TEST/IF_ID.v
+L0 2
+R7
+r1
+31
+R8
+Z102 n@i@f_@i@d
+Z103 !s100 OS;1__356633KHQ02ze^[1
+Z104 !s108 1655289631.707000
+Z105 !s107 D:/code/code/Verilog/TEST/IF_ID.v|
+Z106 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/IF_ID.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vMEM_WB
+Z107 Ib7;BUG:Ofz_JJ@W<;FkLl0
+Z108 VBhnMR`f:EcU0XX3N:FH6f0
+R3
+R4
+Z109 8D:/code/code/Verilog/TEST/MEM_WB.v
+Z110 FD:/code/code/Verilog/TEST/MEM_WB.v
+L0 2
+R7
+r1
+31
+R8
+Z111 n@m@e@m_@w@b
+Z112 !s100 WkjhIOci9DlW<g>YGc;a>1
+Z113 !s108 1655289631.776000
+Z114 !s107 D:/code/code/Verilog/TEST/MEM_WB.v|
+Z115 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/MEM_WB.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vmemory
+Z116 IAK]jZ8PGG3025<nI2BL1K0
+Z117 VSPBB>2d4PV07m82El[]@^0
+R3
+R4
+Z118 8D:/code/code/Verilog/TEST/memory.v
+Z119 FD:/code/code/Verilog/TEST/memory.v
+L0 14
+R7
+r1
+31
+R8
+Z120 !s100 :W`4M1DoAOLn>9P0U1noJ2
+Z121 !s108 1655289631.844000
+Z122 !s107 D:/code/code/Verilog/TEST/memory.v|
+Z123 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/memory.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vmips_pipelined
+Z124 Ii_hCRIcGXS111ZKg5YF1[2
+Z125 V`8GQeM@20zcFMdL;BTTL33
+R3
+R4
+Z126 8D:/code/code/Verilog/TEST/mips_pipelined.v
+Z127 FD:/code/code/Verilog/TEST/mips_pipelined.v
+L0 5
+R7
+r1
+31
+R8
+Z128 !s100 9f@cF?1aRW?6Pflh97GKA2
+Z129 !s108 1655289631.912000
+Z130 !s107 D:/code/code/Verilog/TEST/mips_pipelined.v|
+Z131 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/mips_pipelined.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vmultiplier
+Z132 IcP_<=@U[[<PazW^m3jiz?2
+Z133 VmaZZ`_PnXV1`3YH0iUYFO0
+R3
+R4
+Z134 8D:/code/code/Verilog/TEST/multiplier.v
+Z135 FD:/code/code/Verilog/TEST/multiplier.v
+L0 2
+R7
+r1
+31
+R8
+Z136 !s100 m:i6M[lPzJGn;6e;;>AJC1
+Z137 !s108 1655289631.982000
+Z138 !s107 D:/code/code/Verilog/TEST/multiplier.v|
+Z139 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/multiplier.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vmux2
+Z140 I04HMcNES3TL0TEc2Z>OO[3
+Z141 Vj@f`a>EYID42B4HRj1CP`1
+R3
+R4
+Z142 8D:/code/code/Verilog/TEST/mux2.v
+Z143 FD:/code/code/Verilog/TEST/mux2.v
+L0 5
+R7
+r1
+31
+R8
+Z144 !s100 4WMIW1dR]hoCKGogc_26I0
+Z145 !s108 1655289632.118000
+Z146 !s107 D:/code/code/Verilog/TEST/mux2.v|
+Z147 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/mux2.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vmux3
+Z148 I]g8oUIkKd7^1RZ4JLc1Pf0
+Z149 V9IiF:e@h;J_NEN;LB?57_0
+R3
+R4
+Z150 8D:/code/code/Verilog/TEST/mux3.v
+Z151 FD:/code/code/Verilog/TEST/mux3.v
+L0 2
+R7
+r1
+31
+R8
+Z152 !s100 cTn?[G@O]^OZ8?i=V?O@D1
+Z153 !s108 1655289632.185000
+Z154 !s107 D:/code/code/Verilog/TEST/mux3.v|
+Z155 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/mux3.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vMUX_ALU_1bit
+Z156 ISlji3Ufm<o:B<AbZH5M`m3
+Z157 V0d<lEYBN7VFa4Efg=8I^^0
+R3
+R4
+Z158 8D:/code/code/Verilog/TEST/MUX_ALU_1bit.v
+Z159 FD:/code/code/Verilog/TEST/MUX_ALU_1bit.v
+L0 2
+R7
+r1
+31
+R8
+Z160 n@m@u@x_@a@l@u_1bit
+Z161 !s100 46z1>nLL?g>KJH3ZRWWn71
+Z162 !s108 1655289632.050000
+Z163 !s107 D:/code/code/Verilog/TEST/MUX_ALU_1bit.v|
+Z164 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/MUX_ALU_1bit.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vreg32
+Z165 IGRAoVHcSL]Z]Fi9:AI1SY3
+Z166 V4bcQWEI[Z8fXRzc;L8:=h0
+R3
+R4
+Z167 8D:/code/code/Verilog/TEST/reg32.v
+Z168 FD:/code/code/Verilog/TEST/reg32.v
+L0 13
+R7
+r1
+31
+R8
+Z169 !s100 eOA=CoS>DQaQ1nQYG5;351
+Z170 !s108 1655289632.318000
+Z171 !s107 D:/code/code/Verilog/TEST/reg32.v|
+Z172 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/reg32.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vreg_file
+Z173 IP66F@ZFh5U[Bm7?7F91F71
+Z174 VYLAOAi5U8OG?Ke_4jenLM0
+R3
+R4
+Z175 8D:/code/code/Verilog/TEST/reg_file.v
+Z176 FD:/code/code/Verilog/TEST/reg_file.v
+L0 17
+R7
+r1
+31
+R8
+Z177 !s100 jEPY6J^Jc2WBcPai`KS_S2
+Z178 !s108 1655289632.253000
+Z179 !s107 D:/code/code/Verilog/TEST/reg_file.v|
+Z180 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/reg_file.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vShifter
+Z181 I9;4b8PaZV^iK9T@nf`dNF1
+Z182 Vdb^4M7364;6FGjC]PPP<62
+R3
+R4
+Z183 8D:/code/code/Verilog/TEST/Shifter.v
+Z184 FD:/code/code/Verilog/TEST/Shifter.v
+L0 2
+R7
+r1
+31
+R8
+Z185 n@shifter
+Z186 !s100 NhOQ0QgQF`aI7YA:3k@]W0
+Z187 !s108 1655289632.387000
+Z188 !s107 D:/code/code/Verilog/TEST/Shifter.v|
+Z189 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/Shifter.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vsign_extend
+Z190 I;V4lS^WKFCN`^Kz;Z:lN?3
+Z191 V0n8ATCOUh4>@]U0Sa]?X82
+R3
+R4
+Z192 8D:/code/code/Verilog/TEST/sign extend.v
+Z193 FD:/code/code/Verilog/TEST/sign extend.v
+L0 10
+R7
+r1
+31
+R8
+Z194 !s100 A=90?9H<iiQVSfJMJkWj_1
+Z195 !s108 1655289632.461000
+Z196 !s107 D:/code/code/Verilog/TEST/sign extend.v|
+Z197 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/sign extend.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vtb_Pipelined
+Z198 ICA9cNS9Rz3nnVhN985KJE3
+Z199 VUVF3H2zz:fkE167GYY<lV0
+R3
+R4
+Z200 8D:/code/code/Verilog/TEST/tb_Pipelined.v
+Z201 FD:/code/code/Verilog/TEST/tb_Pipelined.v
+L0 5
+R7
+r1
+31
+R8
+Z202 ntb_@pipelined
+!i10b 1
+Z203 !s100 7P>MQ::3EdkKE0EDg;=z]3
+!s85 0
+Z204 !s108 1655289632.529000
+Z205 !s107 D:/code/code/Verilog/TEST/tb_Pipelined.v|
+Z206 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/tb_Pipelined.v|
+!s101 -O0
+vunsign_extend
+!i10b 1
+!s100 ];9D=9RMMEO1M0nRnHdFf1
+I8XT<`C63ajV4De9IYN8OX1
+VMz52WhkbWn]kVY7G0b>iH1
+R3
+R4
+8D:/code/code/Verilog/TEST/unsign_extend.v
+FD:/code/code/Verilog/TEST/unsign_extend.v
+L0 1
+R7
+r1
+!s85 0
+31
+!s108 1655289632.596000
+!s107 D:/code/code/Verilog/TEST/unsign_extend.v|
+!s90 -reportprogress|300|-work|work|D:/code/code/Verilog/TEST/unsign_extend.v|
+!s101 -O0
+R8
