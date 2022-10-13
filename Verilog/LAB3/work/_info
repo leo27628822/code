@@ -1,0 +1,45 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\Verilog\LAB3
+vComparator
+Z1 IDXk=?cng^kQmiE1nP^X_U1
+Z2 V<LR3KIKj<F]n43KLS<nic1
+Z3 dD:\code\Verilog\LAB3
+Z4 w1665036190
+Z5 8D:/code/Verilog/LAB3/Comparator.V
+Z6 FD:/code/Verilog/LAB3/Comparator.V
+L0 2
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB3/Comparator.V|
+Z9 o-work work -O0
+Z10 n@comparator
+!i10b 1
+Z11 !s100 QO1PjeXmIUR8cfaHjjRGK1
+!s85 0
+Z12 !s108 1665036201.996000
+Z13 !s107 D:/code/Verilog/LAB3/Comparator.V|
+!s101 -O0
+vStimulate
+!i10b 1
+!s100 eY5gT]m^9JURDA_IFhm0Q2
+I^K54<A[3MYJk=af^KI<<M1
+Z14 VEc<KoMKzGaOOPDfD=X^D21
+R3
+w1665035838
+Z15 8D:/code/Verilog/LAB3/Simulate.v
+Z16 FD:/code/Verilog/LAB3/Simulate.v
+L0 1
+R7
+r1
+!s85 0
+31
+!s108 1665036203.917000
+!s107 D:/code/Verilog/LAB3/Simulate.v|
+Z17 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB3/Simulate.v|
+!s101 -O0
+R9
+Z18 n@stimulate

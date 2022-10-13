@@ -1,0 +1,83 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\altera\13.1
+vDFF
+Z1 !s100 6:k0`3907B=0POgk5CTKn1
+Z2 I_<=P7]kQoF^k7Xmgm<_m[0
+Z3 V6dmoNESNUYEgAz7ogLIi42
+Z4 dD:\code\Verilog
+Z5 w1663825839
+Z6 8C:\Users\Wang In Jia\Desktop\LAB1\ripple.V
+Z7 FC:\Users\Wang In Jia\Desktop\LAB1\ripple.V
+L0 2
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 !s108 1663825858.532000
+Z10 !s107 C:\Users\Wang In Jia\Desktop\LAB1\ripple.V|
+Z11 !s90 -reportprogress|300|-work|work|C:\Users\Wang In Jia\Desktop\LAB1\ripple.V|
+Z12 o-work work -O0
+Z13 n@d@f@f
+!i10b 1
+!s85 0
+!s101 -O0
+vripple_carry_counter
+Z14 I]@j_Z@GY>]Cc7c0VnaERQ0
+Z15 Vf8Amf0^U^MIYom3U6Eg>S1
+R4
+R5
+R6
+R7
+L0 27
+R8
+r1
+31
+R9
+R10
+R11
+R12
+!i10b 1
+Z16 !s100 DhEN[ZK6JhJ2BLnRIe4CB1
+!s85 0
+!s101 -O0
+vstimulus
+!i10b 1
+!s100 h0VO1NV9T1PRQVT:;H2Zi1
+IgD=K7bCPZHPb>C^27l5<S2
+Z17 Vj_kQ[Pef^WSz:;eABMRPQ3
+R4
+w1663825849
+Z18 8C:\Users\Wang In Jia\Desktop\LAB1\stimulus.v
+Z19 FC:\Users\Wang In Jia\Desktop\LAB1\stimulus.v
+L0 1
+R8
+r1
+!s85 0
+31
+!s108 1663825858.586000
+!s107 C:\Users\Wang In Jia\Desktop\LAB1\stimulus.v|
+Z20 !s90 -reportprogress|300|-work|work|C:\Users\Wang In Jia\Desktop\LAB1\stimulus.v|
+!s101 -O0
+R12
+vTFF
+Z21 !s100 JUj6H7c9K_UEDBoLfH1Hb1
+Z22 I]g9cL[h_9nTGA`N=_`3853
+Z23 ViDj<C?<VmHB0[EUU^UEfQ0
+R4
+R5
+R6
+R7
+L0 16
+R8
+r1
+31
+R9
+R10
+R11
+R12
+Z24 n@t@f@f
+!i10b 1
+!s85 0
+!s101 -O0

@@ -1,0 +1,64 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\Verilog\LAB2
+vDFF
+!i10b 1
+Z1 !s100 [PdZLffh@dVJeZ_9b5Haf3
+Z2 I0T3m]?Bf9Bc2^>^h2GOmg3
+Z3 V6dmoNESNUYEgAz7ogLIi42
+Z4 dD:\code\Verilog\LAB2
+Z5 w1664430664
+Z6 8D:/code/Verilog/LAB2/Shifter.V
+Z7 FD:/code/Verilog/LAB2/Shifter.V
+L0 2
+Z8 OV;L;10.1d;51
+r1
+!s85 0
+31
+Z9 !s108 1664430896.982000
+Z10 !s107 D:/code/Verilog/LAB2/Shifter.V|
+Z11 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB2/Shifter.V|
+!s101 -O0
+Z12 o-work work -O0
+Z13 n@d@f@f
+vShift
+!i10b 1
+Z14 !s100 ;Sb:0mNn[olViglQZz1DR3
+Z15 IWIg06<:aSC>`Nz?jEW`hI1
+Z16 VZ=G7MY?XgIJn2O6HmnV;c3
+R4
+R5
+R6
+R7
+L0 16
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!s101 -O0
+R12
+Z17 n@shift
+vstimulus
+Z18 IhKZ;OS:kLZJDOPdQ_0IQz1
+Z19 Vj_kQ[Pef^WSz:;eABMRPQ3
+R4
+Z20 w1664430888
+Z21 8D:/code/Verilog/LAB2/stimulus.v
+Z22 FD:/code/Verilog/LAB2/stimulus.v
+L0 1
+R8
+r1
+31
+Z23 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB2/stimulus.v|
+R12
+!i10b 1
+Z24 !s100 [N?PNWO]8zGPdXkdo5nch2
+!s85 0
+Z25 !s108 1664430894.665000
+Z26 !s107 D:/code/Verilog/LAB2/stimulus.v|
+!s101 -O0

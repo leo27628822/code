@@ -1,0 +1,17 @@
+{C:/Users/Wang In Jia/Desktop/LAB1/ripple.V} {1 {vlog -work work {C:\Users\Wang In Jia\Desktop\LAB1\ripple.V}
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module DFF
+-- Compiling module TFF
+-- Compiling module ripple_carry_counter
+
+Top level modules:
+	ripple_carry_counter
+
+} {} {}} {C:/Users/Wang In Jia/Desktop/LAB1/stimulus.v} {1 {vlog -work work {C:\Users\Wang In Jia\Desktop\LAB1\stimulus.v}
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module stimulus
+
+Top level modules:
+	stimulus
+
+} {} {}}
