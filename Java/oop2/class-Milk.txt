@@ -1,0 +1,17 @@
+public class Milk extends DrinkDecorator {
+	
+	Beverage beverage ;
+	
+	public Milk ( Beverage beverage ) {
+		this.beverage = beverage ;
+	}
+	
+	public String getIngredient() {
+		return beverage.getIngredient() + ", 牛奶"  ;
+	}
+	
+	public int getCost() {
+		return 20 + beverage.getCost() ;
+	}
+
+}

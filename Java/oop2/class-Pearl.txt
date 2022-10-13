@@ -1,0 +1,17 @@
+public class Pearl extends DrinkDecorator {
+
+	Beverage beverage ;
+	
+	public Pearl ( Beverage beverage ) {
+		this.beverage = beverage ;
+	}
+	
+	public String getIngredient() {
+		return beverage.getIngredient() + ", 珍珠" ;
+	}
+	
+	public int getCost() {
+		return 10 + beverage.getCost() ;
+	}
+
+}

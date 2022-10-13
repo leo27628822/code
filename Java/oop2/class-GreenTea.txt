@@ -1,0 +1,11 @@
+public class GreenTea extends Bevrage {
+	
+	public String getIngredient() {
+		return "綠茶\n" ;
+	}
+	
+	public int getCost() {
+		return 20 ;
+	}
+
+}

@@ -32,8 +32,9 @@ public:
     void Command(){
         cout << "\n\n***********************************************" << endl ;
         cout << "On-machine Exercise 05                        *" << endl ;
-        cout << "Mission 1: External Merge Sort on a Big File *" << endl ;
+        cout << "Mission 1: External Merge Sort on a Big File  *" << endl ;
         cout << "Mission 2: Construction of Primary Index      *" << endl ;
+        cout << "Mission 3: Range Search by Primary Index      *" << endl ;
         cout << "***********************************************" << endl ;
     } // end Command
 
@@ -56,8 +57,8 @@ public:
                 file.open(name) ;
 
                 if( file.is_open() ){
-                    remove(name.c_str()) ;
                     file.close() ;
+                    remove(name.c_str()) ;
                 } // end if
 
                 return true ;
@@ -240,14 +241,6 @@ public:
                 name1 = newFileName + "_" + to_string(num+1) + "_" + to_string(total-1) + ".bin" ;
                 name2 = newFileName + ".bin" ;
                 rename(name1.c_str(), name2.c_str()) ;
-
-
-                inFile1.open(name1) ;
-                if( inFile1.is_open() ){
-                    inFile1.close() ;
-                    remove(name1.c_str()) ;
-                } // end if
-
                 total = 0 ;
                 break ;
             }
@@ -384,13 +377,13 @@ int main() {
             cout << "Mission 2: Build the primary index" << endl ;
             cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n" << endl ;
             es.CreatIndex() ;
+            system("pause") ;
+
+            cout << "\n\n########################################################" << endl ;
+            cout << "Mission 3: Search" << endl ;
+            cout << "########################################################" << endl ;
+            es.Search() ;
             es.Clear() ;
-//            system("pause") ;
-//
-//            cout << "\n\n########################################################" << endl ;
-//            cout << "Mission 3: Search" << endl ;
-//            cout << "########################################################" << endl ;
-//            es.Search() ;
 
         }
     } // end progammimg

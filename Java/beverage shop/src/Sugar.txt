@@ -1,0 +1,17 @@
+public class Sugar extends DrinkDecorator {
+
+	Beverage beverage ;
+	
+	public Sugar ( Beverage beverage ) {
+		this.beverage = beverage ;
+	}
+	
+	public String getIngredient() {
+		return beverage.getIngredient() + ", 糖"  ;
+	}
+	
+	public int getCost() {
+		return 5 + beverage.getCost() ;
+	}
+
+}

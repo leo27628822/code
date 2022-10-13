@@ -1,0 +1,6 @@
+public abstract class DrinkDecorator extends Beverage {
+    
+	public abstract String getIngredient();
+	public abstract int getCost() ;
+
+}
