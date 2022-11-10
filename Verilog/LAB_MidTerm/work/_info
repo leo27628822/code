@@ -1,0 +1,84 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\code\Verilog\LAB_MidTerm
+vDFF
+Z1 !s100 [VzVX5fAJl;GPVYmoJi373
+Z2 IJR;h[eCOi]1[AKLC6Fd:h0
+Z3 V6dmoNESNUYEgAz7ogLIi42
+Z4 dD:\code\code\Verilog\LAB_MidTerm
+Z5 w1668059660
+Z6 8D:/code/code/Verilog/LAB_MidTerm/Shift_Register.v
+Z7 FD:/code/code/Verilog/LAB_MidTerm/Shift_Register.v
+L0 1
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 !s108 1668059680.096000
+Z10 !s107 D:/code/code/Verilog/LAB_MidTerm/Shift_Register.v|
+Z11 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/LAB_MidTerm/Shift_Register.v|
+Z12 o-work work -O0
+Z13 n@d@f@f
+!i10b 1
+!s85 0
+!s101 -O0
+vMUX4_1
+Z14 !s100 m5lSjA]kd_J>X69G:;46G3
+Z15 I`Ei6MfQ`kA;hl8^o<?]WB2
+Z16 V4YEYS60E=2Koz;U91kzT]3
+R4
+R5
+R6
+R7
+L0 15
+R8
+r1
+31
+R9
+R10
+R11
+R12
+Z17 n@m@u@x4_1
+!i10b 1
+!s85 0
+!s101 -O0
+vShift_Register
+Z18 !s100 Bd[]fH@^mM0db<92O<OOa2
+Z19 Id7`oYP^YeaBW;N<0[?nPP0
+Z20 VWKSWKYP^7KXKLdMK]DT>e2
+R4
+R5
+R6
+R7
+L0 31
+R8
+r1
+31
+R9
+R10
+R11
+R12
+Z21 n@shift_@register
+!i10b 1
+!s85 0
+!s101 -O0
+vsimulate
+!i10b 1
+Z22 !s100 lTiB=?jYeIO6W<b1LhkGo0
+Z23 IR6[_IPHn3loL=VJGW?E@D0
+Z24 VKbJCXCAJ=zPz@h1I4lZ331
+R4
+Z25 w1668059135
+Z26 8D:/code/code/Verilog/LAB_MidTerm/simulate.v
+Z27 FD:/code/code/Verilog/LAB_MidTerm/simulate.v
+L0 1
+R8
+r1
+!s85 0
+31
+!s108 1668059680.193000
+!s107 D:/code/code/Verilog/LAB_MidTerm/simulate.v|
+Z28 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/LAB_MidTerm/simulate.v|
+!s101 -O0
+R12
