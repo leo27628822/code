@@ -1,0 +1,43 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\code\Verilog\LAB5
+vsimulate
+!i10b 1
+!s100 Qi:^]ldNa7iX`aQhLOU@j1
+I`KcYf1[S<zYdMU;e0a_AY3
+Z1 VKbJCXCAJ=zPz@h1I4lZ331
+Z2 dD:\code\code\Verilog\LAB5
+w1669268367
+Z3 8D:/code/code/Verilog/LAB5/simulate.v
+Z4 FD:/code/code/Verilog/LAB5/simulate.v
+L0 1
+Z5 OV;L;10.1d;51
+r1
+!s85 0
+31
+!s108 1669268373.470000
+!s107 D:/code/code/Verilog/LAB5/simulate.v|
+Z6 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/LAB5/simulate.v|
+!s101 -O0
+Z7 o-work work -O0
+vupdown_counter
+Z8 !s100 ^b?lFCdJ8Tc=9GHm]I?DG0
+Z9 Ia@][h`4R0kjcOcbIKEg8c2
+Z10 VjledafN:f`gQX>iI;cC523
+R2
+Z11 w1669268248
+Z12 8D:/code/code/Verilog/LAB5/updown_counter.v
+Z13 FD:/code/code/Verilog/LAB5/updown_counter.v
+L0 1
+R5
+r1
+31
+Z14 !s90 -reportprogress|300|-work|work|D:/code/code/Verilog/LAB5/updown_counter.v|
+R7
+Z15 !s108 1669268346.060000
+Z16 !s107 D:/code/code/Verilog/LAB5/updown_counter.v|
+!i10b 1
+!s85 0
+!s101 -O0
