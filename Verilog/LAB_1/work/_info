@@ -1,0 +1,47 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\User\Desktop\work
+vAddSub4
+I?3h`mjMC5emI>49N8_7HM3
+Vzco[PhRaO0e_@DoX4zY8S3
+w1677121992
+8C:/Users/User/Desktop/work/AddSub4.v
+FC:/Users/User/Desktop/work/AddSub4.v
+L0 1
+Z1 OV;L;6.4a;39
+r1
+31
+Z2 o-work work -O0
+n@add@sub4
+!s100 3Lk`Ka_9f7PkUYPND:YOl2
+!s85 0
+vFullAdder
+I_U2GVcMJ9DJ9Fma;GKK>O3
+VL`UNOB7mmJQ[_Raz79nZG3
+w1677121452
+8C:/Users/User/Desktop/work/FullAdder.v
+FC:/Users/User/Desktop/work/FullAdder.v
+L0 1
+R1
+r1
+31
+R2
+n@full@adder
+!s100 jgJUhXT3A=A?US=G11:Z20
+!s85 0
+vTM_AddSub4
+!s100 o8;hJd5SDPDC:JPNJ7WSe1
+IDEkZAP>EcHS@z04CnB[m90
+V2B>RLTHXk^7AkX48RSi:I3
+w1677122085
+8C:/Users/User/Desktop/work/TM_AddSub4.v
+FC:/Users/User/Desktop/work/TM_AddSub4.v
+L0 1
+R1
+r1
+!s85 0
+31
+R2
+n@t@m_@add@sub4
