@@ -1,0 +1,65 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\Verilog\LAB_1\Lab01_sol
+vAddSub4
+Z1 IVamoA>1EITaLgd4Wll2Xd2
+Z2 VolJAHQ]LMgeogki66`8RN0
+Z3 dD:\code\Verilog\LAB_1\Lab01_sol
+Z4 w1551924194
+Z5 8D:/code/Verilog/LAB_1/Lab01_sol/AddSub4.v
+Z6 FD:/code/Verilog/LAB_1/Lab01_sol/AddSub4.v
+L0 4
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 o-work work -O0
+Z9 n@add@sub4
+Z10 !s100 ?7Dk^PWizReX2?CF;=7`61
+Z11 !s108 1678329627.792000
+Z12 !s107 D:/code/Verilog/LAB_1/Lab01_sol/AddSub4.v|
+Z13 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_1/Lab01_sol/AddSub4.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vFA
+Z14 IljbJDKZX5jbQJG[Yg4z5_1
+Z15 VY5j2^gTTX5VL9kj@olPz?2
+R3
+Z16 w1458736501
+Z17 8D:/code/Verilog/LAB_1/Lab01_sol/FA.v
+Z18 FD:/code/Verilog/LAB_1/Lab01_sol/FA.v
+L0 2
+R7
+r1
+31
+R8
+n@f@a
+!i10b 1
+Z19 !s100 YdPlA87G;nLQMzRVQ[T_J3
+!s85 0
+Z20 !s108 1678329627.841000
+Z21 !s107 D:/code/Verilog/LAB_1/Lab01_sol/FA.v|
+Z22 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_1/Lab01_sol/FA.v|
+!s101 -O0
+vTM_AddSub4
+!i10b 1
+!s100 kknV0N4eM7A[?9>z051Q83
+I6WWkNTGzOmiFl8l4NU`I30
+VE@S5Tz7FJP9ZJMJjkfO1P2
+R3
+w1487762970
+8D:/code/Verilog/LAB_1/Lab01_sol/TM_AddSub4.v
+FD:/code/Verilog/LAB_1/Lab01_sol/TM_AddSub4.v
+L0 3
+R7
+r1
+!s85 0
+31
+!s108 1678329627.888000
+!s107 D:/code/Verilog/LAB_1/Lab01_sol/TM_AddSub4.v|
+!s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_1/Lab01_sol/TM_AddSub4.v|
+!s101 -O0
+R8
+n@t@m_@add@sub4

@@ -1,0 +1,45 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\Verilog\LAB_2
+vAddSub4
+Z1 I6Cn797:>d_nFM@^NHjhbg3
+Z2 Vk>NK01ITiH5NO3[TL7;Be2
+Z3 dD:\code\Verilog\LAB_2
+Z4 w1678331824
+Z5 8D:/code/Verilog/LAB_2/AddSub4.v
+Z6 FD:/code/Verilog/LAB_2/AddSub4.v
+L0 1
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_2/AddSub4.v|
+Z9 o-work work -O0
+Z10 n@add@sub4
+!i10b 1
+Z11 !s100 i?bRZd`Bb@WPo>WZzS23l2
+!s85 0
+Z12 !s108 1678332127.670000
+Z13 !s107 D:/code/Verilog/LAB_2/AddSub4.v|
+!s101 -O0
+vTM_AddSub4
+!i10b 1
+Z14 !s100 4ARL6L6heUann7IJooRmP2
+Z15 IWGLcVN8c`]=X?P@0;]Ojg2
+Z16 V2B>RLTHXk^7AkX48RSi:I3
+R3
+Z17 w1678328501
+Z18 8D:/code/Verilog/LAB_2/TM_AddSub4.v
+Z19 FD:/code/Verilog/LAB_2/TM_AddSub4.v
+L0 1
+R7
+r1
+!s85 0
+31
+!s108 1678332127.716000
+!s107 D:/code/Verilog/LAB_2/TM_AddSub4.v|
+Z20 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_2/TM_AddSub4.v|
+!s101 -O0
+R9
+Z21 n@t@m_@add@sub4
