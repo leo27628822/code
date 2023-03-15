@@ -1,47 +1,83 @@
 m255
-K3
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
 13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
 cModel Technology
-Z0 dC:\Users\User\Desktop\work
+Z0 dD:/code/Verilog/LAB_1
 vAddSub4
-I?3h`mjMC5emI>49N8_7HM3
-Vzco[PhRaO0e_@DoX4zY8S3
-w1677121992
-8C:/Users/User/Desktop/work/AddSub4.v
-FC:/Users/User/Desktop/work/AddSub4.v
-L0 1
-Z1 OV;L;6.4a;39
+!s110 1677125557
+!i10b 1
+!s100 Gz871^Can_=ICIE]:H>4z0
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I3MD6ChV:=JXmQ8Nhehf;I3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1677124900
+8D:/code/Verilog/LAB_1/AddSub4.v
+FD:/code/Verilog/LAB_1/AddSub4.v
+!i122 0
+L0 1 19
+Z4 OV;L;2020.1;71
 r1
+!s85 0
 31
-Z2 o-work work -O0
+!s108 1677125557.000000
+!s107 D:/code/Verilog/LAB_1/AddSub4.v|
+!s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_1/AddSub4.v|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
 n@add@sub4
-!s100 3Lk`Ka_9f7PkUYPND:YOl2
-!s85 0
 vFullAdder
-I_U2GVcMJ9DJ9Fma;GKK>O3
-VL`UNOB7mmJQ[_Raz79nZG3
-w1677121452
-8C:/Users/User/Desktop/work/FullAdder.v
-FC:/Users/User/Desktop/work/FullAdder.v
-L0 1
+!s110 1677125558
+!i10b 1
+!s100 mZU<33Rah]DRGDezh7U853
 R1
-r1
-31
+IY[Yo16YcoWmHgezL;fT6X3
 R2
+R0
+R3
+8D:/code/Verilog/LAB_1/FullAdder.v
+FD:/code/Verilog/LAB_1/FullAdder.v
+!i122 1
+L0 1 15
+R4
+r1
+!s85 0
+31
+!s108 1677125558.000000
+!s107 D:/code/Verilog/LAB_1/FullAdder.v|
+!s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_1/FullAdder.v|
+!i113 1
+R5
+R6
 n@full@adder
-!s100 jgJUhXT3A=A?US=G11:Z20
-!s85 0
 vTM_AddSub4
-!s100 o8;hJd5SDPDC:JPNJ7WSe1
-IDEkZAP>EcHS@z04CnB[m90
-V2B>RLTHXk^7AkX48RSi:I3
-w1677122085
-8C:/Users/User/Desktop/work/TM_AddSub4.v
-FC:/Users/User/Desktop/work/TM_AddSub4.v
-L0 1
+!s110 1677125560
+!i10b 1
+!s100 UnWn3FIgE7Rh6NGZ>K6Te2
 R1
+I>6QKSW^X_9kOAe2MaW<oa0
+R2
+R0
+R3
+8D:/code/Verilog/LAB_1/TM_AddSub4.v
+FD:/code/Verilog/LAB_1/TM_AddSub4.v
+!i122 2
+L0 1 49
+R4
 r1
 !s85 0
 31
-R2
+!s108 1677125560.000000
+!s107 D:/code/Verilog/LAB_1/TM_AddSub4.v|
+!s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_1/TM_AddSub4.v|
+!i113 1
+R5
+R6
 n@t@m_@add@sub4
