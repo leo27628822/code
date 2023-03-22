@@ -3,9 +3,9 @@
 using namespace std ;
 
 int main() {
-
-
-    int a = 200 ;
-    cout << ( a >> 1 ) << endl  ;
-    cout << a << endl ;
+    int count = 5 ;
+    int a = 0 ;
+    a = count++ + 1  ;
+    a = ++count + 1 ;
+    cout << a << " " << count << endl ;
 }
