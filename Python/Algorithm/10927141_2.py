@@ -21,13 +21,16 @@
 '''
 
 import sys
-import time
+#import time
+#start_time = time.time()
+#total_time = time.time() - start_time
+#print( total_time )
 
 class Undigraph :
     def __init__( self, v, e ) :
         self.vertex = v
         self.edge = e 
-        self.adj_list = [ [] for _ in range (v) ]  # adjacency list
+        self.adj_list = [ [] for _ in range (v) ]  # adjacency list 鄰接表
     
     def add_edge( self, x:int, y:int ) :
         if y not in self.adj_list[x] :
