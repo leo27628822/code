@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus II"
 ## VERSION "Version 13.1.0 Build 162 10/23/2013 SJ Web Edition"
 
-## DATE    "Sun Apr 23 19:04:14 2023"
+## DATE    "Wed May 03 16:53:28 2023"
 
 ##
 ## DEVICE  "EP3C16F484C6"
@@ -38,7 +38,7 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
-create_clock -name {clk_1} -period 25.000 -waveform { 0.000 12.500 } [get_ports {clk}]
+create_clock -name {clk} -period 10.000 -waveform { 0.000 5.000 } [get_ports {clk}]
 
 
 #**************************************************************
@@ -57,10 +57,10 @@ create_clock -name {clk_1} -period 25.000 -waveform { 0.000 12.500 } [get_ports 
 # Set Clock Uncertainty
 #**************************************************************
 
-set_clock_uncertainty -rise_from [get_clocks {clk_1}] -rise_to [get_clocks {clk_1}]  1.000  
-set_clock_uncertainty -rise_from [get_clocks {clk_1}] -fall_to [get_clocks {clk_1}]  1.000  
-set_clock_uncertainty -fall_from [get_clocks {clk_1}] -rise_to [get_clocks {clk_1}]  1.000  
-set_clock_uncertainty -fall_from [get_clocks {clk_1}] -fall_to [get_clocks {clk_1}]  1.000  
+set_clock_uncertainty -rise_from [get_clocks {clk}] -rise_to [get_clocks {clk}] -setup 1.000  
+set_clock_uncertainty -rise_from [get_clocks {clk}] -fall_to [get_clocks {clk}] -setup 1.000  
+set_clock_uncertainty -fall_from [get_clocks {clk}] -rise_to [get_clocks {clk}] -setup 1.000  
+set_clock_uncertainty -fall_from [get_clocks {clk}] -fall_to [get_clocks {clk}] -setup 1.000  
 
 
 #**************************************************************

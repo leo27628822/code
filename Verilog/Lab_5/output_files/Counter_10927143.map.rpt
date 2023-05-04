@@ -1,6 +1,6 @@
 Analysis & Synthesis report for Counter_10927143
-Sun Apr 23 19:49:10 2023
-Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+Wed May 03 16:48:00 2023
+Quartus II 32-bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
 ---------------------
@@ -43,8 +43,8 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Apr 23 19:49:10 2023      ;
-; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
+; Analysis & Synthesis Status        ; Successful - Wed May 03 16:48:00 2023      ;
+; Quartus II 32-bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
 ; Revision Name                      ; Counter_10927143                           ;
 ; Top-level Entity Name              ; Counter_10927143                           ;
 ; Family                             ; Cyclone III                                ;
@@ -260,9 +260,9 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
-Info: Running Quartus II 64-Bit Analysis & Synthesis
+Info: Running Quartus II 32-bit Analysis & Synthesis
     Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
-    Info: Processing started: Sun Apr 23 19:49:08 2023
+    Info: Processing started: Wed May 03 16:47:58 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Counter_23 -c Counter_10927143
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
 Warning (12019): Can't analyze file -- file Counter.v is missing
@@ -278,9 +278,9 @@ Info (21057): Implemented 28 device resources after synthesis - the final resour
     Info (21058): Implemented 4 input pins
     Info (21059): Implemented 8 output pins
     Info (21061): Implemented 16 logic cells
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 4675 megabytes
-    Info: Processing ended: Sun Apr 23 19:49:10 2023
+Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 438 megabytes
+    Info: Processing ended: Wed May 03 16:48:00 2023
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:02
 
