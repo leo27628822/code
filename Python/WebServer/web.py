@@ -219,6 +219,7 @@ if __name__ == '__main__':
         print( http_request )
         http_request = http_request.split('\r\n')
         response = HTTP_Request( http_request )
+        print( response )
         if isinstance(response, bytes):
             client.send(response)
         else:
