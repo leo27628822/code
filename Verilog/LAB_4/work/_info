@@ -1,0 +1,45 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\code\Verilog\LAB_4
+vCounter
+!i10b 1
+!s100 WC[3c1zREb_cGYaGX]SlT3
+IXlRfTAXcgO5hiUK@0IaQ20
+Z1 V]LgN058Dehk3:3zQ;Jz?X3
+Z2 dD:\code\Verilog\LAB_4
+w1679539522
+Z3 8D:/code/Verilog/LAB_4/Counter.v
+Z4 FD:/code/Verilog/LAB_4/Counter.v
+L0 1
+Z5 OV;L;10.1d;51
+r1
+!s85 0
+31
+!s108 1679539556.483000
+!s107 D:/code/Verilog/LAB_4/Counter.v|
+Z6 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_4/Counter.v|
+!s101 -O0
+Z7 o-work work -O0
+Z8 n@counter
+vCounter_TM
+Z9 !s100 T_<hDIa;SkHmMTSPG5]0H3
+Z10 IC=9jONT]gSN6GFi:C9N:`2
+Z11 V@TVWM3<8JhiOKl:R8n?9?0
+R2
+Z12 w1679537909
+Z13 8D:/code/Verilog/LAB_4/Counter_TM.v
+Z14 FD:/code/Verilog/LAB_4/Counter_TM.v
+L0 3
+R5
+r1
+31
+Z15 !s90 -reportprogress|300|-work|work|D:/code/Verilog/LAB_4/Counter_TM.v|
+R7
+Z16 n@counter_@t@m
+Z17 !s108 1679538566.844000
+Z18 !s107 D:/code/Verilog/LAB_4/Counter_TM.v|
+!i10b 1
+!s85 0
+!s101 -O0
