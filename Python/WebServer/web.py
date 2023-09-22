@@ -26,6 +26,7 @@ def HTTP_Request_GET(request):
         response += 'Content-Type: application/octet-stream\r\n'
         response += 'Content-Disposition: attachment; filename="{}"\r\n'.format(path.split('/')[-1])
         response += 'Content-Length: {}\r\n'.format(len(data))
+        response += 'Set-Cookie:' + 'username=admin' + '\r\n'
         response += '\r\n'
         return response.encode() + data
 
@@ -220,7 +221,7 @@ def parse_header(header_section):
         if ':' in line:  # header lines
             name, value = line.split(':', 1)
             headers[name.strip()] = value.strip()
-
+            
     return headers
 
 def authenticate(request):
@@ -258,7 +259,7 @@ def HTTP_Request(request):
         return HTTP_Bad_Request(request)
 
 def receive_request(conn):
-    data = conn.recv(1024)  # receive initial data
+    data = conn.recv(2048)  # receive initial data
     request = data.decode()
 
     # extract content-length value from headers
@@ -284,7 +285,7 @@ if __name__ == '__main__':
     while True:
         client, addr = server.accept()
         http_request = receive_request(client)
-        #print("TEST", http_request)
+        print("TEST", http_request)
         #print("TEST", http_request)
         print( http_request )
         http_request = http_request.split('\r\n')
