@@ -18,7 +18,7 @@ CONFIDENCE_THRESHOLD = 0.4
 
 MOVE_DELAY1 = 0.049
 MOVE_DELAY2 = 0.033
-ONE_SHOT_DELAY = 0.5
+ONE_SHOT_DELAY = 0.005
 
 
 def screenshot(screen, img_path):
@@ -117,7 +117,7 @@ def main():
             move_offsets = get_move_offsets(center_pos, GAME_WIDTH, GAME_HEIGHT)
 
             for x_offset, y_offset in move_offsets:
-                x_offset, y_offset = fine_tuning(x_offset, y_offset)
+                # x_offset, y_offset = fine_tuning(x_offset, y_offset)
                 move_and_click_by_offsets(x_offset, y_offset, MOVE_DELAY1, MOVE_DELAY2)
                 time.sleep(ONE_SHOT_DELAY)   
         
